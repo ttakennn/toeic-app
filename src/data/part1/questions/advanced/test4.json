@@ -1,0 +1,393 @@
+{
+  "testInfo": {
+    "id": 4,
+    "title": "TEST 4 - Tổng hợp cảnh",
+    "difficulty": "Khó",
+    "questions": 20,
+    "duration": "30 phút",
+    "category": "advanced",
+    "description": "Bài test TEST 4 - Tổng hợp cảnh cho Cụm từ tả cảnh"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "imageUrl": "/images/test/advanced/test1/question1.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question1.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images/test/advanced/test1/question2.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question2.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 3,
+      "imageUrl": "/images/test/advanced/test1/question3.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question3.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 4,
+      "imageUrl": "/images/test/advanced/test1/question4.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question4.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 5,
+      "imageUrl": "/images/test/advanced/test1/question5.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question5.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 6,
+      "imageUrl": "/images/test/advanced/test1/question6.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question6.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 7,
+      "imageUrl": "/images/test/advanced/test1/question7.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question7.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 8,
+      "imageUrl": "/images/test/advanced/test1/question8.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question8.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 9,
+      "imageUrl": "/images/test/advanced/test1/question9.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question9.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 10,
+      "imageUrl": "/images/test/advanced/test1/question10.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question10.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 11,
+      "imageUrl": "/images/test/advanced/test2/question11.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question11.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 12,
+      "imageUrl": "/images/test/advanced/test2/question12.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question12.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 13,
+      "imageUrl": "/images/test/advanced/test2/question13.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question13.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 14,
+      "imageUrl": "/images/test/advanced/test2/question14.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question14.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 15,
+      "imageUrl": "/images/test/advanced/test2/question15.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question15.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 16,
+      "imageUrl": "/images/test/advanced/test2/question16.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question16.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 17,
+      "imageUrl": "/images/test/advanced/test2/question17.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question17.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 18,
+      "imageUrl": "/images/test/advanced/test2/question18.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question18.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    },
+    {
+      "id": 19,
+      "imageUrl": "/images/test/advanced/test2/question19.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question19.mp3",
+      "options": [
+        "The building is very tall",
+        "The building has many windows",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về đặc điểm của tòa nhà",
+      "theme": "Tòa nhà",
+      "vocabulary": [
+        "building",
+        "tall",
+        "high"
+      ]
+    },
+    {
+      "id": 20,
+      "imageUrl": "/images/test/advanced/test2/question20.jpg",
+      "audioUrl": "/audio/test/advanced/test2/question20.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mô tả về tình trạng của công viên",
+      "theme": "Công viên",
+      "vocabulary": [
+        "park",
+        "empty",
+        "quiet"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "testInfo": {
+    "id": 2,
+    "title": "TEST 2 - Thiết bị văn phòng",
+    "difficulty": "TB",
+    "questions": 10,
+    "duration": "15 phút",
+    "category": "simulation",
+    "description": "Bài test TEST 2 - Thiết bị văn phòng cho Cụm từ tả vật"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "imageUrl": "/images/test/simulation/test1/question1.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question1.mp3",
+      "options": [
+        "The chair is broken",
+        "The chair is comfortable",
+        "The chair is made of wood",
+        "The chair is empty"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Mô tả về trạng thái của chiếc ghế",
+      "theme": "Nội thất",
+      "vocabulary": [
+        "chair",
+        "empty",
+        "seat"
+      ]
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images/test/simulation/test1/question2.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question2.mp3",
+      "options": [
+        "The laptop is on the desk",
+        "The laptop is in the bag",
+        "The laptop is being repaired",
+        "The laptop is charging"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về vị trí của laptop",
+      "theme": "Thiết bị công nghệ",
+      "vocabulary": [
+        "laptop",
+        "desk",
+        "on"
+      ]
+    },
+    {
+      "id": 3,
+      "imageUrl": "/images/test/simulation/test1/question3.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question3.mp3",
+      "options": [
+        "The chair is broken",
+        "The chair is comfortable",
+        "The chair is made of wood",
+        "The chair is empty"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Mô tả về trạng thái của chiếc ghế",
+      "theme": "Nội thất",
+      "vocabulary": [
+        "chair",
+        "empty",
+        "seat"
+      ]
+    },
+    {
+      "id": 4,
+      "imageUrl": "/images/test/simulation/test1/question4.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question4.mp3",
+      "options": [
+        "The laptop is on the desk",
+        "The laptop is in the bag",
+        "The laptop is being repaired",
+        "The laptop is charging"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về vị trí của laptop",
+      "theme": "Thiết bị công nghệ",
+      "vocabulary": [
+        "laptop",
+        "desk",
+        "on"
+      ]
+    },
+    {
+      "id": 5,
+      "imageUrl": "/images/test/simulation/test1/question5.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question5.mp3",
+      "options": [
+        "The chair is broken",
+        "The chair is comfortable",
+        "The chair is made of wood",
+        "The chair is empty"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Mô tả về trạng thái của chiếc ghế",
+      "theme": "Nội thất",
+      "vocabulary": [
+        "chair",
+        "empty",
+        "seat"
+      ]
+    },
+    {
+      "id": 6,
+      "imageUrl": "/images/test/simulation/test1/question6.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question6.mp3",
+      "options": [
+        "The laptop is on the desk",
+        "The laptop is in the bag",
+        "The laptop is being repaired",
+        "The laptop is charging"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về vị trí của laptop",
+      "theme": "Thiết bị công nghệ",
+      "vocabulary": [
+        "laptop",
+        "desk",
+        "on"
+      ]
+    },
+    {
+      "id": 7,
+      "imageUrl": "/images/test/simulation/test1/question7.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question7.mp3",
+      "options": [
+        "The chair is broken",
+        "The chair is comfortable",
+        "The chair is made of wood",
+        "The chair is empty"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Mô tả về trạng thái của chiếc ghế",
+      "theme": "Nội thất",
+      "vocabulary": [
+        "chair",
+        "empty",
+        "seat"
+      ]
+    },
+    {
+      "id": 8,
+      "imageUrl": "/images/test/simulation/test1/question8.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question8.mp3",
+      "options": [
+        "The laptop is on the desk",
+        "The laptop is in the bag",
+        "The laptop is being repaired",
+        "The laptop is charging"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về vị trí của laptop",
+      "theme": "Thiết bị công nghệ",
+      "vocabulary": [
+        "laptop",
+        "desk",
+        "on"
+      ]
+    },
+    {
+      "id": 9,
+      "imageUrl": "/images/test/simulation/test1/question9.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question9.mp3",
+      "options": [
+        "The chair is broken",
+        "The chair is comfortable",
+        "The chair is made of wood",
+        "The chair is empty"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Mô tả về trạng thái của chiếc ghế",
+      "theme": "Nội thất",
+      "vocabulary": [
+        "chair",
+        "empty",
+        "seat"
+      ]
+    },
+    {
+      "id": 10,
+      "imageUrl": "/images/test/simulation/test1/question10.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question10.mp3",
+      "options": [
+        "The laptop is on the desk",
+        "The laptop is in the bag",
+        "The laptop is being repaired",
+        "The laptop is charging"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mô tả về vị trí của laptop",
+      "theme": "Thiết bị công nghệ",
+      "vocabulary": [
+        "laptop",
+        "desk",
+        "on"
+      ]
+    }
+  ]
+}

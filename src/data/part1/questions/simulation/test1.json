@@ -1,0 +1,133 @@
+{
+  "testInfo": {
+    "id": 1,
+    "title": "TEST 1 - Đồ dùng cơ bản",
+    "difficulty": "Dễ",
+    "questions": 8,
+    "duration": "12 phút",
+    "category": "simulation",
+    "description": "Bài test về mô tả các đồ vật và thiết bị cơ bản"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "imageUrl": "/images/test/simulation/test1/question1.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question1.mp3",
+      "options": [
+        "The laptop is on the desk",
+        "The laptop is in the bag",
+        "The laptop is being repaired",
+        "The laptop is charging"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Máy tính xách tay đang được đặt trên bàn. 'On the desk' mô tả chính xác vị trí của laptop.",
+      "theme": "Thiết bị công nghệ",
+      "vocabulary": ["laptop", "desk", "on"]
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images/test/simulation/test1/question2.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question2.mp3",
+      "options": [
+        "The books are arranged neatly",
+        "The books are scattered around",
+        "The books are stacked high",
+        "The books are being sorted"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Các cuốn sách được xếp chồng cao. 'Stacked high' mô tả chính xác cách sắp xếp sách.",
+      "theme": "Đồ dùng học tập",
+      "vocabulary": ["books", "stacked", "high"]
+    },
+    {
+      "id": 3,
+      "imageUrl": "/images/test/simulation/test1/question3.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question3.mp3",
+      "options": [
+        "The chair is broken",
+        "The chair is comfortable",
+        "The chair is made of wood",
+        "The chair is empty"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Chiếc ghế không có người ngồi. 'Empty' mô tả chính xác trạng thái của chiếc ghế.",
+      "theme": "Nội thất",
+      "vocabulary": ["chair", "empty", "seat"]
+    },
+    {
+      "id": 4,
+      "imageUrl": "/images/test/simulation/test1/question4.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question4.mp3",
+      "options": [
+        "The clock shows 3 o'clock",
+        "The clock is running fast",
+        "The clock needs new batteries",
+        "The clock is hanging on wall"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Đồng hồ được treo trên tường. 'Hanging on wall' mô tả chính xác vị trí của đồng hồ.",
+      "theme": "Đồ dùng gia đình",
+      "vocabulary": ["clock", "hanging", "wall"]
+    },
+    {
+      "id": 5,
+      "imageUrl": "/images/test/simulation/test1/question5.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question5.mp3",
+      "options": [
+        "The phone is ringing",
+        "The phone is charging",
+        "The phone is turned off",
+        "The phone is waterproof"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Điện thoại đang được sạc pin. 'Charging' mô tả chính xác trạng thái của điện thoại.",
+      "theme": "Thiết bị di động",
+      "vocabulary": ["phone", "charging", "battery"]
+    },
+    {
+      "id": 6,
+      "imageUrl": "/images/test/simulation/test1/question6.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question6.mp3",
+      "options": [
+        "The bag is full of items",
+        "The bag is made of leather",
+        "The bag has multiple pockets",
+        "The bag is left unattended"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Chiếc túi đựng đầy đồ. 'Full of items' mô tả chính xác nội dung bên trong túi.",
+      "theme": "Đồ dùng cá nhân",
+      "vocabulary": ["bag", "full", "items"]
+    },
+    {
+      "id": 7,
+      "imageUrl": "/images/test/simulation/test1/question7.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question7.mp3",
+      "options": [
+        "The bottle is half empty",
+        "The bottle is made of glass",
+        "The bottle contains water",
+        "The bottle has a label"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Chai chứa nước. 'Contains water' mô tả chính xác nội dung bên trong chai.",
+      "theme": "Đồ chứa đựng",
+      "vocabulary": ["bottle", "contains", "water"]
+    },
+    {
+      "id": 8,
+      "imageUrl": "/images/test/simulation/test1/question8.jpg",
+      "audioUrl": "/audio/test/simulation/test1/question8.mp3",
+      "options": [
+        "The pen is out of ink",
+        "The pen is expensive",
+        "The pen writes smoothly",
+        "The pen is lying on paper"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Chiếc bút đang nằm trên giấy. 'Lying on paper' mô tả chính xác vị trí của bút.",
+      "theme": "Đồ dùng viết",
+      "vocabulary": ["pen", "lying", "paper"]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "testInfo": {
+    "id": 1,
+    "title": "TEST 1 - Tương tác cơ bản",
+    "difficulty": "Dễ",
+    "questions": 10,
+    "duration": "15 phút",
+    "category": "mixed",
+    "description": "Bài test về tương tác giữa người và môi trường/vật dụng xung quanh"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "imageUrl": "/images/test/mixed/test1/question1.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question1.mp3",
+      "options": [
+        "A woman is sitting on a bench in the park",
+        "A woman is feeding birds in the park",
+        "A woman is jogging through the park",
+        "A woman is reading under a tree"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Người phụ nữ đang ngồi trên ghế băng trong công viên. Câu mô tả sự tương tác giữa người và đồ vật (ghế) trong môi trường (công viên).",
+      "theme": "Tương tác trong công viên",
+      "vocabulary": ["woman", "sitting", "bench", "park"]
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images/test/mixed/test1/question2.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question2.mp3",
+      "options": [
+        "A man is using computer at office",
+        "A man is drinking coffee at desk",
+        "A man is talking on phone at work",
+        "A man is writing notes on paper"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Người đàn ông đang sử dụng máy tính tại văn phòng. Mô tả tương tác giữa người và thiết bị trong môi trường làm việc.",
+      "theme": "Tương tác tại văn phòng",
+      "vocabulary": ["man", "using", "computer", "office"]
+    },
+    {
+      "id": 3,
+      "imageUrl": "/images/test/mixed/test1/question3.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question3.mp3",
+      "options": [
+        "A child is playing with toys in bedroom",
+        "A child is sleeping in bed",
+        "A child is studying at small table",
+        "A child is looking out the window"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Đứa trẻ đang chơi với đồ chơi trong phòng ngủ. Mô tả tương tác giữa trẻ em và đồ chơi trong không gian riêng tư.",
+      "theme": "Tương tác trong phòng ngủ",
+      "vocabulary": ["child", "playing", "toys", "bedroom"]
+    },
+    {
+      "id": 4,
+      "imageUrl": "/images/test/mixed/test1/question4.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question4.mp3",
+      "options": [
+        "A woman is cooking in the kitchen",
+        "A woman is cleaning dishes at sink",
+        "A woman is organizing cabinets",
+        "A woman is setting table for dinner"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Người phụ nữ đang rửa bát ở bồn rửa. Mô tả tương tác giữa người và thiết bị nhà bếp trong không gian bếp.",
+      "theme": "Tương tác trong bếp",
+      "vocabulary": ["woman", "cleaning", "dishes", "sink"]
+    },
+    {
+      "id": 5,
+      "imageUrl": "/images/test/mixed/test1/question5.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question5.mp3",
+      "options": [
+        "A man is driving car on highway",
+        "A man is washing car in driveway",
+        "A man is checking car engine",
+        "A man is pumping gas at station"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Người đàn ông đang đổ xăng tại trạm xăng. Mô tả tương tác giữa người và thiết bị trong môi trường công cộng.",
+      "theme": "Tương tác tại trạm xăng",
+      "vocabulary": ["man", "pumping", "gas", "station"]
+    },
+    {
+      "id": 6,
+      "imageUrl": "/images/test/mixed/test1/question6.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question6.mp3",
+      "options": [
+        "Students are studying in library",
+        "Students are borrowing books from librarian",
+        "Students are using computers in library",
+        "Students are discussing in group study room"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Học sinh đang sử dụng máy tính trong thư viện. Mô tả tương tác giữa nhiều người và thiết bị trong không gian học tập.",
+      "theme": "Tương tác trong thư viện",
+      "vocabulary": ["students", "using", "computers", "library"]
+    },
+    {
+      "id": 7,
+      "imageUrl": "/images/test/mixed/test1/question7.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question7.mp3",
+      "options": [
+        "A family is having picnic in garden",
+        "A family is barbecuing in backyard",
+        "A family is playing games outdoors",
+        "A family is gardening together"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Gia đình đang dã ngoại trong vườn. Mô tả tương tác giữa nhóm người trong môi trường ngoài trời với các vật dụng dã ngoại.",
+      "theme": "Tương tác ngoài trời",
+      "vocabulary": ["family", "having", "picnic", "garden"]
+    },
+    {
+      "id": 8,
+      "imageUrl": "/images/test/mixed/test1/question8.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question8.mp3",
+      "options": [
+        "A woman is shopping with cart in store",
+        "A woman is paying at checkout counter",
+        "A woman is comparing products on shelf",
+        "A woman is asking staff for help"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Người phụ nữ đang mua sắm với xe đẩy trong cửa hàng. Mô tả tương tác giữa người và dụng cụ mua sắm trong môi trường thương mại.",
+      "theme": "Tương tác mua sắm",
+      "vocabulary": ["woman", "shopping", "cart", "store"]
+    },
+    {
+      "id": 9,
+      "imageUrl": "/images/test/mixed/test1/question9.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question9.mp3",
+      "options": [
+        "A man is exercising with equipment at gym",
+        "A man is lifting weights in gym",
+        "A man is running on treadmill",
+        "A man is stretching on mat"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Người đàn ông đang chạy trên máy chạy bộ. Mô tả tương tác giữa người và thiết bị thể thao trong môi trường gym.",
+      "theme": "Tương tác tại gym",
+      "vocabulary": ["man", "running", "treadmill", "gym"]
+    },
+    {
+      "id": 10,
+      "imageUrl": "/images/test/mixed/test1/question10.jpg",
+      "audioUrl": "/audio/test/mixed/test1/question10.mp3",
+      "options": [
+        "A couple is dining at restaurant table",
+        "A couple is ordering from menu",
+        "A couple is waiting for waiter",
+        "A couple is enjoying dessert"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Cặp đôi đang dùng bữa tại bàn nhà hàng. Mô tả tương tác giữa hai người với bàn ăn trong môi trường nhà hàng.",
+      "theme": "Tương tác tại nhà hàng",
+      "vocabulary": ["couple", "dining", "restaurant", "table"]
+    }
+  ]
+}

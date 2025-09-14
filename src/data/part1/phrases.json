@@ -1,0 +1,922 @@
+{
+  "people": {
+    "title": "Cụm từ tả người",
+    "description": "Học các cụm từ mô tả người và hoạt động của con người trong đời sống hàng ngày.",
+    "icon": "/images/categories/people-icon.svg",
+    "color": "#1976d2",
+    "bgColor": "#e3f2fd",
+    "progress": 90,
+    "data": [
+      {
+        "id": 1,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820670/toeic-part1/cum-tu-ta-nguoi/holding-in-a-hand_tfdejt.mp3",
+        "english": "Holding in a hand.",
+        "vietnamese": "Đang cầm trong tay.",
+        "phonetic": "/ˈholɪŋ ɪn ə ˈhænd/",
+        "difficulty": "easy",
+        "tags": ["holding", "hand"]
+      },
+      {
+        "id": 2,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757736721/toeic-part1/cum-tu-ta-nguoi/the-man-is-holding-a-ball-in-his-hands_dzpk30.mp3",
+        "english": "The man is holding a ball in his hands.",
+        "vietnamese": "Một người đàn ông đang giữ một quả bóng trong tay.",
+        "phonetic": "/ðə mæn ɪz ˈholɪŋ ə bɔl ɪn ɪz hændz/",
+        "difficulty": "easy",
+        "tags": ["holding", "ball", "hands"]
+      },
+      {
+        "id": 3,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757736720/toeic-part1/cum-tu-ta-nguoi/she-is-holding-up-some-fruit_kvxihj.mp3",
+        "english": "She is holding up some fruit.",
+        "vietnamese": "Cô ấy đang giữ một số loại trái cây.",
+        "phonetic": "/ʃi ɪz ˈholɪŋ ʌp səm ˈfruɪt/",
+        "difficulty": "easy",
+        "tags": ["holding", "fruit"]
+      },
+      {
+        "id": 4,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820923/toeic-part1/cum-tu-ta-nguoi/opening-the-bottles-cap_aowycc.mp3",
+        "english": "Opening the bottles cap.",
+        "vietnamese": "Đang mở nắp của các chai.",
+        "phonetic": "/ˈoʊpənɪŋ ðə ˈbɒtlz ˈæp/",
+        "difficulty": "easy",
+        "tags": ["opening", "bottles", "cap"]
+      },
+      {
+        "id": 5,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820924/toeic-part1/cum-tu-ta-nguoi/a-woman-is-opening-a-drawer_nnvcus.mp3",
+        "english": "A woman is opening a drawer.",
+        "vietnamese": "Một người phụ nữ đang mở một cái hộp.",
+        "phonetic": "/ə wʊmən ɪz ˈoʊpənɪŋ ə ˈdrævər/",
+        "difficulty": "easy",
+        "tags": ["opening", "drawer", "woman"]
+      },
+      {
+        "id": 6,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820924/toeic-part1/cum-tu-ta-nguoi/the-man-is-opening-some-curtains_f3b922.mp3",
+        "english": "The man is opening some curtains.",
+        "vietnamese": "Một người đàn ông đang mở một số cái rèm.",
+        "phonetic": "/ðə mæn ɪz ˈoʊpənɪŋ səm ˈkɜrˈteɪnz/",
+        "difficulty": "easy",
+        "tags": ["opening", "curtains", "man"]
+      },
+      {
+        "id": 7,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821056/toeic-part1/cum-tu-ta-nguoi/shes-pouring-a-beverage_hu2jxm.mp3",
+        "english": "She is pouring a beverage.",
+        "vietnamese": "Cô ấy đang đổ một loại đồ uống.",
+        "phonetic": "/ʃi ɪz ˈpɔrɪŋ ə ˈbɪvɜrɪʤ/",
+        "difficulty": "easy",
+        "tags": ["pouring", "beverage"]
+      },
+      {
+        "id": 8,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821057/toeic-part1/cum-tu-ta-nguoi/the-man-is-pouring-coffee-into-a-cup_qsqwnl.mp3",
+        "english": "The man is pouring coffee into a cup.",
+        "vietnamese": "Một người đàn ông đang đổ cà phê vào một cốc.",
+        "phonetic": "/ðə mæn ɪz ˈpɔrɪŋ ˈkɔfɪ ɪnto ə ˈkʌp/",
+        "difficulty": "easy",
+        "tags": ["pouring", "coffee", "cup"]
+      },
+      {
+        "id": 9,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821165/toeic-part1/cum-tu-ta-nguoi/looking-at-the-mornitor_fxufsn.mp3",
+        "english": "Looking at the mornitor.",
+        "vietnamese": "Đang nhìn vào màn hình.",
+        "phonetic": "/ˈlʊkɪŋ ət ðə ˈmɔrnɪtər/",
+        "difficulty": "easy",
+        "tags": ["looking", "mornitor"]
+      },
+      {
+        "id": 10,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821164/toeic-part1/cum-tu-ta-nguoi/shes-looking-out-a-window_eb2wx5.mp3",
+        "english": "She is looking out a window.",
+        "vietnamese": "Cô ấy đang nhìn ra ngoài qua cửa sổ.",
+        "phonetic": "/ʃi ɪz ˈlʊkɪŋ ˈaʊt əv ə ˈwɪndoʊ/",
+        "difficulty": "easy",
+        "tags": ["looking", "window"]
+      },
+      {
+        "id": 11,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821163/toeic-part1/cum-tu-ta-nguoi/hes-looking-into-a-cabinet_escjwc.mp3",
+        "english": "He is looking into a cabinet.",
+        "vietnamese": "Anh đang nhìn vào một cái tủ.",
+        "phonetic": "/hɪs ɪz ˈlʊkɪŋ ɪnto ə ˈkæbɪnɪt/",
+        "difficulty": "easy",
+        "tags": ["looking", "cabinet"]
+      },
+      {
+        "id": 12,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821361/toeic-part1/cum-tu-ta-nguoi/shes-examining-a-tire_g6o0ze.mp3",
+        "english": "She is examining a tire.",
+        "vietnamese": "Cô ấy đang kiểm tra một cái lốp xe.",
+        "phonetic": "/ʃi ɪz ɪksˈæmɪnɪŋ ə ˈtaɪr/",
+        "difficulty": "easy",
+        "tags": ["examining", "tire"]
+      },
+      {
+        "id": 13,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821362/toeic-part1/cum-tu-ta-nguoi/the-woman-is-examining-a-patient_s1hgr1.mp3",
+        "english": "The woman is examining a patient.",
+        "vietnamese": "Một người phụ nữ đang kiểm tra một bệnh nhân.",
+        "phonetic": "/ðə wʊmən ɪz ɪksˈæmɪnɪŋ ə ˈpæʃənt/",
+        "difficulty": "easy",
+        "tags": ["examining", "patient"]
+      },
+      {
+        "id": 14,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821474/toeic-part1/cum-tu-ta-nguoi/reaching-for-the-item_p4bdmj.mp3",
+        "english": "Reaching for the item.",
+        "vietnamese": "Với tay để lấy một vật.",
+        "phonetic": "/rɪtʃɪŋ ˈfɔr ðə ˈɪtəm/",
+        "difficulty": "easy",
+        "tags": ["reaching", "item"]
+      },
+      {
+        "id": 15,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821476/toeic-part1/cum-tu-ta-nguoi/shes-reaching-into-a-handbag_ths8iy.mp3",
+        "english": "She is reaching into a handbag.",
+        "vietnamese": "Cô ấy đang với tay để lấy một vật trong túi.",
+        "phonetic": "/ʃi ɪz ˈrɪtʃɪŋ ɪnto ə ˈhændbæg/",
+        "difficulty": "easy",
+        "tags": ["reaching", "handbag"]
+      },
+      {
+        "id": 16,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821477/toeic-part1/cum-tu-ta-nguoi/a-woman-is-reaching-into-her-bag_wfwnum.mp3",
+        "english": "A woman is reaching into her bag.",
+        "vietnamese": "Một người phụ nữ đang với tay để lấy một vật trong túi.",
+        "phonetic": "/ə wʊmən ɪz ˈrɪtʃɪŋ ɪnto ɪz ˈhɜr bæg/",
+        "difficulty": "easy",
+        "tags": ["reaching", "bag"]
+      },
+      {
+        "id": 17,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821680/toeic-part1/cum-tu-ta-nguoi/the-woman-is-carrying-some-food_ht8pqy.mp3",
+        "english": "The woman is carrying some food.",
+        "vietnamese": "Một người phụ nữ đang mang một số loại thức ăn.",
+        "phonetic": "/ðə wʊmən ɪz ˈkærɪŋ səm ˈfʊd/",
+        "difficulty": "easy",
+        "tags": ["carrying", "food"]
+      },
+      {
+        "id": 18,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821681/toeic-part1/cum-tu-ta-nguoi/a-womans-carrying-a-jacket-over-her-arm_teorad.mp3",
+        "english": "A woman is carrying a jacket over her arm.",
+        "vietnamese": "Một người phụ nữ đang mang một chiếc áo khoác trên tay.",
+        "phonetic": "/ə wʊmən ɪz ˈkærɪŋ ə ˈdʒækɪt ˈoʊvər ɪz ˈhɜr ˈɑrm/",
+        "difficulty": "easy",
+        "tags": ["carrying", "jacket"]
+      },
+      {
+        "id": 19,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821801/toeic-part1/cum-tu-ta-nguoi/climbing-the-ladder_yp9ptp.mp3",
+        "english": "Climbing the ladder.",
+        "vietnamese": "Đang leo lên cái thang.",
+        "phonetic": "/ˈklaɪmɪŋ ðə ˈlædər/",
+        "difficulty": "easy",
+        "tags": ["climbing", "ladder"]
+      },
+      {
+        "id": 20,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757821802/toeic-part1/cum-tu-ta-nguoi/the-woman-is-climbing-a-staircase_wh9omp.mp3",
+        "english": "The woman is climbing a staircase.",
+        "vietnamese": "Một người phụ nữ đang leo lên cái thang.",
+        "phonetic": "/ðə wʊmən ɪz ˈklaɪmɪŋ ə ˈsteɪrˈkeɪs/",
+        "difficulty": "easy",
+        "tags": ["climbing", "staircase"]
+      },
+      {
+        "id": 21,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822203/toeic-part1/cum-tu-ta-nguoi/a-man-is-working-outdoors_s9qht9.mp3",
+        "english": "A man is working outdoors.",
+        "vietnamese": "Một người đàn ông đang làm việc ngoài trời.",
+        "phonetic": "/ə mæn ɪz ˈwɜrkɪŋ ˈaʊtˈdɔrz/",
+        "difficulty": "easy",
+        "tags": ["working", "outdoors"]
+      },
+      {
+        "id": 22,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822203/toeic-part1/cum-tu-ta-nguoi/hes-working-on-a-machine_juoikr.mp3",
+        "english": "He is working on a machine.",
+        "vietnamese": "Anh đang làm việc trên một cái máy.",
+        "phonetic": "/hɪs ɪz ˈwɜrkɪŋ ˈoʊn ə ˈmæʃɪn/",
+        "difficulty": "easy",
+        "tags": ["working", "machine"]
+      },
+      {
+        "id": 23,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822269/toeic-part1/cum-tu-ta-nguoi/cleaning-the-street_hrfm9p.mp3",
+        "english": "Cleaning the street.",
+        "vietnamese": "Đang lau dọn đường.",
+        "phonetic": "/ˈkliːnɪŋ ðə ˈstreɪt/",
+        "difficulty": "easy",
+        "tags": ["cleaning", "street"]
+      },
+      {
+        "id": 24,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822270/toeic-part1/cum-tu-ta-nguoi/shes-cleaning-out-a-filing-cabinet_dhrn00.mp3",
+        "english": "She is cleaning out a filing cabinet.",
+        "vietnamese": "Cô ấy đang lau dọn một cái tủ.",
+        "phonetic": "/ʃi ɪz ˈkliːnɪŋ ˈaʊt əv ə ˈfɪlɪŋ ˈkæbɪnɪt/",
+        "difficulty": "easy",
+        "tags": ["cleaning", "filing cabinet"]
+      },
+      {
+        "id": 25,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822272/toeic-part1/cum-tu-ta-nguoi/a-woman-is-cleaning-the-floor_p5tmgm.mp3",
+        "english": "A woman is cleaning the floor.",
+        "vietnamese": "Một người phụ nữ đang lau dọn sàn nhà.",
+        "phonetic": "/ə wʊmən ɪz ˈkliːnɪŋ ðə ˈflɔr/",
+        "difficulty": "easy",
+        "tags": ["cleaning", "floor"]
+      },
+      {
+        "id": 26,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822363/toeic-part1/cum-tu-ta-nguoi/standing-beneath-the-tree_lpiq3k.mp3",
+        "english": "Standing beneath the tree.",
+        "vietnamese": "Đang đứng dưới gốc cây.",
+        "phonetic": "/ˈstændɪŋ ˈbɪdnɪ ðə ˈtriː/",
+        "difficulty": "easy",
+        "tags": ["standing", "tree"]
+      },
+      {
+        "id": 27,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822364/toeic-part1/cum-tu-ta-nguoi/a-man-is-standing-behind-a-cash-register_sk0jhv.mp3",
+        "english": "A man is standing behind a cash register.",
+        "vietnamese": "Một người đàn ông đang đứng sau quầy thanh toán.",
+        "phonetic": "/ə mæn ɪz ˈstændɪŋ ˈbɪdnɪ ðə ˈʃæʃ ˈrɪgɪstər/",
+        "difficulty": "easy",
+        "tags": ["standing", "cash register"]
+      },
+      {
+        "id": 28,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822366/toeic-part1/cum-tu-ta-nguoi/crossing-the-street_ar1zvn.mp3",
+        "english": "Crossing the street.",
+        "vietnamese": "Đang đi qua đường.",
+        "phonetic": "/ˈkrɒsɪŋ ðə ˈstreɪt/",
+        "difficulty": "easy",
+        "tags": ["crossing", "street"]
+      },
+      {
+        "id": 29,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822368/toeic-part1/cum-tu-ta-nguoi/the-men-are-crossing-a-street_nubvcj.mp3",
+        "english": "The men are crossing a street.",
+        "vietnamese": "Một số người đàn ông đang đi qua đường.",
+        "phonetic": "/ðə mɛn ər ˈkrɒsɪŋ ə ˈstreɪt/",
+        "difficulty": "easy",
+        "tags": ["crossing", "street"]
+      },
+      {
+        "id": 30,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822369/toeic-part1/cum-tu-ta-nguoi/some-women-are-crossing-the-street_qao6gb.mp3",
+        "english": "Some women are crossing the street.",
+        "vietnamese": "Một số người phụ nữ đang đi qua đường.",
+        "phonetic": "/səm ˈwʊmən ər ˈkrɒsɪŋ ðə ˈstreɪt/",
+        "difficulty": "easy",
+        "tags": ["crossing", "street"]
+      }
+    ]
+  },
+  "scene": {
+    "title": "Cụm từ tả cảnh",
+    "description": "Các cụm từ mô tả cảnh quan, môi trường xung quanh và không gian sống.",
+    "icon": "/images/categories/scene-icon.svg",
+    "color": "#388e3c",
+    "bgColor": "#e8f5e8",
+    "progress": 45,
+    "data": [
+      {
+        "id": 1,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757818542/toeic-part1/cum-tu-ta-canh/overlooking-the-river_uzmgek.mp3",
+        "english": "Overlooking the river.",
+        "vietnamese": "Nhìn ra dòng sông.",
+        "phonetic": "/ˈovərˈlʊkɪŋ ðə rɪvər/",
+        "difficulty": "medium",
+        "tags": ["river", "overlooking"]
+      },
+      {
+        "id": 2,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757818709/toeic-part1/cum-tu-ta-canh/theres-a-deck-overlooking-a-lake_jc63qn.mp3",
+        "english": "There's a deck overlooking a lake.",
+        "vietnamese": "Có một cái sân bên cạnh hồ.",
+        "phonetic": "/ðərɪs ə ˈdɛk ˈovərˈlʊkɪŋ ə ə læk/",
+        "difficulty": "easy",
+        "tags": ["deck", "overlooking", "lake"]
+      },
+      {
+        "id": 3,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757818708/toeic-part1/cum-tu-ta-canh/theres-a-window-overlooking-a-garden_ubzurn.mp3",
+        "english": "There's a window overlooking a garden.",
+        "vietnamese": "Có một cửa sổ nhìn ra khu vườn.",
+        "phonetic": "/ðərɪs ə ˈwɪndoʊ ˈovərˈlʊkɪŋ ə ə gɑrdən/",
+        "difficulty": "easy",
+        "tags": ["window", "overlooking", "garden"]
+      },
+      {
+        "id": 4,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757818964/toeic-part1/cum-tu-ta-canh/look-toward-the-mountain_m1g0os.mp3",
+        "english": "Look toward the mountain.",
+        "vietnamese": "Nhìn về phía núi.",
+        "phonetic": "/ˈlʊk ˈtʊdər ðə mɔʊnˈteɪn/",
+        "difficulty": "medium",
+        "tags": ["mountain", "look", "toward"]
+      },
+      {
+        "id": 5,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757818964/toeic-part1/cum-tu-ta-canh/some-people-are-walking-toward-a-boat_hr6i8s.mp3",
+        "english": "Some people are walking toward a boat.",
+        "vietnamese": "Một số người đang đi về phía một chiếc thuyền.",
+        "phonetic": "/səm ˈpɜrsən ər ˈwɑlkiŋ ˈtʊdər ðə ə bəʊt/",
+        "difficulty": "medium",
+        "tags": ["boat", "walking", "toward"]
+      },
+      {
+        "id": 6,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757819365/toeic-part1/cum-tu-ta-canh/walking-into-the-forest_xa1q7y.mp3",
+        "english": "Walking into the forest.",
+        "vietnamese": "Đang đi vào rừng.",
+        "phonetic": "/ˈwɑlkiŋ ɪnto ðə ˈfɔrɪst/",
+        "difficulty": "hard",
+        "tags": ["forest", "walking", "into"]
+      },
+      {
+        "id": 7,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757819365/toeic-part1/cum-tu-ta-canh/hes-walking-around-a-fountain_m5ceyv.mp3",
+        "english": "He's walking around a fountain.",
+        "vietnamese": "Anh đang đi vòng quanh một nhà phun nước.",
+        "phonetic": "/hɪs ɪz ˈwɑlkiŋ əˈrɑʊnd ðə ə ˈfɔn.tən/",
+        "difficulty": "hard",
+        "tags": ["fountain", "walking", "around"]
+      },
+      {
+        "id": 8,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757819366/toeic-part1/cum-tu-ta-canh/hes-walking-along-the-shore_o9zufc.mp3",
+        "english": "He's walking along the shore.",
+        "vietnamese": "Anh đang đi dọc bờ biển.",
+        "phonetic": "/hɪs ɪz ˈwɑlkiŋ əˈlɔŋ ðə ə ˈʃɔːr/",
+        "difficulty": "hard",
+        "tags": ["shore", "walking", "along"]
+      },
+      {
+        "id": 9,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757819758/toeic-part1/cum-tu-ta-canh/be-planted-in-rows_ekyfd4.mp3",
+        "english": "Be planted in rows.",
+        "vietnamese": "Được trồng theo hàng.",
+        "phonetic": "/ɪz ˈplæntɪd ɪn ˈroʊz/",
+        "difficulty": "hard",
+        "tags": ["planted", "rows", "planted"]
+      },
+      {
+        "id": 10,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757819758/toeic-part1/cum-tu-ta-canh/some-bushes-have-been-planted-in-front-of-a-building_sty51q.mp3",
+        "english": "Some bushes have been planted in front of a building.",
+        "vietnamese": "Một số cây cỏ được trồng trước tòa nhà.",
+        "phonetic": "/səm ˈbʊʃɪz ər ˈpleɪntɪd ɪn ˈfront əv ə ˈbɪldɪŋ/",
+        "difficulty": "hard",
+        "tags": ["planted", "rows", "front"]
+      },
+      {
+        "id": 11,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757819758/toeic-part1/cum-tu-ta-canh/some-bushes-are-being-planted_sdlua6.mp3",
+        "english": "Some bushes are being planted.",
+        "vietnamese": "Một số cây cỏ đang được trồng.",
+        "phonetic": "/səm ˈbʊʃɪz ər ˈbeɪɪŋ ˈpleɪntɪd/",
+        "difficulty": "hard",
+        "tags": ["planted", "rows", "being"]
+      },
+      {
+        "id": 12,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757819758/toeic-part1/cum-tu-ta-canh/a-garden-has-been-planted-outside-of-a-building_ptfpjs.mp3",
+        "english": "A garden has been planted outside of a building.",
+        "vietnamese": "Một khu vườn được trồng bên ngoài tòa nhà.",
+        "phonetic": "/ə ˈgɑrdən əz ˈpleɪntɪd ˈaʊtsɪde əv ə ˈbɪldɪŋ/",
+        "difficulty": "hard",
+        "tags": ["planted", "rows", "outside"]
+      },
+      {
+        "id": 13,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820203/toeic-part1/cum-tu-ta-canh/weeding-in-the-garden_ldox51.mp3",
+        "english": "Weeding in the garden.",
+        "vietnamese": "Đang dọn dẹp cây cỏ trong khu vườn.",
+        "phonetic": "/ˈwɪdɪŋ ɪn ðə ˈgɑrdən/",
+        "difficulty": "hard",
+        "tags": ["weeding", "garden", "in"]
+      },
+      {
+        "id": 14,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820203/toeic-part1/cum-tu-ta-canh/hes-weeding-a-flower-bed_utlrym.mp3",
+        "english": "He's weeding a flower bed.",
+        "vietnamese": "Anh đang dọn dẹp cây cỏ trong khu vườn.",
+        "phonetic": "/hɪs ɪz ˈwɪdɪŋ ə ˈflaʊər ˈbed/",
+        "difficulty": "hard",
+        "tags": ["weeding", "flower", "bed"]
+      },
+      {
+        "id": 15,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820383/toeic-part1/cum-tu-ta-canh/watering-plants_zrqinw.mp3",
+        "english": "Watering plants.",
+        "vietnamese": "Đang tưới cây.",
+        "phonetic": "/ˈwɔtərɪŋ ə plænts/",
+        "difficulty": "hard",
+        "tags": ["watering", "plants", "water"]
+      },
+      {
+        "id": 16,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820384/toeic-part1/cum-tu-ta-canh/a-watering-can-is-next-to-some-trees_lhc3ne.mp3",
+        "english": "A watering can is next to some trees.",
+        "vietnamese": "Một bình tưới cây được đặt bên cạnh một số cây.",
+        "phonetic": "/ə ˈwɔtərɪŋ ˈkæn ɪz ˈnɛxt əv səm ˈtriːz/",
+        "difficulty": "hard",
+        "tags": ["watering", "can", "trees"]
+      },
+      {
+        "id": 17,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757820384/toeic-part1/cum-tu-ta-canh/a-man-is-watering-some-flowers_dtn673.mp3",
+        "english": "A man is watering some flowers.",
+        "vietnamese": "Một người đàn ông đang tưới cây hoa.",
+        "phonetic": "/ə mæn ɪz ˈwɔtərɪŋ səm ˈflaʊərz/",
+        "difficulty": "hard",
+        "tags": ["watering", "flowers", "man"]
+      }
+    ]
+  },
+  "object": {
+    "title": "Cụm từ tả vật",
+    "description": "Mô tả các đồ vật, thiết bị, vật dụng và công cụ trong cuộc sống.",
+    "icon": "/images/categories/object-icon.svg",
+    "color": "#f57c00",
+    "bgColor": "#fff3e0",
+    "progress": 45,
+    "data": [
+      {
+        "id": 1,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822675/toeic-part1/cum-tu-ta-vat/be-placed-on-the-table_wsnarr.mp3",
+        "english": "Be placed on the table.",
+        "vietnamese": "Được đặt trên bàn.",
+        "phonetic": "/ɪz ˈpleɪstɪd ɑn ðə ˈteɪbəl/",
+        "difficulty": "easy",
+        "tags": ["placed", "table"]
+      },
+      {
+        "id": 2,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822676/toeic-part1/cum-tu-ta-vat/an-armchair-has-been-placed-under-a-window_hvt2yh.mp3",
+        "english": "An armchair has been placed under a window.",
+        "vietnamese": "Một chiếc ghế sofa được đặt dưới cửa sổ.",
+        "phonetic": "/ən ˈɑrmʃɛr əz ˈpleɪstɪd ˈaʊtər ðə ˈwɪndoʊ/",
+        "difficulty": "medium",
+        "tags": ["placed", "window"]
+      },
+      {
+        "id": 3,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822678/toeic-part1/cum-tu-ta-vat/some-pillows-have-been-placed-on-a-bed_tws92q.mp3",
+        "english": "Some pillows have been placed on a bed.",
+        "vietnamese": "Một số chiếc gối được đặt trên giường.",
+        "phonetic": "/səm ˈpɪləʊz əz ˈpleɪstɪd əv ə ˈbed/",
+        "difficulty": "medium",
+        "tags": ["placed", "bed"]
+      },
+      {
+        "id": 4,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822680/toeic-part1/cum-tu-ta-vat/a-potted-plant-has-been-placed-on-top-of-a-shelf_ur8wl7.mp3",
+        "english": "A potted plant has been placed on top of a shelf.",
+        "vietnamese": "Một cây cỏ được đặt trên kệ.",
+        "phonetic": "/ə ˈpɑtɪd ˈplænt əz ˈpleɪstɪd ˈɑn təp əv ə ˈʃɛlf/",
+        "difficulty": "medium",
+        "tags": ["placed", "shelf"]
+      },
+      {
+        "id": 5,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822878/toeic-part1/cum-tu-ta-vat/have-been-arranged-in-a-case_azoqp7.mp3",
+        "english": "Have been arranged in a case.",
+        "vietnamese": "Được sắp xếp trong một cái hộp.",
+        "phonetic": "/ɪz əˈreɪndʒɪd ɪn ə ˈkeɪs/",
+        "difficulty": "easy",
+        "tags": ["arranged", "case"]
+      },
+      {
+        "id": 6,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822880/toeic-part1/cum-tu-ta-vat/sets-of-utensils-have-been-arranged-on-napkins_lhtmjb.mp3",
+        "english": "Sets of utensils have been arranged on napkins.",
+        "vietnamese": "Một số bộ dụng cụ được sắp xếp trên khăn ăn.",
+        "phonetic": "/sɛts əv ˈʌtənələz əz ˈreɪndʒɪd əv əv ˈnæpˈkɪnz/",
+        "difficulty": "easy",
+        "tags": ["arranged", "napkins"]
+      },
+      {
+        "id": 7,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822881/toeic-part1/cum-tu-ta-vat/some-plants-have-been-arranged-in-a-row_kiamba.mp3",
+        "english": "Some plants have been arranged in a row.",
+        "vietnamese": "Một số cây cỏ được sắp xếp theo hàng.",
+        "phonetic": "/səm ˈplænts əz ˈreɪndʒɪd ɪn ə ˈroʊ/",
+        "difficulty": "easy",
+        "tags": ["arranged", "row"]
+      },
+      {
+        "id": 8,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757822883/toeic-part1/cum-tu-ta-vat/some-vegetables-have-been-arranged-on-wooden-platforms_iwsvpc.mp3",
+        "english": "Some vegetables have been arranged on wooden platforms.",
+        "vietnamese": "Một số loại rau cỏ được sắp xếp trên các tấm gỗ.",
+        "phonetic": "/səm ˈvɛdʒətəblz əz ˈreɪndʒɪd əv əv ˈwʊdən ˈplætfoʊrmz/",
+        "difficulty": "easy",
+        "tags": ["arranged", "wooden"]
+      },
+      {
+        "id": 9,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823028/toeic-part1/cum-tu-ta-vat/be-being-loaded-onto-the-truck_xeaypn.mp3",
+        "english": "Be being loaded onto the truck.",
+        "vietnamese": "Được đưa/bốc/xếp lên xe tải.",
+        "phonetic": "/ɪz ˈbɪɪŋ ˈləʊdɪd ˈɑn təp əv ðə ˈtrʌk/",
+        "difficulty": "easy",
+        "tags": ["loaded", "truck"]
+      },
+      {
+        "id": 10,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823030/toeic-part1/cum-tu-ta-vat/a-bicycle-has-been-loaded-onto-a-truck_o6fhyq.mp3",
+        "english": "A bicycle has been loaded onto a truck.",
+        "vietnamese": "Một chiếc xe đạp được chất lên xe tải.",
+        "phonetic": "/ə ˈbɪsɪkl əz ˈpleɪstɪd ˈɑn təp əv ðə ˈtrʌk/",
+        "difficulty": "easy",
+        "tags": ["loaded", "truck"]
+      },
+      {
+        "id": 11,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823032/toeic-part1/cum-tu-ta-vat/boxes-are-being-loaded-onto-a-truck_oyjl34.mp3",
+        "english": "Boxes are being loaded onto a truck.",
+        "vietnamese": "Các hộp được chất lên xe tải.",
+        "phonetic": "/bɒksəz ər ˈbɪɪŋ ˈləʊdɪd ˈɑn təp əv ðə ˈtrʌk/",
+        "difficulty": "easy",
+        "tags": ["loaded", "truck"]
+      },
+      {
+        "id": 12,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823251/toeic-part1/cum-tu-ta-vat/some-steps-are-being-repaired_sfepzj.mp3",
+        "english": "Some steps are being repaired.",
+        "vietnamese": "Một số bậc thang được sửa chữa.",
+        "phonetic": "/səm ˈsteɪps ər ˈbɪɪŋ ˈrɪpɛɪd əv ðə ˈtrʌk/",
+        "difficulty": "easy",
+        "tags": ["repaired", "steps"]
+      },
+      {
+        "id": 13,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823253/toeic-part1/cum-tu-ta-vat/a-roof-is-being-repaired_gi7ape.mp3",
+        "english": "A roof is being repaired.",
+        "vietnamese": "Một mái nhà được sửa chữa.",
+        "phonetic": "/ə ˈroʊf əz ˈbɪɪŋ ˈrɪpɛɪd əv ðə ˈtrʌk/",
+        "difficulty": "easy",
+        "tags": ["repaired", "roof"]
+      },
+      {
+        "id": 14,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823255/toeic-part1/cum-tu-ta-vat/a-railing-is-being-repaired_ow0kql.mp3",
+        "english": "A railing is being repaired.",
+        "vietnamese": "Một cái lan can được sửa chữa.",
+        "phonetic": "/ə ˈrɛlɪŋ əz ˈbɪɪŋ ˈrɪpɛɪd əv ðə ˈtrʌk/",
+        "difficulty": "easy",
+        "tags": ["repaired", "railing"]
+      },
+      {
+        "id": 15,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823390/toeic-part1/cum-tu-ta-vat/be-stacked-on-the-ground_adomyf.mp3",
+        "english": "Be stacked on the ground.",
+        "vietnamese": "Được xếp chồng lên mặt đất.",
+        "phonetic": "/ɪz ˈstæktɪd ˈɑn ðə ˈɡraʊnd/",
+        "difficulty": "easy",
+        "tags": ["stacked", "ground"]
+      },
+      {
+        "id": 16,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823392/toeic-part1/cum-tu-ta-vat/some-chairs-are-stacked-in-a-corner_gxqqzd.mp3",
+        "english": "Some chairs are stacked in a corner.",
+        "vietnamese": "Một số chiếc ghế được xếp chồng ở một góc.",
+        "phonetic": "/səm ˈtʃɛəz əz ˈstæktɪd ɪn ə ˈkɔːnər/",
+        "difficulty": "easy",
+        "tags": ["stacked", "corner"]
+      },
+      {
+        "id": 17,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823395/toeic-part1/cum-tu-ta-vat/some-furniture-has-been-stacked-near-a-fence_hbsue5.mp3",
+        "english": "Some furniture has been stacked near a fence.",
+        "vietnamese": "Một số đồ nội thất được xếp chồng ở gần một cái hàng rào.",
+        "phonetic": "/səm ˈfɜrˈnɪʃəz əz ˈreɪndʒɪd ˈstæktɪd ˈnɪər ðə ˈfɛns/",
+        "difficulty": "easy",
+        "tags": ["stacked", "fence"]
+      },
+      {
+        "id": 18,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823397/toeic-part1/cum-tu-ta-vat/some-boxes-are-stacked-on-the-ground_ybt8gl.mp3",
+        "english": "Some boxes are stacked on the ground.",
+        "vietnamese": "Một số hộp được xếp chồng lên mặt đất.",
+        "phonetic": "/səm ˈbɒksəz əz ˈstæktɪd ˈɑn ðə ˈɡraʊnd/",
+        "difficulty": "easy",
+        "tags": ["stacked", "ground"]
+      },
+      {
+        "id": 19,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823672/toeic-part1/cum-tu-ta-vat/some-tables-are-covered-with-tablecloths_xyko9j.mp3",
+        "english": "Some tables are covered with tablecloths.",
+        "vietnamese": "Một số bàn được che phủ bằng khăn bàn.",
+        "phonetic": "/səm ˈteɪbəlz əz ˈcɔvəd ˈwɪð ˈteɪbəlˈklɔθs/",
+        "difficulty": "easy",
+        "tags": ["covered", "tablecloths"]
+      },
+      {
+        "id": 20,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823674/toeic-part1/cum-tu-ta-vat/a-walkway-is-covered-with-leaves_nzd6le.mp3",
+        "english": "A walkway is covered with leaves.",
+        "vietnamese": "Một con được che phủ bằng lá.",
+        "phonetic": "/ə ˈwɔlkweɪ əz ˈcɔvəd ˈwɪð ˈlɛvz/",
+        "difficulty": "easy",
+        "tags": ["covered", "leaves"]
+      }
+    ]
+  },
+  "people-object": {
+    "title": "Cụm từ tả người + vật/cảnh",
+    "description": "Tương tác giữa người và môi trường xung quanh, người với vật dụng.",
+    "icon": "/images/categories/mixed-icon.svg",
+    "color": "#7b1fa2",
+    "bgColor": "#f3e5f5",
+    "progress": 45,
+    "data": [
+      {
+        "id": 1,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823970/toeic-part1/cum-tu-ta-nguoi-canh-vat/theyre-shaking-hands-across-a-counter_chuxdm.mp3",
+        "english": "They're shaking hands across a counter.",
+        "vietnamese": "Họ đang gắp tay qua một cái bàn.",
+        "phonetic": "/ðeɪ ər ˈʃeɪkɪŋ ˈhændz ˈæksroʊ əv ə ˈkaʊntər/",
+        "difficulty": "medium",
+        "tags": ["shaking", "hands", "counter"]
+      },
+      {
+        "id": 2,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823968/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-women-are-shaking-hands_dtbbfn.mp3",
+        "english": "The women are shaking hands.",
+        "vietnamese": "Một số người phụ nữ đang gắp tay.",
+        "phonetic": "/ðə wʊmən ər ˈʃeɪkɪŋ ˈhændz/",
+        "difficulty": "medium",
+        "tags": ["shaking", "hands"]
+      },
+      {
+        "id": 3,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824208/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-audience-is-facing-a-screen_rpczac.mp3",
+        "english": "The audience is facing a screen.",
+        "vietnamese": "Người hâm mộ đang nhìn vào một màn hình.",
+        "phonetic": "/ðə ˈɔdɪʃən ɪz ˈfæsɪŋ əv ə ˈskriːn/",
+        "difficulty": "medium",
+        "tags": ["facing", "screen"]
+      },
+      {
+        "id": 4,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824207/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-women-are-facing-each-other_akbz5r.mp3",
+        "english": "The women are facing each other.",
+        "vietnamese": "Một số người phụ nữ đang nhìn vào nhau.",
+        "phonetic": "/ðə wʊmən ər ˈfæsɪŋ ˈɛɡəθ ˈəʊðər/",
+        "difficulty": "medium",
+        "tags": ["facing", "each"]
+      },
+      {
+        "id": 5,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824297/toeic-part1/cum-tu-ta-nguoi-canh-vat/some-people-are-attending-a-presentation_o6afkk.mp3",
+        "english": "Some people are attending a presentation.",
+        "vietnamese": "Một số người đang tham dự một buổi trình bày.",
+        "phonetic": "/səm ˈpɜrsən ər ˈætəndɪŋ ə ˈpɜsən.tæʃən/",
+        "difficulty": "medium",
+        "tags": ["attending", "presentation"]
+      },
+      {
+        "id": 6,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824295/toeic-part1/cum-tu-ta-nguoi-canh-vat/they-are-attending-a-meeting_bz84tm.mp3",
+        "english": "They are attending a meeting.",
+        "vietnamese": "Họ đang tham dự một cuộc họp.",
+        "phonetic": "/ðeɪ ər ˈætəndɪŋ ə ˈmiːtɪŋ/",
+        "difficulty": "medium",
+        "tags": ["attending", "meeting"]
+      },
+      {
+        "id": 7,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824382/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-man-is-handing-a-cup-to-the-woman_m1jfca.mp3",
+        "english": "The man is handing a cup to the woman.",
+        "vietnamese": "Một người đàn ông đang đưa một cốc đến cho một người phụ nữ.",
+        "phonetic": "/ðə mæn ɪz ˈhændɪŋ ə ˈkʌp ˈtə ɪz ˈwʊmən/",
+        "difficulty": "medium",
+        "tags": ["handing", "cup", "woman"]
+      },
+      {
+        "id": 8,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824384/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-woman-is-handing-some-food-to-the-man_qrpefx.mp3",
+        "english": "The woman is handing some food to the man.",
+        "vietnamese": "Một người phụ nữ đang đưa một số loại thức ăn đến cho một người đàn ông.",
+        "phonetic": "/ðə wʊmən ɪz ˈhændɪŋ səm ˈfʊd ˈtə ɪz ˈmæn/",
+        "difficulty": "medium",
+        "tags": ["handing", "food", "man"]
+      },
+      {
+        "id": 9,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824499/toeic-part1/cum-tu-ta-nguoi-canh-vat/a-shop-assistant-is-giving-a-man-some-money_o9tdry.mp3",
+        "english": "A shop assistant is giving a man some money.",
+        "vietnamese": "Một người phục vụ đang đưa một số tiền đến cho một người đàn ông.",
+        "phonetic": "/ə ˈʃɒp əˈsɪstənt ɪz ˈɡɪvɪŋ ə ˈmæn səm ˈmʌnɪ/",
+        "difficulty": "medium",
+        "tags": ["giving", "money", "man"]
+      },
+      {
+        "id": 10,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824501/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-man-is-giving-the-woman-a-book_zikrpw.mp3",
+        "english": "The man is giving the woman a book.",
+        "vietnamese": "Một người đàn ông đang đưa một cuốn sách đến cho một người phụ nữ.",
+        "phonetic": "/ðə mæn ɪz ˈɡɪvɪŋ ɪz ˈwʊmən ə ˈbʊk/",
+        "difficulty": "medium",
+        "tags": ["giving", "book", "woman"]
+      },
+      {
+        "id": 11,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824704/toeic-part1/cum-tu-ta-nguoi-canh-vat/one-of-the-people-is-standing-by-a-podium_coi1uc.mp3",
+        "english": "One of the people is standing by a podium.",
+        "vietnamese": "Một người đang đứng ở một cái bục giảng.",
+        "phonetic": "/wən əv ðə ˈpɜrsən ɪz ˈstændɪŋ ˈbaɪ ðə ˈpəʊdɪəm/",
+        "difficulty": "medium",
+        "tags": ["standing", "podium"]
+      },
+      {
+        "id": 12,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824706/toeic-part1/cum-tu-ta-nguoi-canh-vat/one-of-the-women-is-standing-next-to-an-entrance_hrkfgr.mp3",
+        "english": "One of the women is standing next to an entrance.",
+        "vietnamese": "Một người phụ nữ đang đứng ở gần một cái cửa ra vào.",
+        "phonetic": "/wən əv ðə ˈwʊmən ɪz ˈstændɪŋ ˈneɪkst tə ən ˈɛn.trəns/",
+        "difficulty": "medium",
+        "tags": ["standing", "entrance"]
+      },
+      {
+        "id": 13,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824709/toeic-part1/cum-tu-ta-nguoi-canh-vat/some-people-are-sitting-in-a-car_qjrimm.mp3",
+        "english": "Some people are sitting in a car.",
+        "vietnamese": "Một số người đang ngồi trong một chiếc xe hơi.",
+        "phonetic": "/səm ˈpɜrsən ər ˈsɪtɪŋ ɪn ə ˈkɑr/",
+        "difficulty": "medium",
+        "tags": ["sitting", "car"]
+      },
+      {
+        "id": 14,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824712/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-women-are-sitting-at-their-desks_kkebun.mp3",
+        "english": "The women are sitting at their desks.",
+        "vietnamese": "Một số người phụ nữ đang ngồi ở bàn làm việc.",
+        "phonetic": "/ðə wʊmən ər ˈsɪtɪŋ ˈæt ðəɪr ˈdɛskz/",
+        "difficulty": "medium",
+        "tags": ["sitting", "desks"]
+      },
+      {
+        "id": 15,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824714/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-people-are-looking-at-some-menus_viccun.mp3",
+        "english": "The people are looking at some menus.",
+        "vietnamese": "Một số người đang nhìn vào một số thực đơn.",
+        "phonetic": "/ðə ˈpɜrsən ər ˈlʊkɪŋ ˈæt səm ˈmɛnus/",
+        "difficulty": "medium",
+        "tags": ["looking", "menus"]
+      },
+      {
+        "id": 16,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824717/toeic-part1/cum-tu-ta-nguoi-canh-vat/theyre-looking-at-a-document_ul8urp.mp3",
+        "english": "They're looking at a document.",
+        "vietnamese": "Họ đang nhìn vào một tài liệu.",
+        "phonetic": "/ðeɪ ər ˈlʊkɪŋ ˈæt ə ˈdɑkjəmənt/",
+        "difficulty": "medium",
+        "tags": ["looking", "document"]
+      },
+      {
+        "id": 17,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824970/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-woman-is-taking-a-pen-from-a-drawer_ljnoay.mp3",
+        "english": "The woman is taking a pen from a drawer.",
+        "vietnamese": "Người phụ nữ đang lấy một cái bút bi từ ngăn kéo.",
+        "phonetic": "/ðə wʊmən ɪz ˈtækɪŋ ə ˈpɛn ˈfɜr ðə ˈdrɔːɚ/",
+        "difficulty": "medium",
+        "tags": ["taking", "pen", "drawer"]
+      },
+      {
+        "id": 18,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824973/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-man-is-taking-a-lab-coat-from-a-hook_wu6wfm.mp3",
+        "english": "The man is taking a lab coat from a hook.",
+        "vietnamese": "Người đàn ông đang lấy một chiếc áo choàng phòng thí nghiệm từ cái móc treo.",
+        "phonetic": "/ðə mæn ɪz ˈtækɪŋ ə ˈlæb ˈkoʊt ˈfɜr ðə ˈhʊk/",
+        "difficulty": "medium",
+        "tags": ["taking", "lab coat", "hook"]
+      },
+      {
+        "id": 19,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824976/toeic-part1/cum-tu-ta-nguoi-canh-vat/two-of-the-people-are-having-a-conversation_v8cmaq.mp3",
+        "english": "Two of the people are having a conversation.",
+        "vietnamese": "Hai người đang trò chuyện.",
+        "phonetic": "/twə əv ðə ˈpɜrsən ər ˈhævɪŋ ə ˈkɑn.vɜr.seɪʃən/",
+        "difficulty": "medium",
+        "tags": ["having", "conversation"]
+      },
+      {
+        "id": 20,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824982/toeic-part1/cum-tu-ta-nguoi-canh-vat/two-people-are-having-a-meal-together_rx8ccx.mp3",
+        "english": "Two people are having a meal together.",
+        "vietnamese": "Hai người đang ăn cùng nhau.",
+        "phonetic": "/twə əv ðə ˈpɜrsən ər ˈhævɪŋ ə ˈmɛl ˈtəɡəðər/",
+        "difficulty": "medium",
+        "tags": ["having", "meal"]
+      },
+      {
+        "id": 21,
+        "image": "",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824979/toeic-part1/cum-tu-ta-nguoi-canh-vat/a-motorboat-is-passing-under-bridge_jljzsu.mp3",
+        "english": "A motorboat is passing under a bridge.",
+        "vietnamese": "Một chiếc thuyền máy đang đi dưới một cái cầu.",
+        "phonetic": "/ə ˈməʊtər.bəʊt ɪz ˈpɑsɪŋ ˈʌndər ə ˈbrɪdʒ/",
+        "difficulty": "medium",
+        "tags": ["passing", "bridge"]
+      }
+    ]
+  }
+}

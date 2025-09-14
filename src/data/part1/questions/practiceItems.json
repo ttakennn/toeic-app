@@ -1,0 +1,64 @@
+{
+  "practiceItems": [
+    {
+      "id": "basic",
+      "title": "Cụm từ tả người",
+      "description": "Học các cụm từ mô tả người và hoạt động của con người trong đời sống hàng ngày",
+      "icon": "/images/categories/people-icon.svg",
+      "color": "#4caf50",
+      "bgColor": "#e8f5e8",
+      "totalTests": 5,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Người cơ bản", "difficulty": "Dễ", "questions": 6, "duration": "10 phút" },
+        { "id": 2, "title": "TEST 2 - Hoạt động thường ngày", "difficulty": "Trung bình", "questions": 7, "duration": "10 phút" }
+      ]
+    },
+    {
+      "id": "advanced",
+      "title": "Cụm từ tả cảnh",
+      "description": "Các cụm từ mô tả cảnh quan, môi trường xung quanh và không gian sống",
+      "icon": "/images/categories/scene-icon.svg",
+      "color": "#f44336",
+      "bgColor": "#ffebee",
+      "totalTests": 4,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Môi trường cơ bản", "difficulty": "Dễ", "questions": 12, "duration": "16 phút" },
+        { "id": 2, "title": "TEST 2 - Cảnh quan thiên nhiên", "difficulty": "TB", "questions": 15, "duration": "20 phút" },
+        { "id": 3, "title": "TEST 3 - Không gian công cộng", "difficulty": "Khó", "questions": 16, "duration": "24 phút" },
+        { "id": 4, "title": "TEST 4 - Tổng hợp cảnh", "difficulty": "Khó", "questions": 20, "duration": "30 phút" }
+      ]
+    },
+    {
+      "id": "simulation",
+      "title": "Cụm từ tả vật",
+      "description": "Mô tả các đồ vật, thiết bị, vật dụng và công cụ trong cuộc sống",
+      "icon": "/images/categories/object-icon.svg",
+      "color": "#2196f3",
+      "bgColor": "#e3f2fd",
+      "totalTests": 4,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Đồ dùng cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "12 phút" },
+        { "id": 2, "title": "TEST 2 - Thiết bị văn phòng", "difficulty": "TB", "questions": 10, "duration": "15 phút" },
+        { "id": 3, "title": "TEST 3 - Vật dụng gia đình", "difficulty": "TB", "questions": 12, "duration": "18 phút" },
+        { "id": 4, "title": "TEST 4 - Công cụ chuyên dụng", "difficulty": "Khó", "questions": 15, "duration": "22 phút" }
+      ]
+    },
+    {
+      "id": "mixed",
+      "title": "Cụm từ tả người + vật/cảnh",
+      "description": "Tương tác giữa người và môi trường xung quanh, người với vật dụng",
+      "icon": "/images/categories/mixed-icon.svg",
+      "color": "#ff9800",
+      "bgColor": "#fff3e0",
+      "totalTests": 6,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Tương tác cơ bản", "difficulty": "Dễ", "questions": 10, "duration": "15 phút" },
+        { "id": 2, "title": "TEST 2 - Hoạt động hàng ngày", "difficulty": "TB", "questions": 12, "duration": "18 phút" },
+        { "id": 3, "title": "TEST 3 - Môi trường làm việc", "difficulty": "TB", "questions": 14, "duration": "20 phút" },
+        { "id": 4, "title": "TEST 4 - Hoạt động giải trí", "difficulty": "Khó", "questions": 16, "duration": "24 phút" },
+        { "id": 5, "title": "TEST 5 - Tình huống phức tạp", "difficulty": "Khó", "questions": 18, "duration": "27 phút" },
+        { "id": 6, "title": "TEST 6 - Thử thách toàn diện", "difficulty": "Khó", "questions": 20, "duration": "30 phút" }
+      ]
+    }
+  ]
+}

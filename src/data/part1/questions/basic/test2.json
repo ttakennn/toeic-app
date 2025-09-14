@@ -1,0 +1,125 @@
+{
+  "testInfo": {
+    "id": 2,
+    "title": "TEST 2 - Hoạt động thường ngày",
+    "difficulty": "Trung bình",
+    "questions": 7,
+    "duration": "10 phút",
+    "category": "basic",
+    "description": "Bài test về các hoạt động hàng ngày của con người"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757842446/toeic-part1/practice/tranh-ta-nguoi/test2/woman-carrying-a-jacket-over-her-arm_pkws2g.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757842447/toeic-part1/practice/tranh-ta-nguoi/test2/woman-carrying-a-jacket-over-her-arm_pfuypv.mp3",
+      "options": [
+        "A woman’s standing on a busy street.",
+        "A woman’s wiping a car window with a cloth.",
+        "A woman’s carrying a jacket over her arm.",
+        "A woman’s parking a vehicle."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Người phụ nữ đang mang 1 áo khoác trên cánh tay. 'Carrying a jacket over her arm' mô tả chính xác hoạt động này.",
+      "transcript": "A. Một người phụ nữ đang đứng trên 1 con đường đông đúc.\nB. Một người phụ nữ đang lau cửa kính xe với 1 miếng vải.\nC. Một người phụ nữ đang mang 1 áo khoác trên cánh tay.\nD. Một người phụ nữ đang đỗ 1 phương tiện.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["woman", "wiping", "cloth", "jacket", "parking"]
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757842744/toeic-part1/practice/tranh-ta-nguoi/test2/the-woman-is-standing-on-a-stool_ptvqpd.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757842744/toeic-part1/practice/tranh-ta-nguoi/test2/the-woman-is-standing-on-a-stool_pugxt3.mp3",
+      "options": [
+        "The woman is standing on a stool.",
+        "The woman is replacing a lightbulb.",
+        "The woman is installing a bookshelf.",
+        "The woman is climbing a staircase."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Người phụ nữ đang đứng trên 1 chiếc ghế đẩu. 'Standing on a stool' mô tả chính xác hoạt động này.",
+      "transcript": "A. Người phụ nữ đang đứng trên 1 chiếc ghế đẩu\nB. Người phụ nữ đang thay bóng đèn\nC. Người phụ nữ đang lắp đặt 1 chiếc kệ sách\nD. Người phụ nữ đang leo lên 1 chiếc thang",
+      "theme": "Thư viện",
+      "vocabulary": ["woman", "standing", "stool", "lightbulb", "bookshelf", "staircase"]
+    },
+    {
+      "id": 3,
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757843022/toeic-part1/practice/tranh-ta-nguoi/test2/a-man-is-working-outdoors_qmdsl1.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757843023/toeic-part1/practice/tranh-ta-nguoi/test2/a-man-is-working-outdoors_hurlt3.mp3",
+      "options": [
+        "A construction worker is repairing a fence.",
+        "A set of cones is blocking an entrance.",
+        "Some lines are being painted on a roadway.",
+        "A man is working outdoors."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Người đàn ông đang làm việc ngoài trời. 'Working outdoors' mô tả chính xác hoạt động này.",
+      "transcript": "A. Một công nhân xây dựng đang sửa cái hàng rào\nB. Một bộ nón cảnh báo an toàn đang chặn lối vào\nC. Một vài đường kẻ đang được sơn trên đường\nD. Một người đàn ông đang làm việc ngoài trời",
+      "theme": "Ngoài trời",
+      "vocabulary": ["working", "outdoors"]
+    },
+    {
+      "id": 4,
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757843242/toeic-part1/practice/tranh-ta-nguoi/test2/he-is-working-on-a-puzzle_mv7fab.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757843243/toeic-part1/practice/tranh-ta-nguoi/test2/he-is-working-on-a-puzzle_f7wgyn.mp3",
+      "options": [
+        "He's working on a puzzle.",
+        "He’s lying on a sofa.",
+        "He’s reaching for a book.",
+        "He’s putting on a sweater."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Người đàn ông đang giải câu xếp hình. 'Working on a puzzle' mô tả chính xác hoạt động này.",
+      "transcript": "A.Anh ấy đang giải câu xếp hình.\nB. Anh ấy đang nằm trên ghế sofa.\nC. Anh ấy đang với lấy 1 quyển sách.\nD. Anh ấy đang mặc 1 chiếc áo len.",
+      "theme": "Vui chơi",
+      "vocabulary": ["working", "puzzle", "sofa", "book", "sweater"]
+    },
+    {
+      "id": 5,
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757843421/toeic-part1/practice/tranh-ta-nguoi/test2/hes-wearing-safety-glasses_b488rz.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757843422/toeic-part1/practice/tranh-ta-nguoi/test2/hes-wearing-safety-glasses_ln9ggm.mp3",
+      "options": [
+        "He’s wearing safety glasses.",
+        "He’s cleaning some equipment.",
+        "He’s picking up a hammer.",
+        "He’s laying stones on a driveway."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Người đàn ông đang đeo kính bảo hộ. 'Wearing safety glasses' mô tả chính xác hoạt động này.",
+      "transcript": "A. Anh ấy đang đeo kính bảo hộ.\nB. Anh ấy đang làm sạch một vài thiết bị.\nC. Anh ấy đang nhặt 1 chiếc búa lên.\nD. Anh ấy đang xếp đá trên đường lái xe.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["wearing", "safety", "glasses", "cleaning", "equipment", "hammer", "laying", "stones", "driveway"]
+    },
+    {
+      "id": 6,
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757843644/toeic-part1/practice/tranh-ta-nguoi/test2/a-man-with-tools-is-bending-over_traeeq.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757843644/toeic-part1/practice/tranh-ta-nguoi/test2/a-man-with-tools-is-bending-over_qbtym8.mp3",
+      "options": [
+        "A man is standing in a road.",
+        "A man is wearing a coat.",
+        "A man with tools is bending over.",
+        "A man is putting on a hat."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Người đàn ông đang cầm công cụ đang cúi xuống. 'Bending over' mô tả chính xác hoạt động này.",
+      "transcript": "A. Một người đàn ông đang đứng trên đường.\nB. Một người đàn ông đang mặc áo khoác.\nC. Một người đàn ông cầm công cụ đang cúi xuống.\nD. Một người đàn ông đang đội mũ.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["man", "tools", "bending", "over"]
+    },
+    {
+      "id": 7,
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757843800/toeic-part1/practice/tranh-ta-nguoi/test2/the-men-have-stopped-on-a-walkway_nkr57l.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757843802/toeic-part1/practice/tranh-ta-nguoi/test2/the-men-have-stopped-on-a-walkway_fszvug.mp3",
+      "options": [
+        "The men are facing each other",
+        "The men are crossing a street",
+        "The men have stopped on a walkway",
+        "The men have left their suitcases open."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Người đàn ông đang dừng lại trên đường. 'Stopped on a walkway' mô tả chính xác hoạt động này.",
+      "transcript": "A. Những người đàn ông đang đứng đối diện nhau\nB. Những người đàn ông đang đi qua đường\nC. Những người đàn ông đã dừng lại trên đường\nD. Những người đàn ông đã để vali của họ mở",
+      "theme": "Ngoài trời",
+      "vocabulary": ["men", "facing", "crossing", "stopped", "walkway", "left", "suitcases", "open"]
+    }
+  ]
+}

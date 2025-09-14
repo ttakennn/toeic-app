@@ -1,0 +1,193 @@
+{
+  "testInfo": {
+    "id": 1,
+    "title": "TEST 1 - Môi trường cơ bản",
+    "difficulty": "Dễ",
+    "questions": 12,
+    "duration": "16 phút",
+    "category": "advanced",
+    "description": "Bài test về mô tả cảnh quan và môi trường xung quanh"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "imageUrl": "/images/test/advanced/test1/question1.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question1.mp3",
+      "options": [
+        "The park is crowded with people",
+        "The park is empty and quiet",
+        "The park is under construction",
+        "The park is closed for maintenance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Công viên trong hình trống vắng và yên tĩnh. 'Empty and quiet' mô tả chính xác tình trạng của công viên.",
+      "theme": "Công viên",
+      "vocabulary": ["park", "empty", "quiet"]
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images/test/advanced/test1/question2.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question2.mp3",
+      "options": [
+        "The street is wet from rain",
+        "The street is covered with snow",
+        "The street is dusty and dry",
+        "The street is blocked by construction"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Đường phố ướt do mưa. 'Wet from rain' mô tả chính xác tình trạng của đường sau cơn mưa.",
+      "theme": "Đường phố",
+      "vocabulary": ["street", "wet", "rain"]
+    },
+    {
+      "id": 3,
+      "imageUrl": "/images/test/advanced/test1/question3.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question3.mp3",
+      "options": [
+        "The building has many windows",
+        "The building is very tall",
+        "The building is newly painted",
+        "The building is under renovation"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Tòa nhà rất cao. 'Very tall' mô tả chính xác đặc điểm nổi bật của tòa nhà.",
+      "theme": "Tòa nhà",
+      "vocabulary": ["building", "tall", "high"]
+    },
+    {
+      "id": 4,
+      "imageUrl": "/images/test/advanced/test1/question4.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question4.mp3",
+      "options": [
+        "The garden is full of flowers",
+        "The garden needs watering",
+        "The garden is being maintained",
+        "The garden is covered with leaves"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Khu vườn đầy hoa. 'Full of flowers' mô tả chính xác cảnh quan khu vườn đang nở rộ.",
+      "theme": "Khu vườn",
+      "vocabulary": ["garden", "full", "flowers"]
+    },
+    {
+      "id": 5,
+      "imageUrl": "/images/test/advanced/test1/question5.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question5.mp3",
+      "options": [
+        "The beach is crowded with tourists",
+        "The beach is clean and pristine",
+        "The beach is rocky and dangerous",
+        "The beach is covered with seaweed"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Bãi biển sạch và nguyên sơ. 'Clean and pristine' mô tả chính xác trạng thái tươi đẹp của bãi biển.",
+      "theme": "Bãi biển",
+      "vocabulary": ["beach", "clean", "pristine"]
+    },
+    {
+      "id": 6,
+      "imageUrl": "/images/test/advanced/test1/question6.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question6.mp3",
+      "options": [
+        "The lake is frozen over",
+        "The lake is calm and peaceful",
+        "The lake is polluted with trash",
+        "The lake is surrounded by mountains"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Hồ nước được bao quanh bởi núi. 'Surrounded by mountains' mô tả chính xác vị trí của hồ.",
+      "theme": "Hồ nước",
+      "vocabulary": ["lake", "surrounded", "mountains"]
+    },
+    {
+      "id": 7,
+      "imageUrl": "/images/test/advanced/test1/question7.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question7.mp3",
+      "options": [
+        "The forest is dense and green",
+        "The forest is being cut down",
+        "The forest is dry and brown",
+        "The forest is covered with fog"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Rừng cây rậm rạp và xanh tươi. 'Dense and green' mô tả chính xác cảnh rừng tươi tốt.",
+      "theme": "Rừng cây",
+      "vocabulary": ["forest", "dense", "green"]
+    },
+    {
+      "id": 8,
+      "imageUrl": "/images/test/advanced/test1/question8.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question8.mp3",
+      "options": [
+        "The restaurant is busy during lunch",
+        "The restaurant is closed for renovation",
+        "The restaurant has outdoor seating",
+        "The restaurant serves traditional food"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Nhà hàng có chỗ ngồi ngoài trời. 'Has outdoor seating' mô tả chính xác đặc điểm của nhà hàng.",
+      "theme": "Nhà hàng",
+      "vocabulary": ["restaurant", "outdoor", "seating"]
+    },
+    {
+      "id": 9,
+      "imageUrl": "/images/test/advanced/test1/question9.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question9.mp3",
+      "options": [
+        "The market is open early morning",
+        "The market is crowded with shoppers",
+        "The market sells fresh produce",
+        "The market is located downtown"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Chợ đông đúc người mua sắm. 'Crowded with shoppers' mô tả chính xác tình cảnh nhộn nhịp của chợ.",
+      "theme": "Chợ",
+      "vocabulary": ["market", "crowded", "shoppers"]
+    },
+    {
+      "id": 10,
+      "imageUrl": "/images/test/advanced/test1/question10.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question10.mp3",
+      "options": [
+        "The library is quiet for studying",
+        "The library has many books",
+        "The library is newly renovated",
+        "The library offers computer access"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Thư viện yên tĩnh để học tập. 'Quiet for studying' mô tả chính xác không khí học tập tại thư viện.",
+      "theme": "Thư viện",
+      "vocabulary": ["library", "quiet", "studying"]
+    },
+    {
+      "id": 11,
+      "imageUrl": "/images/test/advanced/test1/question11.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question11.mp3",
+      "options": [
+        "The bridge connects two cities",
+        "The bridge is under construction",
+        "The bridge crosses over water",
+        "The bridge is made of steel"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Cây cầu bắc qua mặt nước. 'Crosses over water' mô tả chính xác vị trí và chức năng của cây cầu.",
+      "theme": "Cây cầu",
+      "vocabulary": ["bridge", "crosses", "water"]
+    },
+    {
+      "id": 12,
+      "imageUrl": "/images/test/advanced/test1/question12.jpg",
+      "audioUrl": "/audio/test/advanced/test1/question12.mp3",
+      "options": [
+        "The airport is busy with travelers",
+        "The airport has many terminals",
+        "The airport is modern and spacious",
+        "The airport provides shuttle service"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Sân bay hiện đại và rộng rãi. 'Modern and spacious' mô tả chính xác kiến trúc của sân bay.",
+      "theme": "Sân bay",
+      "vocabulary": ["airport", "modern", "spacious"]
+    }
+  ]
+}
