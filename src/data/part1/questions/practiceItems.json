@@ -7,7 +7,7 @@
       "icon": "/images/categories/people-icon.svg",
       "color": "#4caf50",
       "bgColor": "#e8f5e8",
-      "totalTests": 5,
+      "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - Người cơ bản", "difficulty": "Dễ", "questions": 6, "duration": "10 phút" },
         { "id": 2, "title": "TEST 2 - Hoạt động thường ngày", "difficulty": "Trung bình", "questions": 7, "duration": "10 phút" }

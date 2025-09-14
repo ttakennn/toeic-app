@@ -125,10 +125,13 @@ function TestContent() {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showFinishDialog, setShowFinishDialog] = useState(false);
+  const [showStartDialog, setShowStartDialog] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
-  
-  // Use ref to track if we should auto play (to avoid loops)
+
+  // Use ref to track if we should auto play (to avoid loops) and user interaction
   const shouldAutoPlayRef = useRef(false);
+  const hasUserInteractedRef = useRef(false);
 
   // Cleanup audio when component unmounts or page navigation
   useEffect(() => {
@@ -157,7 +160,7 @@ function TestContent() {
         audioElement.currentTime = 0;
         setIsPlaying(false);
       }
-      
+
       // Remove event listeners
       window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
@@ -194,12 +197,12 @@ function TestContent() {
         const categoryInfo = getCategoryInfo(category);
         setCategoryData(categoryInfo);
 
-        // Set timer
+        // Set timer but don't start countdown yet
         const timeInMinutes = parseInt(apiData.data.testInfo.duration.split(' ')[0]);
         setTimeLeft(timeInMinutes * 60);
-        
-        // Mark that we should auto play the first question
-        shouldAutoPlayRef.current = true;
+
+        // Show start dialog
+        setShowStartDialog(true);
       } catch (error) {
         console.error('Error loading test data:', error);
         setError(error instanceof Error ? error.message : 'Failed to load test data');
@@ -256,6 +259,9 @@ function TestContent() {
   };
 
   const handlePlayAudio = useCallback(() => {
+    // Mark that user has interacted
+    hasUserInteractedRef.current = true;
+    
     const currentQuestionData = testData?.questions.find((q) => q.id === currentQuestion);
     if (!currentQuestionData?.audioUrl) return;
 
@@ -272,26 +278,32 @@ function TestContent() {
           setIsPlaying(false);
         });
         setAudioElement(newAudio);
-        newAudio.play().then(() => {
-          setIsPlaying(true);
-        }).catch((e) => {
-          console.error('Failed to play audio:', e);
-          setIsPlaying(false);
-        });
+        newAudio
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((e) => {
+            console.error('Failed to play audio:', e);
+            setIsPlaying(false);
+          });
       } else {
-        audioElement.play().then(() => {
-          setIsPlaying(true);
-        }).catch((e) => {
-          console.error('Failed to play audio:', e);
-          setIsPlaying(false);
-        });
+        audioElement
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((e) => {
+            console.error('Failed to play audio:', e);
+            setIsPlaying(false);
+          });
       }
     }
   }, [testData, currentQuestion, isPlaying, audioElement]);
 
-  // Auto play audio when test data is loaded or question changes
+  // Auto play audio when test data is loaded or question changes (only after user interaction)
   useEffect(() => {
-    if (testData && shouldAutoPlayRef.current) {
+    if (testData && shouldAutoPlayRef.current && hasUserInteractedRef.current) {
       const currentQuestionData = testData.questions.find((q) => q.id === currentQuestion);
       if (currentQuestionData?.audioUrl) {
         // Auto play audio after a short delay to ensure UI is ready
@@ -310,13 +322,16 @@ function TestContent() {
             setIsPlaying(false);
           });
           setAudioElement(newAudio);
-          newAudio.play().then(() => {
-            setIsPlaying(true);
-          }).catch((e) => {
-            console.error('Failed to play audio:', e);
-            setIsPlaying(false);
-          });
-          
+          newAudio
+            .play()
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch((e) => {
+              console.error('Failed to auto-play audio (user interaction required):', e);
+              setIsPlaying(false);
+            });
+
           // Reset the flag after auto playing
           shouldAutoPlayRef.current = false;
         }, 800);
@@ -324,21 +339,24 @@ function TestContent() {
         return () => clearTimeout(autoPlayTimer);
       }
     }
-  }, [testData, currentQuestion, audioElement]);
+  }, [testData, currentQuestion, audioElement, testStarted]);
 
-  // Timer countdown
+  // Timer countdown (only start after test is started)
   useEffect(() => {
-    if (timeLeft > 0 && testData) {
+    if (timeLeft > 0 && testData && testStarted) {
       const timer = setTimeout(() => {
         setTimeLeft(timeLeft - 1);
       }, 1000);
       return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && testData) {
+    } else if (timeLeft === 0 && testData && testStarted) {
       handleFinishTest();
     }
-  }, [timeLeft, testData]);
+  }, [timeLeft, testData, testStarted]);
 
   const handleAnswerSelect = (questionId: number, answer: string) => {
+    // Mark that user has interacted
+    hasUserInteractedRef.current = true;
+    
     setAnswers((prev) => ({
       ...prev,
       [questionId]: answer,
@@ -346,6 +364,9 @@ function TestContent() {
   };
 
   const handleNextQuestion = () => {
+    // Mark that user has interacted
+    hasUserInteractedRef.current = true;
+    
     // Stop current audio when changing questions
     if (audioElement) {
       audioElement.pause();
@@ -359,6 +380,9 @@ function TestContent() {
   };
 
   const handlePrevQuestion = () => {
+    // Mark that user has interacted
+    hasUserInteractedRef.current = true;
+    
     // Stop current audio when changing questions
     if (audioElement) {
       audioElement.pause();
@@ -368,6 +392,45 @@ function TestContent() {
       setCurrentQuestion(currentQuestion - 1);
       // Mark that we should auto play the previous question
       shouldAutoPlayRef.current = true;
+    }
+  };
+
+  const handleStartTest = () => {
+    // Mark that user has interacted
+    hasUserInteractedRef.current = true;
+    
+    // Start the test
+    setTestStarted(true);
+    setShowStartDialog(false);
+    
+    // Play first question audio immediately
+    const currentQuestionData = testData?.questions.find((q) => q.id === 1);
+    if (currentQuestionData?.audioUrl) {
+      // Stop any existing audio
+      if (audioElement) {
+        audioElement.pause();
+        setIsPlaying(false);
+      }
+
+      // Create and play audio for first question
+      const newAudio = new Audio(currentQuestionData.audioUrl);
+      newAudio.addEventListener('ended', () => setIsPlaying(false));
+      newAudio.addEventListener('error', (e) => {
+        console.error('Audio playback error:', e);
+        setIsPlaying(false);
+      });
+      setAudioElement(newAudio);
+      
+      newAudio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          console.log('Auto-play started successfully');
+        })
+        .catch((e) => {
+          console.error('Failed to play audio on start:', e);
+          setIsPlaying(false);
+        });
     }
   };
 
@@ -426,13 +489,27 @@ function TestContent() {
     <DashboardLayout>
       <Box>
         {/* Header với thông tin test */}
-        <Box sx={{ mb: 4, p: 3, backgroundColor: categoryData.bgColor, borderRadius: 2 }}>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+        <Box sx={{ mb: { xs: 3, md: 4 }, p: { xs: 2, md: 3 }, backgroundColor: categoryData.bgColor, borderRadius: 2 }}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            alignItems={{ xs: 'flex-start', sm: 'center' }}
+            justifyContent="space-between"
+            sx={{ mb: 2 }}
+            spacing={{ xs: 2, sm: 0 }}
+          >
             <Box>
-              <Typography variant="h5" sx={{ fontWeight: 600, color: categoryData.color, mb: 1 }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 600,
+                  color: categoryData.color,
+                  mb: 1,
+                  fontSize: { xs: '1.3rem', md: '1.5rem' },
+                }}
+              >
                 {getCategoryEmoji(category)} {testData.testInfo.title}
               </Typography>
-              <Stack direction="row" spacing={1}>
+              <Stack direction="row" spacing={1} flexWrap="wrap">
                 <Chip
                   label={testData.testInfo.difficulty}
                   size="small"
@@ -440,6 +517,7 @@ function TestContent() {
                     backgroundColor: getDifficultyColor(testData.testInfo.difficulty) + '20',
                     color: getDifficultyColor(testData.testInfo.difficulty),
                     fontWeight: 'medium',
+                    fontSize: { xs: '0.7rem', md: '0.75rem' },
                   }}
                 />
                 <Chip
@@ -449,20 +527,25 @@ function TestContent() {
                     backgroundColor: categoryData.color + '20',
                     color: categoryData.color,
                     fontWeight: 'medium',
+                    fontSize: { xs: '0.7rem', md: '0.75rem' },
                   }}
                 />
               </Stack>
             </Box>
 
-            <Box sx={{ textAlign: 'right' }}>
+            <Box sx={{ textAlign: { xs: 'left', sm: 'right' } }}>
               <Typography
                 variant="h4"
-                sx={{ fontWeight: 'bold', color: timeLeft < 300 ? '#f44336' : categoryData.color }}
+                sx={{
+                  fontWeight: 'bold',
+                  color: timeLeft < 300 ? '#f44336' : categoryData.color,
+                  fontSize: { xs: '1.8rem', md: '2.125rem' },
+                }}
               >
                 <Timer sx={{ mr: 1, fontSize: 'inherit' }} />
                 {formatTime(timeLeft)}
               </Typography>
-              <Typography variant="caption" color="text.secondary">
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.7rem', md: '0.75rem' } }}>
                 Thời gian còn lại
               </Typography>
             </Box>
@@ -470,11 +553,16 @@ function TestContent() {
 
           {/* Progress bar */}
           <Box sx={{ mb: 2 }}>
-            <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-              <Typography variant="body2" color="text.secondary">
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              justifyContent="space-between"
+              sx={{ mb: 1 }}
+              spacing={{ xs: 0.5, sm: 0 }}
+            >
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                 Câu {currentQuestion}/{testData.questions.length}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                 Đã trả lời: {answeredCount}/{testData.questions.length}
               </Typography>
             </Stack>
@@ -482,7 +570,7 @@ function TestContent() {
               variant="determinate"
               value={progress}
               sx={{
-                height: 8,
+                height: { xs: 6, md: 8 },
                 borderRadius: 4,
                 backgroundColor: '#f0f0f0',
                 '& .MuiLinearProgress-bar': {
@@ -493,191 +581,307 @@ function TestContent() {
           </Box>
         </Box>
 
-        <Grid container spacing={4}>
-          {/* Phần hình ảnh và audio */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom sx={{ color: categoryData.color }}>
+        {/* Layout responsive - mobile: single column, desktop: two columns */}
+        <Grid container spacing={{ xs: 2, md: 4 }}>
+          {/* Mobile: Single column layout */}
+          <Grid size={{ xs: 12 }}>
+            <Card>
+              <CardContent sx={{ p: { xs: 2, md: 3 } }}>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  sx={{
+                    color: categoryData.color,
+                    fontSize: { xs: '1.1rem', md: '1.25rem' },
+                  }}
+                >
                   Câu {currentQuestion}
                 </Typography>
 
-                {/* Hình ảnh */}
-                <Box
-                  sx={{
-                    mb: 3,
-                    textAlign: 'center',
-                    border: '2px dashed #ddd',
-                    borderRadius: 2,
-                    p: 2,
-                    minHeight: 400,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={currentQuestionData?.imageUrl || '/images/placeholder/toeic-placeholder.svg'}
-                    alt={`Question ${currentQuestion}`}
-                    sx={{
-                      maxWidth: '100%',
-                      maxHeight: 380,
-                      objectFit: 'contain',
-                    }}
-                  />
-                </Box>
-
-                {/* Audio Controls */}
-                <Box sx={{ textAlign: 'center' }}>
-                  <IconButton
-                    onClick={handlePlayAudio}
-                    sx={{
-                      backgroundColor: categoryData.color,
-                      color: 'white',
-                      width: 80,
-                      height: 80,
-                      '&:hover': {
-                        backgroundColor: categoryData.color + 'dd',
-                      },
-                    }}
-                  >
-                    {isPlaying ? <Pause sx={{ fontSize: 40 }} /> : <PlayArrow sx={{ fontSize: 40 }} />}
-                  </IconButton>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    <VolumeUp sx={{ mr: 0.5, verticalAlign: 'middle', fontSize: 16 }} />
-                    Click để nghe audio
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Phần trả lời */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom sx={{ color: categoryData.color }}>
-                  Nghe audio và chọn đáp án phù hợp với hình ảnh
-                </Typography>
-
-                <Stack spacing={2} sx={{ mb: 4 }}>
-                  {/* Part 1 chỉ hiển thị các nút A, B, C, D không có nội dung đáp án */}
-                  {['A', 'B', 'C', 'D'].map((optionLetter) => {
-                    const isSelected = answers[currentQuestion] === optionLetter;
-
-                    return (
-                      <Button
-                        key={optionLetter}
-                        variant={isSelected ? 'contained' : 'outlined'}
-                        fullWidth
-                        size="large"
-                        onClick={() => handleAnswerSelect(currentQuestion, optionLetter)}
+                {/* Responsive layout: mobile stacked, desktop side-by-side */}
+                <Grid container spacing={{ xs: 2, md: 3 }}>
+                  {/* Image section */}
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <Box
+                      sx={{
+                        textAlign: 'center',
+                        border: '2px dashed #ddd',
+                        borderRadius: 2,
+                        p: { xs: 1, md: 2 },
+                        minHeight: { xs: 300, md: 350 },
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mb: { xs: 2, md: 0 },
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src={currentQuestionData?.imageUrl || '/images/placeholder/toeic-placeholder.svg'}
+                        alt={`Question ${currentQuestion}`}
                         sx={{
-                          justifyContent: 'center',
-                          textAlign: 'center',
-                          py: 3,
-                          px: 3,
-                          backgroundColor: isSelected ? categoryData.color : 'transparent',
-                          borderColor: categoryData.color,
-                          color: isSelected ? 'white' : categoryData.color,
+                          maxWidth: '100%',
+                          maxHeight: { xs: 280, md: 330 },
+                          objectFit: 'contain',
+                        }}
+                      />
+                    </Box>
+                  </Grid>
+
+                  {/* Controls and answers section */}
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    {/* Audio Controls */}
+                    <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 4 } }}>
+                      <IconButton
+                        onClick={handlePlayAudio}
+                        sx={{
+                          backgroundColor: categoryData.color,
+                          color: 'white',
+                          width: { xs: 50, md: 70 },
+                          height: { xs: 50, md: 70 },
+                          mb: 1,
                           '&:hover': {
-                            backgroundColor: isSelected ? categoryData.color + 'dd' : categoryData.color + '10',
+                            backgroundColor: categoryData.color + 'dd',
                           },
                         }}
                       >
-                        <Box
+                        {isPlaying ? (
+                          <Pause sx={{ fontSize: { xs: 24, md: 35 } }} />
+                        ) : (
+                          <PlayArrow sx={{ fontSize: { xs: 24, md: 35 } }} />
+                        )}
+                      </IconButton>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ fontSize: { xs: '0.7rem', md: '0.875rem' } }}
+                      >
+                        <VolumeUp sx={{ mr: 0.5, verticalAlign: 'middle', fontSize: 14 }} />
+                        {!hasUserInteractedRef.current ? 'Click để nghe audio' : 'Nghe audio và chọn đáp án'}
+                      </Typography>
+                    </Box>
+
+                    {/* Answer options */}
+                    <Box sx={{ mb: { xs: 2, md: 4 } }}>
+                      {/* Mobile: 4 buttons in one row, Desktop: Stack layout */}
+                      <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+                        <Grid container spacing={1}>
+                          {['A', 'B', 'C', 'D'].map((optionLetter) => {
+                            const isSelected = answers[currentQuestion] === optionLetter;
+                            return (
+                              <Grid key={optionLetter} size={3}>
+                                <Button
+                                  variant={isSelected ? 'contained' : 'outlined'}
+                                  fullWidth
+                                  onClick={() => handleAnswerSelect(currentQuestion, optionLetter)}
+                                  sx={{
+                                    aspectRatio: '1',
+                                    minHeight: 60,
+                                    backgroundColor: isSelected ? categoryData.color : 'transparent',
+                                    borderColor: categoryData.color,
+                                    color: isSelected ? 'white' : categoryData.color,
+                                    '&:hover': {
+                                      backgroundColor: isSelected ? categoryData.color + 'dd' : categoryData.color + '10',
+                                    },
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      fontWeight: 'bold',
+                                      fontSize: '1.2rem',
+                                    }}
+                                  >
+                                    {optionLetter}
+                                  </Typography>
+                                </Button>
+                              </Grid>
+                            );
+                          })}
+                        </Grid>
+                      </Box>
+
+                      {/* Desktop: Stack layout */}
+                      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                        <Stack spacing={2}>
+                          {['A', 'B', 'C', 'D'].map((optionLetter) => {
+                            const isSelected = answers[currentQuestion] === optionLetter;
+                            return (
+                              <Button
+                                key={optionLetter}
+                                variant={isSelected ? 'contained' : 'outlined'}
+                                fullWidth
+                                onClick={() => handleAnswerSelect(currentQuestion, optionLetter)}
+                                sx={{
+                                  justifyContent: 'center',
+                                  textAlign: 'center',
+                                  py: 2,
+                                  px: 3,
+                                  backgroundColor: isSelected ? categoryData.color : 'transparent',
+                                  borderColor: categoryData.color,
+                                  color: isSelected ? 'white' : categoryData.color,
+                                  '&:hover': {
+                                    backgroundColor: isSelected ? categoryData.color + 'dd' : categoryData.color + '10',
+                                  },
+                                }}
+                              >
+                                <Box
+                                  sx={{
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: '50%',
+                                    backgroundColor: isSelected ? 'white' : 'transparent',
+                                    color: isSelected ? categoryData.color : 'inherit',
+                                    border: !isSelected ? `2px solid ${categoryData.color}` : 'none',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontWeight: 'bold',
+                                    fontSize: '1.3rem',
+                                    flexShrink: 0,
+                                  }}
+                                >
+                                  {optionLetter}
+                                </Box>
+                              </Button>
+                            );
+                          })}
+                        </Stack>
+                      </Box>
+                    </Box>
+
+                    {/* Navigation buttons */}
+                    <Stack direction="row" spacing={{ xs: 1, md: 2 }} justifyContent="space-between">
+                      <Button
+                        variant="outlined"
+                        startIcon={<NavigateBefore />}
+                        onClick={handlePrevQuestion}
+                        disabled={currentQuestion === 1}
+                        size="medium"
+                        sx={{
+                          color: categoryData.color,
+                          borderColor: categoryData.color,
+                          fontSize: { xs: '0.8rem', md: '0.875rem' },
+                          px: { xs: 1, md: 2 },
+                        }}
+                      >
+                        <Box sx={{ display: { xs: 'none', sm: 'inline' } }}>Câu trước</Box>
+                        <Box sx={{ display: { xs: 'inline', sm: 'none' } }}>Trước</Box>
+                      </Button>
+
+                      {currentQuestion === testData.questions.length ? (
+                        <Button
+                          variant="contained"
+                          startIcon={<Flag />}
+                          onClick={handleFinishTest}
+                          size="medium"
                           sx={{
-                            width: 60,
-                            height: 60,
-                            borderRadius: '50%',
-                            backgroundColor: isSelected ? 'white' : 'transparent',
-                            color: isSelected ? categoryData.color : 'inherit',
-                            border: !isSelected ? `3px solid ${categoryData.color}` : 'none',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 'bold',
-                            fontSize: '1.5rem',
-                            flexShrink: 0,
+                            backgroundColor: '#f44336',
+                            fontSize: { xs: '0.8rem', md: '0.875rem' },
+                            px: { xs: 1, md: 2 },
                           }}
                         >
-                          {optionLetter}
-                        </Box>
-                      </Button>
-                    );
-                  })}
-                </Stack>
-
-                {/* Navigation buttons */}
-                <Stack direction="row" spacing={2} justifyContent="space-between">
-                  <Button
-                    variant="outlined"
-                    startIcon={<NavigateBefore />}
-                    onClick={handlePrevQuestion}
-                    disabled={currentQuestion === 1}
-                    sx={{ color: categoryData.color, borderColor: categoryData.color }}
-                  >
-                    Câu trước
-                  </Button>
-
-                  {currentQuestion === testData.questions.length ? (
-                    <Button
-                      variant="contained"
-                      startIcon={<Flag />}
-                      onClick={handleFinishTest}
-                      sx={{ backgroundColor: '#f44336' }}
-                    >
-                      Nộp bài
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      endIcon={<NavigateNext />}
-                      onClick={handleNextQuestion}
-                      sx={{ backgroundColor: categoryData.color }}
-                    >
-                      Câu tiếp
-                    </Button>
-                  )}
-                </Stack>
+                          Nộp bài
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          endIcon={<NavigateNext />}
+                          onClick={handleNextQuestion}
+                          size="medium"
+                          sx={{
+                            backgroundColor: categoryData.color,
+                            fontSize: { xs: '0.8rem', md: '0.875rem' },
+                            px: { xs: 1, md: 2 },
+                          }}
+                        >
+                          <Box sx={{ display: { xs: 'none', sm: 'inline' } }}>Câu tiếp</Box>
+                          <Box sx={{ display: { xs: 'inline', sm: 'none' } }}>Tiếp</Box>
+                        </Button>
+                      )}
+                    </Stack>
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
 
         {/* Dialog kết thúc test */}
-        <Dialog open={showFinishDialog} maxWidth="sm" fullWidth>
-          <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
-            <CheckCircle sx={{ fontSize: 60, color: '#4caf50', mb: 2 }} />
-            <Typography component="div" variant="h5" sx={{ fontWeight: 600 }}>
+        <Dialog
+          open={showFinishDialog}
+          maxWidth="sm"
+          fullWidth
+          PaperProps={{
+            sx: {
+              m: { xs: 2, sm: 3 },
+              width: { xs: 'calc(100% - 32px)', sm: 'auto' },
+            },
+          }}
+        >
+          <DialogTitle sx={{ textAlign: 'center', pb: 1, px: { xs: 2, sm: 3 } }}>
+            <CheckCircle sx={{ fontSize: { xs: 50, md: 60 }, color: '#4caf50', mb: 2 }} />
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{
+                fontWeight: 600,
+                fontSize: { xs: '1.3rem', md: '1.5rem' },
+              }}
+            >
               Hoàn thành bài test!
             </Typography>
           </DialogTitle>
 
-          <DialogContent sx={{ textAlign: 'center' }}>
-            <Typography variant="body1" sx={{ mb: 2 }}>
+          <DialogContent sx={{ textAlign: 'center', px: { xs: 2, sm: 3 } }}>
+            <Typography
+              variant="body1"
+              sx={{
+                mb: 2,
+                fontSize: { xs: '0.9rem', md: '1rem' },
+              }}
+            >
               Bạn đã hoàn thành <strong>{testData.testInfo.title}</strong>
             </Typography>
-            <Stack direction="row" justifyContent="center" spacing={2} sx={{ mb: 2 }}>
-              <Chip label={`${answeredCount}/${testData.questions.length} câu`} color="primary" />
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="center" spacing={2} sx={{ mb: 2 }}>
+              <Chip label={`${answeredCount}/${testData.questions.length} câu`} color="primary" size="medium" />
               <Chip
                 label={formatTime(Math.max(0, parseInt(testData.testInfo.duration.split(' ')[0]) * 60 - timeLeft))}
                 color="secondary"
+                size="medium"
               />
             </Stack>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
               Kết quả sẽ được hiển thị sau khi xem lại đáp án
             </Typography>
           </DialogContent>
 
-          <DialogActions sx={{ justifyContent: 'center', pb: 3 }}>
-            <Button variant="outlined" startIcon={<Cancel />} component={Link} href="/practice/part1">
+          <DialogActions
+            sx={{
+              justifyContent: 'center',
+              pb: 3,
+              px: { xs: 2, sm: 3 },
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: { xs: 1, sm: 2 },
+            }}
+          >
+            <Button
+              variant="outlined"
+              startIcon={<Cancel />}
+              component={Link}
+              href="/practice/part1"
+              size="medium"
+              sx={{
+                order: { xs: 2, sm: 1 },
+                width: { xs: '100%', sm: 'auto' },
+                fontSize: { xs: '0.8rem', md: '0.875rem' },
+              }}
+            >
               Về trang chủ
             </Button>
             <Button
               variant="contained"
               startIcon={<CheckCircle />}
+              size="medium"
               onClick={() => {
                 // Lưu answers vào sessionStorage
                 sessionStorage.setItem(`test_answers_${category}_${testId}`, JSON.stringify(answers));
@@ -689,9 +893,136 @@ function TestContent() {
                 // Chuyển hướng đến results page
                 window.location.href = `/practice/part1/${category}/results?testId=${testId}`;
               }}
-              sx={{ backgroundColor: categoryData.color }}
+              sx={{
+                backgroundColor: categoryData.color,
+                order: { xs: 1, sm: 2 },
+                width: { xs: '100%', sm: 'auto' },
+                fontSize: { xs: '0.8rem', md: '0.875rem' },
+              }}
             >
               Xem kết quả
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* Dialog bắt đầu làm bài */}
+        <Dialog 
+          open={showStartDialog}
+          maxWidth="sm"
+          fullWidth
+          disableEscapeKeyDown
+          PaperProps={{
+            sx: {
+              m: { xs: 2, sm: 3 },
+              width: { xs: 'calc(100% - 32px)', sm: 'auto' }
+            }
+          }}
+          BackdropProps={{
+            sx: {
+              backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            }
+          }}
+        >
+          <DialogTitle sx={{ textAlign: 'center', pb: 1, px: { xs: 2, sm: 3 } }}>
+            <Typography 
+              component="div" 
+              variant="h5" 
+              sx={{ 
+                fontWeight: 600,
+                fontSize: { xs: '1.3rem', md: '1.5rem' },
+                color: categoryData?.color || '#1976d2'
+              }}
+            >
+              🚀 Sẵn sàng làm bài?
+            </Typography>
+          </DialogTitle>
+
+          <DialogContent sx={{ textAlign: 'center', px: { xs: 2, sm: 3 } }}>
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                mb: 2,
+                fontSize: { xs: '0.9rem', md: '1rem' }
+              }}
+            >
+              Bạn sắp bắt đầu <strong>{testData?.testInfo.title}</strong>
+            </Typography>
+            
+            <Stack 
+              direction={{ xs: 'column', sm: 'row' }} 
+              justifyContent="center" 
+              spacing={2} 
+              sx={{ mb: 3 }}
+            >
+              <Chip 
+                label={`${testData?.testInfo.questions} câu hỏi`}
+                color="primary"
+                size="medium"
+                sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}
+              />
+              <Chip
+                label={testData?.testInfo.duration || '15 phút'}
+                color="secondary"
+                size="medium"
+                sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}
+              />
+              <Chip
+                label={testData?.testInfo.difficulty || 'Trung bình'}
+                sx={{ 
+                  backgroundColor: getDifficultyColor(testData?.testInfo.difficulty || '') + '20',
+                  color: getDifficultyColor(testData?.testInfo.difficulty || ''),
+                  fontSize: { xs: '0.8rem', md: '0.875rem' }
+                }}
+                size="medium"
+              />
+            </Stack>
+
+            <Typography 
+              variant="body2" 
+              color="text.secondary"
+              sx={{ 
+                fontSize: { xs: '0.8rem', md: '0.875rem' },
+                mb: 2
+              }}
+            >
+              📢 Sau khi bấm &ldquo;Bắt đầu&rdquo;, đồng hồ sẽ chạy và audio câu đầu tiên sẽ tự động phát.
+            </Typography>
+
+            <Typography 
+              variant="body2" 
+              color="text.secondary"
+              sx={{ 
+                fontSize: { xs: '0.75rem', md: '0.8rem' },
+                fontStyle: 'italic'
+              }}
+            >
+              💡 Hãy chuẩn bị tai nghe và tìm một không gian yên tĩnh để làm bài tốt nhất.
+            </Typography>
+          </DialogContent>
+
+          <DialogActions 
+            sx={{ 
+              justifyContent: 'center', 
+              pb: 3,
+              px: { xs: 2, sm: 3 }
+            }}
+          >
+            <Button
+              variant="contained"
+              size="large"
+              onClick={handleStartTest}
+              sx={{ 
+                backgroundColor: categoryData?.color || '#1976d2',
+                minWidth: 200,
+                py: 1.5,
+                fontSize: { xs: '0.9rem', md: '1rem' },
+                fontWeight: 600,
+                '&:hover': {
+                  backgroundColor: (categoryData?.color || '#1976d2') + 'dd',
+                }
+              }}
+            >
+              🚀 Bắt đầu làm bài
             </Button>
           </DialogActions>
         </Dialog>
