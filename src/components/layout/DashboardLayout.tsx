@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Drawer,
@@ -28,7 +28,6 @@ import {
   ExpandLess,
   ExpandMore,
   PlayArrow,
-  Home,
   ChevronRight,
 } from '@mui/icons-material';
 import { useRouter, usePathname } from 'next/navigation';
@@ -84,6 +83,32 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  // Khởi tạo state cho mobile khi component mount và reset collapse state
+  useEffect(() => {
+    if (isMobile) {
+      setSidebarCollapsed(false); // Reset collapse state trên mobile
+      setOpenMenus(prev => ({
+        ...prev,
+        practice: true
+      }));
+    }
+  }, [isMobile]);
+
+  // Tự động đóng tất cả submenu khi sidebar collapse (chỉ cho desktop)
+  useEffect(() => {
+    if (!isMobile) {
+      if (sidebarCollapsed) {
+        setOpenMenus({});
+      } else {
+        // Mở lại practice menu khi expand
+        setOpenMenus(prev => ({
+          ...prev,
+          practice: true
+        }));
+      }
+    }
+  }, [sidebarCollapsed, isMobile]);
+
   const handleDrawerToggle = () => {
     if (isMobile) {
       setMobileOpen(!mobileOpen);
@@ -93,11 +118,27 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   };
 
   const handleMenuClick = (item: MenuItem) => {
-    if (item.children && !sidebarCollapsed) {
-      setOpenMenus(prev => ({
-        ...prev,
-        [item.id]: !prev[item.id]
-      }));
+    if (item.children) {
+      if (isMobile && item.id === 'practice') {
+        // Mobile: Practice menu luôn mở, không cho phép đóng
+        return;
+      } else if (sidebarCollapsed && !isMobile) {
+        // Desktop collapsed: expand sidebar để hiển thị submenu
+        setSidebarCollapsed(false);
+        // Set menu mở ngay lập tức (sẽ được xử lý trong useEffect)
+        setTimeout(() => {
+          setOpenMenus(prev => ({
+            ...prev,
+            [item.id]: true
+          }));
+        }, 100);
+      } else {
+        // Logic bình thường cho desktop không collapsed
+        setOpenMenus(prev => ({
+          ...prev,
+          [item.id]: !prev[item.id]
+        }));
+      }
     } else if (item.path) {
       router.push(item.path);
       if (isMobile) {
@@ -187,7 +228,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           disablePadding 
           sx={{ 
             pl: level * 2,
-            display: 'block'
+            display: 'block',
+            position: 'relative'
           }}
         >
           <ListItemButton
@@ -226,22 +268,88 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               <>
                 <ListItemText 
                   primary={item.label}
-                  sx={{ opacity: sidebarCollapsed ? 0 : 1 }}
+                  sx={{ 
+                    opacity: 1,
+                    transition: theme.transitions.create('opacity', {
+                      easing: theme.transitions.easing.sharp,
+                      duration: theme.transitions.duration.enteringScreen,
+                      delay: 200, // Delay lâu hơn để width animation chạy xong
+                    }),
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden'
+                  }}
                 />
                 {hasChildren && (
-                  isOpen ? <ExpandLess /> : <ExpandMore />
+                  <Box sx={{
+                    opacity: 1,
+                    transition: theme.transitions.create('opacity', {
+                      easing: theme.transitions.easing.sharp,
+                      duration: theme.transitions.duration.enteringScreen,
+                      delay: 200,
+                    })
+                  }}>
+                    {/* Mobile: Practice menu luôn hiển thị ExpandLess */}
+                    {isMobile && item.id === 'practice' ? (
+                      <ExpandLess />
+                    ) : (
+                      isOpen ? <ExpandLess /> : <ExpandMore />
+                    )}
+                  </Box>
                 )}
               </>
             )}
           </ListItemButton>
         </ListItem>
 
-        {hasChildren && !sidebarCollapsed && (
-          <Collapse in={isOpen} timeout="auto" unmountOnExit>
+        {hasChildren && (
+          <Collapse 
+            in={isOpen && (isMobile || !sidebarCollapsed)} 
+            timeout={!isMobile && sidebarCollapsed ? 0 : 200} 
+            unmountOnExit
+          >
             <List component="div" disablePadding>
               {item.children!.map(child => renderMenuItem(child, level + 1))}
             </List>
           </Collapse>
+        )}
+        
+        {/* Hiển thị submenu dạng tooltip khi collapsed (chỉ desktop) */}
+        {hasChildren && sidebarCollapsed && isOpen && !isMobile && (
+          <Box
+            sx={{
+              position: 'absolute',
+              left: DRAWER_WIDTH_COLLAPSED,
+              top: 0,
+              minWidth: 200,
+              backgroundColor: 'white',
+              boxShadow: theme.shadows[8],
+              borderRadius: 1,
+              zIndex: 1300,
+              border: `1px solid ${theme.palette.divider}`,
+            }}
+          >
+            <List component="div" disablePadding>
+              {item.children!.map(child => (
+                <ListItem key={child.id} disablePadding>
+                  <ListItemButton
+                    onClick={() => handleMenuClick(child)}
+                    sx={{
+                      px: 2,
+                      py: 1,
+                      '&:hover': {
+                        backgroundColor: 'primary.light',
+                      }
+                    }}
+                  >
+                    <ListItemIcon sx={{ minWidth: 32 }}>
+                      {child.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={child.label} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
         )}
       </React.Fragment>
     );
@@ -268,10 +376,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             fontWeight: 'bold', 
             color: 'white',
             textAlign: 'center',
-            fontSize: { xs: '16px', md: '20px' }
+            fontSize: { xs: '16px', md: '20px' },
+            overflow: 'hidden',
+            whiteSpace: 'nowrap'
           }}
         >
-          {sidebarCollapsed ? 'K' : 'Ken TOEIC'}
+          Ken TOEIC
         </Typography>
       </Toolbar>
       
@@ -424,8 +534,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               width: drawerWidth,
               borderRight: `1px solid ${theme.palette.divider}`,
               transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
+                easing: theme.transitions.easing.easeInOut,
+                duration: theme.transitions.duration.standard,
               }),
               overflowX: 'hidden',
             },
@@ -446,8 +556,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           backgroundColor: '#f5f5f5',
           minHeight: { xs: 'calc(100vh - 80px)', md: 'calc(100vh - 112px)' },
           transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.easeInOut,
+            duration: theme.transitions.duration.standard,
           }),
         }}
       >

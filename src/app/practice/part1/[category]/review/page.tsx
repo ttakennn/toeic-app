@@ -25,7 +25,7 @@ import {
   ArrowBack,
   Error as ErrorIcon,
 } from '@mui/icons-material';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -108,6 +108,7 @@ function ReviewContent() {
   const router = useRouter();
   const category = params.category as string;
   const testId = parseInt(searchParams.get('testId') || '1');
+  const initialQuestionId = parseInt(searchParams.get('questionId') || '1');
 
   // API States
   const [testData, setTestData] = useState<TestData | null>(null);
@@ -116,9 +117,14 @@ function ReviewContent() {
   const [error, setError] = useState<string | null>(null);
 
   // Review States
-  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(initialQuestionId);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+  const [showNavButtons, setShowNavButtons] = useState(true);
+  
+  // Scroll tracking refs
+  const lastScrollY = useRef(0);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Navigation handler
   const handleBackToResults = () => {
@@ -207,6 +213,91 @@ function ReviewContent() {
     }
   }, [category, testId]);
 
+  // Validate and set initial question based on URL questionId after testData loads
+  useEffect(() => {
+    if (testData && testData.questions.length > 0) {
+      // Validate initialQuestionId is within valid range
+      if (initialQuestionId >= 1 && initialQuestionId <= testData.questions.length) {
+        setCurrentQuestion(initialQuestionId);
+      } else {
+        // If invalid questionId, default to 1
+        console.warn(`Invalid questionId: ${initialQuestionId}. Defaulting to question 1.`);
+        setCurrentQuestion(1);
+      }
+    }
+  }, [testData, initialQuestionId]);
+
+  // Scroll detection for mobile nav buttons
+  useEffect(() => {
+    let isScrolling = false;
+    
+    const handleScroll = () => {
+      if (isScrolling) return;
+      isScrolling = true;
+      
+      requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        
+        // Clear existing timeout
+        if (scrollTimeout.current) {
+          clearTimeout(scrollTimeout.current);
+        }
+        
+        // Only trigger if significant scroll difference
+        const scrollDiff = Math.abs(currentScrollY - lastScrollY.current);
+        if (scrollDiff > 5) {
+          // Determine scroll direction
+          if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+            // Scrolling down - hide buttons
+            setShowNavButtons(false);
+          } else if (currentScrollY < lastScrollY.current) {
+            // Scrolling up - show buttons
+            setShowNavButtons(true);
+          }
+          
+          lastScrollY.current = currentScrollY;
+        }
+        
+        // Auto show buttons after scroll stops
+        scrollTimeout.current = setTimeout(() => {
+          setShowNavButtons(true);
+        }, 1500);
+        
+        isScrolling = false;
+      });
+    };
+
+    // Always add scroll listener (responsive check inside)
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    
+    const updateScrollListener = () => {
+      if (mediaQuery.matches) {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        // Reset state when switching to mobile
+        setShowNavButtons(true);
+        lastScrollY.current = 0;
+      } else {
+        window.removeEventListener('scroll', handleScroll);
+        // Always show on desktop
+        setShowNavButtons(true);
+      }
+    };
+
+    // Initial setup
+    updateScrollListener();
+    
+    // Listen for viewport changes
+    mediaQuery.addEventListener('change', updateScrollListener);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      mediaQuery.removeEventListener('change', updateScrollListener);
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+    };
+  }, []); // Empty dependency array is correct here
+
   const handleNextQuestion = () => {
     // Stop current audio when changing questions
     if (audioElement) {
@@ -214,7 +305,23 @@ function ReviewContent() {
       setIsPlaying(false);
     }
     if (testData && currentQuestion < testData.questions.length) {
-      setCurrentQuestion(currentQuestion + 1);
+      const nextQuestion = currentQuestion + 1;
+      setCurrentQuestion(nextQuestion);
+      // Update URL to reflect current question
+      router.replace(`/practice/part1/${category}/review?testId=${testId}&questionId=${nextQuestion}`);
+      
+      // Temporarily show nav buttons after navigation
+      setShowNavButtons(true);
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+      scrollTimeout.current = setTimeout(() => {
+        // Only hide if we're on mobile and user is not actively scrolling
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        if (mediaQuery.matches && window.scrollY > 80) {
+          setShowNavButtons(false);
+        }
+      }, 3000);
     }
   };
 
@@ -225,7 +332,23 @@ function ReviewContent() {
       setIsPlaying(false);
     }
     if (currentQuestion > 1) {
-      setCurrentQuestion(currentQuestion - 1);
+      const prevQuestion = currentQuestion - 1;
+      setCurrentQuestion(prevQuestion);
+      // Update URL to reflect current question
+      router.replace(`/practice/part1/${category}/review?testId=${testId}&questionId=${prevQuestion}`);
+      
+      // Temporarily show nav buttons after navigation
+      setShowNavButtons(true);
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+      scrollTimeout.current = setTimeout(() => {
+        // Only hide if we're on mobile and user is not actively scrolling
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        if (mediaQuery.matches && window.scrollY > 80) {
+          setShowNavButtons(false);
+        }
+      }, 3000);
     }
   };
 
@@ -303,20 +426,20 @@ function ReviewContent() {
     <DashboardLayout>
       <Box>
         {/* Header */}
-        <Stack direction="row" alignItems="center" sx={{ mb: 4 }}>
+        <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} sx={{ mb: { xs: 3, md: 4 } }} spacing={{ xs: 1.5, md: 0 }}>
           <Button
             startIcon={<ArrowBack />}
             onClick={handleBackToResults}
-            sx={{ mr: 2, color: categoryData.color }}
+            sx={{ mr: { xs: 0, md: 2 }, mb: { xs: 1, md: 0 }, color: categoryData.color, fontSize: { xs: '0.875rem', md: '1rem' } }}
           >
             Về kết quả
           </Button>
 
           <Box sx={{ flex: 1 }}>
-            <Typography variant="h5" sx={{ fontWeight: 600, color: categoryData.color, mb: 1 }}>
+            <Typography variant="h5" sx={{ fontWeight: 600, color: categoryData.color, mb: 1, fontSize: { xs: '1.125rem', md: '1.5rem' } }}>
               {getCategoryEmoji(category)} Ôn tập - {testData.testInfo.title}
             </Typography>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} flexWrap="wrap">
               <Chip
                 label={testData.testInfo.difficulty}
                 size="small"
@@ -324,6 +447,7 @@ function ReviewContent() {
                   backgroundColor: getDifficultyColor(testData.testInfo.difficulty) + '20',
                   color: getDifficultyColor(testData.testInfo.difficulty),
                   fontWeight: 'medium',
+                  fontSize: { xs: '0.7rem', md: '0.75rem' },
                 }}
               />
               <Chip
@@ -333,19 +457,20 @@ function ReviewContent() {
                   backgroundColor: categoryData.color + '20',
                   color: categoryData.color,
                   fontWeight: 'medium',
+                  fontSize: { xs: '0.7rem', md: '0.75rem' },
                 }}
               />
             </Stack>
           </Box>
 
-          <Box sx={{ textAlign: 'right' }}>
-            <Typography variant="h6" sx={{ color: categoryData.color }}>
+          <Box sx={{ textAlign: { xs: 'left', md: 'right' } }}>
+            <Typography variant="h6" sx={{ color: categoryData.color, fontSize: { xs: '1rem', md: '1.25rem' }, mt: { xs: 0.5, md: 0 } }}>
               Câu {currentQuestion}/{testData.questions.length}
             </Typography>
           </Box>
         </Stack>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, md: 4 }}>
           {/* Phần hình ảnh và audio */}
           <Grid size={{ xs: 12, md: 6 }}>
             <Card sx={{ height: '100%' }}>
@@ -361,8 +486,8 @@ function ReviewContent() {
                     textAlign: 'center',
                     border: '2px dashed #ddd',
                     borderRadius: 2,
-                    p: 2,
-                    minHeight: 400,
+                    p: { xs: 1, md: 2 },
+                    minHeight: { xs: 300, md: 400 },
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -374,7 +499,7 @@ function ReviewContent() {
                     alt={`Question ${currentQuestion}`}
                     sx={{
                       maxWidth: '100%',
-                      maxHeight: 380,
+                      maxHeight: { xs: 280, md: 380 },
                       objectFit: 'contain',
                     }}
                   />
@@ -384,6 +509,7 @@ function ReviewContent() {
                 <Box sx={{ textAlign: 'center' }}>
                   <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 2 }}>
                     <IconButton
+                      size="small"
                       onClick={() => {
                         if (audioElement) {
                           audioElement.currentTime = Math.max(0, audioElement.currentTime - 5);
@@ -398,7 +524,7 @@ function ReviewContent() {
                       }}
                       disabled={!audioElement}
                     >
-                      <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>-5s</Typography>
+                      <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>-5s</Typography>
                     </IconButton>
 
                     <IconButton
@@ -406,17 +532,18 @@ function ReviewContent() {
                       sx={{
                         backgroundColor: categoryData.color,
                         color: 'white',
-                        width: 80,
-                        height: 80,
+                        width: { xs: 56, md: 80 },
+                        height: { xs: 56, md: 80 },
                         '&:hover': {
                           backgroundColor: categoryData.color + 'dd',
                         },
                       }}
                     >
-                      {isPlaying ? <Pause sx={{ fontSize: 40 }} /> : <PlayArrow sx={{ fontSize: 40 }} />}
+                      {isPlaying ? <Pause sx={{ fontSize: { xs: 28, md: 40 } }} /> : <PlayArrow sx={{ fontSize: { xs: 28, md: 40 } }} />}
                     </IconButton>
 
                     <IconButton
+                      size="small"
                       onClick={() => {
                         if (audioElement) {
                           audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 5);
@@ -431,11 +558,11 @@ function ReviewContent() {
                       }}
                       disabled={!audioElement}
                     >
-                      <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>+5s</Typography>
+                      <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>+5s</Typography>
                     </IconButton>
                   </Stack>
 
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                     <VolumeUp sx={{ mr: 0.5, verticalAlign: 'middle', fontSize: 16 }} />
                     {isPlaying ? 'Đang phát...' : 'Click để nghe audio'}
                   </Typography>
@@ -458,7 +585,7 @@ function ReviewContent() {
                     📝 Các lựa chọn
                   </Typography>
 
-                  <Stack spacing={2}>
+                  <Stack spacing={{ xs: 1.5, md: 2 }}>
                     {currentQuestionData?.options.map((option: string, index: number) => {
                       const optionLetter = String.fromCharCode(65 + index);
                       const isCorrect = optionLetter === currentQuestionData.correctAnswer;
@@ -467,7 +594,7 @@ function ReviewContent() {
                         <Paper
                           key={option}
                           sx={{
-                            p: 2,
+                            p: { xs: 1.5, md: 2 },
                             border: isCorrect ? `2px solid #4caf50` : `1px solid #ddd`,
                             backgroundColor: isCorrect ? '#e8f5e9' : 'white',
                             borderRadius: 2,
@@ -476,8 +603,8 @@ function ReviewContent() {
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Box
                               sx={{
-                                width: 32,
-                                height: 32,
+                                width: { xs: 28, md: 32 },
+                                height: { xs: 28, md: 32 },
                                 borderRadius: '50%',
                                 backgroundColor: isCorrect ? '#4caf50' : '#e0e0e0',
                                 color: isCorrect ? 'white' : 'black',
@@ -494,6 +621,7 @@ function ReviewContent() {
                               sx={{
                                 flex: 1,
                                 fontWeight: isCorrect ? 'medium' : 'normal',
+                                fontSize: { xs: '0.95rem', md: '1rem' }
                               }}
                             >
                               {option}
@@ -520,7 +648,7 @@ function ReviewContent() {
                     </Typography>
                   </Alert>
 
-                  <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.6 }}>
+                  <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.6, fontSize: { xs: '0.95rem', md: '1rem' } }}>
                     {currentQuestionData?.explanation}
                   </Typography>
 
@@ -538,7 +666,7 @@ function ReviewContent() {
                           borderRadius: 2,
                         }}
                       >
-                        <Typography variant="body1" sx={{ lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                        <Typography variant="body1" sx={{ lineHeight: 1.6, whiteSpace: 'pre-line', fontSize: { xs: '0.95rem', md: '1rem' } }}>
                           {currentQuestionData.transcript}
                         </Typography>
                       </Paper>
@@ -578,8 +706,13 @@ function ReviewContent() {
                 </CardContent>
               </Card>
 
-              {/* Navigation */}
-              <Stack direction="row" spacing={2} justifyContent="space-between">
+              {/* Navigation - Desktop only */}
+              <Stack 
+                direction="row" 
+                spacing={2} 
+                justifyContent="space-between"
+                sx={{ display: { xs: 'none', md: 'flex' } }}
+              >
                 <Button
                   variant="outlined"
                   startIcon={<NavigateBefore />}
@@ -613,6 +746,86 @@ function ReviewContent() {
             </Stack>
           </Grid>
         </Grid>
+
+        {/* Fixed Navigation for Mobile */}
+        <Box
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'white',
+            borderTop: '1px solid #e0e0e0',
+            p: 2,
+            zIndex: 1000,
+            transform: showNavButtons ? 'translateY(0)' : 'translateY(100%)',
+            transition: 'transform 0.3s ease-in-out',
+            boxShadow: '0 -2px 8px rgba(0,0,0,0.1)',
+          }}
+        >
+          <Stack direction="row" spacing={2} justifyContent="space-between">
+            <Button
+              variant="outlined"
+              startIcon={<NavigateBefore />}
+              onClick={handlePrevQuestion}
+              disabled={currentQuestion === 1}
+              sx={{
+                flex: 1,
+                color: categoryData.color,
+                borderColor: categoryData.color,
+                fontSize: '0.9rem',
+                py: 1.25,
+                '&:disabled': {
+                  opacity: 0.5,
+                  borderColor: '#ccc',
+                  color: '#ccc',
+                },
+              }}
+            >
+              Câu trước
+            </Button>
+
+            {currentQuestion === testData.questions.length ? (
+              <Button
+                variant="contained"
+                component={Link}
+                href="/practice/part1"
+                sx={{
+                  flex: 1,
+                  backgroundColor: categoryData.color,
+                  fontSize: '0.9rem',
+                  py: 1.25,
+                  '&:hover': {
+                    backgroundColor: categoryData.color + 'dd',
+                  },
+                }}
+              >
+                Hoàn thành
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                endIcon={<NavigateNext />}
+                onClick={handleNextQuestion}
+                sx={{
+                  flex: 1,
+                  backgroundColor: categoryData.color,
+                  fontSize: '0.9rem',
+                  py: 1.25,
+                  '&:hover': {
+                    backgroundColor: categoryData.color + 'dd',
+                  },
+                }}
+              >
+                Câu tiếp
+              </Button>
+            )}
+          </Stack>
+        </Box>
+
+        {/* Add padding bottom to prevent content being hidden behind fixed nav */}
+        <Box sx={{ display: { xs: 'block', md: 'none' }, height: 80 }} />
       </Box>
     </DashboardLayout>
   );

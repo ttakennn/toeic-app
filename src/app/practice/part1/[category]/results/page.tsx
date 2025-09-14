@@ -14,20 +14,11 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Divider,
   Alert,
   CircularProgress,
 } from '@mui/material';
-import {
-  CheckCircle,
-  Cancel,
-  Home,
-  Refresh,
-  TrendingUp,
-  Error as ErrorIcon,
-} from '@mui/icons-material';
+import { CheckCircle, Cancel, Home, Refresh, TrendingUp, Error as ErrorIcon } from '@mui/icons-material';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -91,7 +82,6 @@ const getCategoryEmoji = (categoryId: string) => {
   }
 };
 
-
 function ResultsContent() {
   const searchParams = useSearchParams();
   const params = useParams();
@@ -115,7 +105,7 @@ function ResultsContent() {
     // Save current results to sessionStorage for review page
     sessionStorage.setItem(`test_answers_${category}_${testId}`, JSON.stringify(userAnswers));
     sessionStorage.setItem(`test_time_spent_${category}_${testId}`, timeSpent.toString());
-    
+
     // Navigate to review page with specific question
     router.push(`/practice/part1/${category}/review?testId=${testId}&questionId=${questionId}`);
   };
@@ -295,35 +285,44 @@ function ResultsContent() {
             color: 'white',
           }}
         >
-          <CardContent sx={{ p: 4 }}>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
+          <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
+            <Stack
+              direction={{ xs: 'column', md: 'row' }}
+              alignItems={{ xs: 'flex-start', md: 'center' }}
+              justifyContent="space-between"
+              sx={{ mb: { xs: 2, md: 3 } }}
+              spacing={{ xs: 1.25, md: 0 }}
+            >
               <Box>
-                <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
+                <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1, fontSize: { xs: '1.5rem', md: '2.125rem' } }}>
                   {getCategoryEmoji(category)} Kết quả bài test
                 </Typography>
-                <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                <Typography variant="h6" sx={{ opacity: 0.9, fontSize: { xs: '1rem', md: '1.25rem' } }}>
                   {testData.testInfo.title}
                 </Typography>
               </Box>
-              <Box sx={{ textAlign: 'right' }}>
-                <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+              <Box sx={{ textAlign: { xs: 'left', md: 'right' } }}>
+                <Typography
+                  variant="h2"
+                  sx={{ fontWeight: 'bold', lineHeight: 1, fontSize: { xs: '2.25rem', md: '3.75rem' } }}
+                >
                   {score}%
                 </Typography>
-                <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                <Typography variant="h6" sx={{ opacity: 0.9, fontSize: { xs: '0.95rem', md: '1.25rem' } }}>
                   {correctCount}/{testData.questions.length} câu đúng
                 </Typography>
               </Box>
             </Stack>
 
             <Box sx={{ mb: 3 }}>
-              <Typography variant="h5" sx={{ mb: 1, fontWeight: 'medium' }}>
+              <Typography variant="h5" sx={{ mb: 1, fontWeight: 'medium', fontSize: { xs: '1.1rem', md: '1.5rem' } }}>
                 {scoreMessage.message}
               </Typography>
               <LinearProgress
                 variant="determinate"
                 value={score}
                 sx={{
-                  height: 12,
+                  height: { xs: 10, md: 12 },
                   borderRadius: 6,
                   backgroundColor: 'rgba(255,255,255,0.3)',
                   '& .MuiLinearProgress-bar': {
@@ -334,13 +333,14 @@ function ResultsContent() {
               />
             </Box>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
               <Chip
                 label={testData.testInfo.difficulty}
                 sx={{
                   backgroundColor: 'rgba(255,255,255,0.2)',
                   color: 'white',
                   fontWeight: 'medium',
+                  fontSize: { xs: '0.75rem', md: '0.875rem' },
                 }}
               />
               <Chip
@@ -349,6 +349,7 @@ function ResultsContent() {
                   backgroundColor: 'rgba(255,255,255,0.2)',
                   color: 'white',
                   fontWeight: 'medium',
+                  fontSize: { xs: '0.75rem', md: '0.875rem' },
                 }}
               />
               <Chip
@@ -357,15 +358,16 @@ function ResultsContent() {
                   backgroundColor: 'rgba(255,255,255,0.2)',
                   color: 'white',
                   fontWeight: 'medium',
+                  fontSize: { xs: '0.75rem', md: '0.875rem' },
                 }}
               />
             </Stack>
           </CardContent>
         </Card>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, md: 4 }}>
           {/* Chi tiết từng câu hỏi */}
-          <Grid size={{ xs: 12, md: 8 }}>
+          <Grid size={{ xs: 12, md: 8 }} order={{ xs: 1, md: 1 }}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: categoryData.color, fontWeight: 600 }}>
@@ -376,66 +378,89 @@ function ResultsContent() {
                   {testData.questions.map((question, index) => {
                     const userAnswer = userAnswers[question.id];
                     const isCorrect = userAnswer === question.correctAnswer;
-                    
-                    // Convert letter answer back to full option text for display
-                    const getUserAnswerText = () => {
-                      if (!userAnswer) return 'Không trả lời';
-                      const optionIndex = userAnswer.charCodeAt(0) - 65; // Convert A,B,C,D to 0,1,2,3
-                      return question.options[optionIndex] || userAnswer;
-                    };
-                    
-                    const getCorrectAnswerText = () => {
-                      const optionIndex = question.correctAnswer.charCodeAt(0) - 65;
-                      return question.options[optionIndex] || question.correctAnswer;
-                    };
 
                     return (
                       <Box key={question.id}>
-                        <ListItem sx={{ px: 0 }}>
-                          <ListItemButton 
-                            sx={{ borderRadius: 2 }}
+                        <ListItem sx={{ px: 0, display: 'block' }}>
+                          <ListItemButton
+                            sx={{
+                              borderRadius: 2,
+                              py: { xs: 2, md: 1.5 },
+                              px: { xs: 2, md: 2 },
+                              display: 'block',
+                            }}
                             onClick={() => handleQuestionClick(question.id)}
                           >
-                            <ListItemIcon>
-                              {isCorrect ? (
-                                <CheckCircle sx={{ color: '#4caf50', fontSize: 28 }} />
-                              ) : (
-                                <Cancel sx={{ color: '#f44336', fontSize: 28 }} />
-                              )}
-                            </ListItemIcon>
-                            <ListItemText
-                              primary={
-                                <Stack direction="row" alignItems="center" spacing={1}>
-                                  <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
-                                    Câu {question.id}
-                                  </Typography>
-                                  <Chip
-                                    label={question.theme}
-                                    size="small"
+                            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                              {/* Icon */}
+                              <Box sx={{ mr: 2, mt: 0.25 }}>
+                                {isCorrect ? (
+                                  <CheckCircle sx={{ color: '#4caf50', fontSize: { xs: 20, md: 24 } }} />
+                                ) : (
+                                  <Cancel sx={{ color: '#f44336', fontSize: { xs: 20, md: 24 } }} />
+                                )}
+                              </Box>
+
+                              <Box sx={{ flex: 1, minWidth: 0 }}>
+                                {/* Row 1: Câu X: Theme */}
+                                <Box sx={{ mb: { xs: 0.75, md: 0.5 } }}>
+                                  <Typography
+                                    variant="subtitle1"
                                     sx={{
-                                      backgroundColor: categoryData.color + '20',
-                                      color: categoryData.color,
-                                      fontSize: '11px',
+                                      fontWeight: 'medium',
+                                      fontSize: { xs: '0.95rem', md: '1rem' },
+                                      color: 'text.primary',
                                     }}
-                                  />
-                                </Stack>
-                              }
-                              secondary={
-                                <Box component="span" sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
-                                  <strong>Đáp án của bạn:</strong> {getUserAnswerText()}
-                                  {!isCorrect && (
-                                    <span style={{ marginLeft: 8 }}>
-                                      | <strong>Đáp án đúng:</strong> {getCorrectAnswerText()}
-                                    </span>
-                                  )}
+                                  >
+                                    Câu {question.id}: {question.theme}
+                                  </Typography>
                                 </Box>
-                              }
-                            />
+
+                                {/* Row 2: Bạn chọn */}
+                                <Box sx={{ mb: { xs: 0.75, md: 0.5 } }}>
+                                  <Typography
+                                    variant="body2"
+                                    sx={{
+                                      fontSize: { xs: '0.85rem', md: '0.875rem' },
+                                      color: 'text.secondary',
+                                    }}
+                                  >
+                                    <Typography component="span" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+                                      Bạn chọn:
+                                    </Typography>
+                                    <Typography
+                                      component="span"
+                                      sx={{ color: isCorrect ? '#4caf50' : '#f44336', fontWeight: 'medium' }}
+                                    >
+                                      &nbsp;{userAnswer || 'Không trả lời'}
+                                    </Typography>
+                                  </Typography>
+                                </Box>
+
+                                {/* Row 3: Đáp án đúng */}
+                                <Box>
+                                  <Typography
+                                    variant="body2"
+                                    sx={{
+                                      fontSize: { xs: '0.85rem', md: '0.875rem' },
+                                      color: 'text.secondary',
+                                    }}
+                                  >
+                                    <Typography component="span" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+                                      Đáp án đúng:
+                                    </Typography>
+                                    <Typography component="span" sx={{ color: '#4caf50', fontWeight: 'medium' }}>
+                                      &nbsp;{question.correctAnswer}
+                                    </Typography>
+                                  </Typography>
+                                </Box>
+                              </Box>
+                            </Box>
                           </ListItemButton>
                           {!isCorrect && (
-                            <Box sx={{ px: 2, pb: 2 }}>
+                            <Box sx={{ py: 2, pb: 2 }}>
                               <Alert severity="info" sx={{ py: 0 }}>
-                                <Box component="span" sx={{ fontSize: '0.75rem' }}>
+                                <Box component="span" sx={{ fontSize: '0.85rem' }}>
                                   💡 <strong>Giải thích:</strong> {question.explanation}
                                 </Box>
                               </Alert>
@@ -452,7 +477,7 @@ function ResultsContent() {
           </Grid>
 
           {/* Thống kê và hành động */}
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }} order={{ xs: 2, md: 2 }}>
             <Stack spacing={3}>
               {/* Thống kê */}
               <Card>
@@ -473,6 +498,7 @@ function ResultsContent() {
                         variant="determinate"
                         value={(correctCount / testData.questions.length) * 100}
                         sx={{
+                          height: { xs: 8, md: 10 },
                           backgroundColor: '#e0e0e0',
                           '& .MuiLinearProgress-bar': { backgroundColor: '#4caf50' },
                         }}
@@ -490,6 +516,7 @@ function ResultsContent() {
                         variant="determinate"
                         value={((testData.questions.length - correctCount) / testData.questions.length) * 100}
                         sx={{
+                          height: { xs: 8, md: 10 },
                           backgroundColor: '#e0e0e0',
                           '& .MuiLinearProgress-bar': { backgroundColor: '#f44336' },
                         }}
@@ -499,15 +526,22 @@ function ResultsContent() {
                     <Divider />
 
                     <Stack direction="row" justifyContent="space-between">
-                      <Typography variant="body2">Điểm số:</Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold', color: scoreMessage.color }}>
+                      <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', md: '0.875rem' } }}>
+                        Điểm số:
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 'bold', color: scoreMessage.color, fontSize: { xs: '0.95rem', md: '1rem' } }}
+                      >
                         {score}%
                       </Typography>
                     </Stack>
 
                     <Stack direction="row" justifyContent="space-between">
-                      <Typography variant="body2">Thời gian:</Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                      <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', md: '0.875rem' } }}>
+                        Thời gian:
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 'bold', fontSize: { xs: '0.95rem', md: '1rem' } }}>
                         {formatTime(timeSpent)}
                       </Typography>
                     </Stack>
@@ -529,7 +563,11 @@ function ResultsContent() {
                       startIcon={<Refresh />}
                       component={Link}
                       href={`/practice/part1/${category}/test?testId=${testId}`}
-                      sx={{ backgroundColor: categoryData.color }}
+                      sx={{
+                        backgroundColor: categoryData.color,
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        py: { xs: 1, md: 1.25 },
+                      }}
                     >
                       Làm lại bài test
                     </Button>
@@ -540,12 +578,24 @@ function ResultsContent() {
                       startIcon={<TrendingUp />}
                       component={Link}
                       href="/practice/part1"
-                      sx={{ borderColor: categoryData.color, color: categoryData.color }}
+                      sx={{
+                        borderColor: categoryData.color,
+                        color: categoryData.color,
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        py: { xs: 1, md: 1.25 },
+                      }}
                     >
                       Chọn bài test khác
                     </Button>
 
-                    <Button variant="outlined" fullWidth startIcon={<Home />} component={Link} href="/">
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      startIcon={<Home />}
+                      component={Link}
+                      href="/"
+                      sx={{ fontSize: { xs: '0.95rem', md: '1rem' }, py: { xs: 1, md: 1.25 } }}
+                    >
                       Về trang chủ
                     </Button>
                   </Stack>

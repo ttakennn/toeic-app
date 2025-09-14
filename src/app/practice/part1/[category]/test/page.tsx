@@ -132,20 +132,30 @@ function TestContent() {
   // Use ref to track if we should auto play (to avoid loops) and user interaction
   const shouldAutoPlayRef = useRef(false);
   const hasUserInteractedRef = useRef(false);
+  const audioLoadingRef = useRef(false);
 
   // Cleanup audio when component unmounts or page navigation
   useEffect(() => {
     const handleBeforeUnload = () => {
-      if (audioElement) {
-        audioElement.pause();
-        audioElement.currentTime = 0;
+      if (audioElement && !audioLoadingRef.current) {
+        try {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+        } catch (error) {
+          console.warn('Error during cleanup:', error);
+        }
       }
+      audioLoadingRef.current = false;
     };
 
     const handleVisibilityChange = () => {
-      if (document.hidden && audioElement) {
-        audioElement.pause();
-        setIsPlaying(false);
+      if (document.hidden && audioElement && !audioLoadingRef.current) {
+        try {
+          audioElement.pause();
+          setIsPlaying(false);
+        } catch (error) {
+          console.warn('Error pausing on visibility change:', error);
+        }
       }
     };
 
@@ -155,11 +165,16 @@ function TestContent() {
 
     return () => {
       // Cleanup audio
-      if (audioElement) {
-        audioElement.pause();
-        audioElement.currentTime = 0;
-        setIsPlaying(false);
+      if (audioElement && !audioLoadingRef.current) {
+        try {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+          setIsPlaying(false);
+        } catch (error) {
+          console.warn('Error during final cleanup:', error);
+        }
       }
+      audioLoadingRef.current = false;
 
       // Remove event listeners
       window.removeEventListener('beforeunload', handleBeforeUnload);
@@ -258,82 +273,133 @@ function TestContent() {
     return categoryMap[categoryId] || categoryMap.basic;
   };
 
-  const handlePlayAudio = useCallback(() => {
+  const handlePlayAudio = useCallback(async () => {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
     
     const currentQuestionData = testData?.questions.find((q) => q.id === currentQuestion);
-    if (!currentQuestionData?.audioUrl) return;
+    if (!currentQuestionData?.audioUrl || audioLoadingRef.current) return;
 
-    if (isPlaying && audioElement) {
-      audioElement.pause();
-      setIsPlaying(false);
-    } else {
+    try {
+      if (isPlaying && audioElement) {
+        audioElement.pause();
+        setIsPlaying(false);
+        return;
+      }
+
+      audioLoadingRef.current = true;
+
       // Create new audio element if it doesn't exist or if question changed
       if (!audioElement || audioElement.src !== currentQuestionData.audioUrl) {
+        // Clean up old audio first
+        if (audioElement) {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+        }
+
         const newAudio = new Audio(currentQuestionData.audioUrl);
-        newAudio.addEventListener('ended', () => setIsPlaying(false));
+        
+        newAudio.addEventListener('ended', () => {
+          setIsPlaying(false);
+          audioLoadingRef.current = false;
+        });
+        
         newAudio.addEventListener('error', (e) => {
           console.error('Audio playback error:', e);
           setIsPlaying(false);
+          audioLoadingRef.current = false;
         });
+
+        newAudio.addEventListener('loadstart', () => {
+          audioLoadingRef.current = true;
+        });
+
+        newAudio.addEventListener('canplay', () => {
+          audioLoadingRef.current = false;
+        });
+
         setAudioElement(newAudio);
-        newAudio
-          .play()
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch((e) => {
-            console.error('Failed to play audio:', e);
-            setIsPlaying(false);
-          });
+
+        try {
+          await newAudio.play();
+          setIsPlaying(true);
+        } catch (error: unknown) {
+          if ((error as Error).name !== 'AbortError') {
+            console.error('Failed to play audio:', error);
+          }
+          setIsPlaying(false);
+        }
       } else {
-        audioElement
-          .play()
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch((e) => {
-            console.error('Failed to play audio:', e);
-            setIsPlaying(false);
-          });
+        try {
+          await audioElement.play();
+          setIsPlaying(true);
+        } catch (error: unknown) {
+          if ((error as Error).name !== 'AbortError') {
+            console.error('Failed to play audio:', error);
+          }
+          setIsPlaying(false);
+        }
       }
+    } finally {
+      audioLoadingRef.current = false;
     }
   }, [testData, currentQuestion, isPlaying, audioElement]);
 
   // Auto play audio when test data is loaded or question changes (only after user interaction)
   useEffect(() => {
-    if (testData && shouldAutoPlayRef.current && hasUserInteractedRef.current) {
+    if (testData && shouldAutoPlayRef.current && hasUserInteractedRef.current && !audioLoadingRef.current) {
       const currentQuestionData = testData.questions.find((q) => q.id === currentQuestion);
       if (currentQuestionData?.audioUrl) {
         // Auto play audio after a short delay to ensure UI is ready
-        const autoPlayTimer = setTimeout(() => {
-          // Stop current audio if playing
-          if (audioElement) {
-            audioElement.pause();
-            setIsPlaying(false);
-          }
+        const autoPlayTimer = setTimeout(async () => {
+          try {
+            audioLoadingRef.current = true;
 
-          // Create new audio element for auto play
-          const newAudio = new Audio(currentQuestionData.audioUrl);
-          newAudio.addEventListener('ended', () => setIsPlaying(false));
-          newAudio.addEventListener('error', (e) => {
-            console.error('Audio playback error:', e);
-            setIsPlaying(false);
-          });
-          setAudioElement(newAudio);
-          newAudio
-            .play()
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((e) => {
-              console.error('Failed to auto-play audio (user interaction required):', e);
+            // Stop current audio if playing
+            if (audioElement) {
+              audioElement.pause();
+              audioElement.currentTime = 0;
               setIsPlaying(false);
+            }
+
+            // Create new audio element for auto play
+            const newAudio = new Audio(currentQuestionData.audioUrl);
+            
+            newAudio.addEventListener('ended', () => {
+              setIsPlaying(false);
+              audioLoadingRef.current = false;
+            });
+            
+            newAudio.addEventListener('error', (e) => {
+              console.error('Audio playback error:', e);
+              setIsPlaying(false);
+              audioLoadingRef.current = false;
             });
 
-          // Reset the flag after auto playing
-          shouldAutoPlayRef.current = false;
+            newAudio.addEventListener('loadstart', () => {
+              audioLoadingRef.current = true;
+            });
+
+            newAudio.addEventListener('canplay', () => {
+              audioLoadingRef.current = false;
+            });
+
+            setAudioElement(newAudio);
+            
+            try {
+              await newAudio.play();
+              setIsPlaying(true);
+            } catch (error: unknown) {
+              if ((error as Error).name !== 'AbortError') {
+                console.error('Failed to auto-play audio:', error);
+              }
+              setIsPlaying(false);
+            }
+          } finally {
+            audioLoadingRef.current = false;
+            // Reset the flag after auto playing
+            shouldAutoPlayRef.current = false;
+          }
         }, 800);
 
         return () => clearTimeout(autoPlayTimer);
@@ -367,11 +433,17 @@ function TestContent() {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
     
-    // Stop current audio when changing questions
-    if (audioElement) {
-      audioElement.pause();
-      setIsPlaying(false);
+    // Safely stop current audio when changing questions
+    if (audioElement && !audioLoadingRef.current) {
+      try {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+        setIsPlaying(false);
+      } catch (error) {
+        console.warn('Error pausing audio:', error);
+      }
     }
+    
     if (testData && currentQuestion < testData.questions.length) {
       setCurrentQuestion(currentQuestion + 1);
       // Mark that we should auto play the next question
@@ -383,11 +455,17 @@ function TestContent() {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
     
-    // Stop current audio when changing questions
-    if (audioElement) {
-      audioElement.pause();
-      setIsPlaying(false);
+    // Safely stop current audio when changing questions
+    if (audioElement && !audioLoadingRef.current) {
+      try {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+        setIsPlaying(false);
+      } catch (error) {
+        console.warn('Error pausing audio:', error);
+      }
     }
+    
     if (currentQuestion > 1) {
       setCurrentQuestion(currentQuestion - 1);
       // Mark that we should auto play the previous question
@@ -395,7 +473,7 @@ function TestContent() {
     }
   };
 
-  const handleStartTest = () => {
+  const handleStartTest = async () => {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
     
@@ -405,32 +483,58 @@ function TestContent() {
     
     // Play first question audio immediately
     const currentQuestionData = testData?.questions.find((q) => q.id === 1);
-    if (currentQuestionData?.audioUrl) {
-      // Stop any existing audio
-      if (audioElement) {
-        audioElement.pause();
-        setIsPlaying(false);
-      }
+    if (currentQuestionData?.audioUrl && !audioLoadingRef.current) {
+      try {
+        audioLoadingRef.current = true;
 
-      // Create and play audio for first question
-      const newAudio = new Audio(currentQuestionData.audioUrl);
-      newAudio.addEventListener('ended', () => setIsPlaying(false));
-      newAudio.addEventListener('error', (e) => {
-        console.error('Audio playback error:', e);
-        setIsPlaying(false);
-      });
-      setAudioElement(newAudio);
-      
-      newAudio
-        .play()
-        .then(() => {
+        // Stop any existing audio
+        if (audioElement) {
+          try {
+            audioElement.pause();
+            audioElement.currentTime = 0;
+            setIsPlaying(false);
+          } catch (error) {
+            console.warn('Error cleaning up existing audio:', error);
+          }
+        }
+
+        // Create and play audio for first question
+        const newAudio = new Audio(currentQuestionData.audioUrl);
+        
+        newAudio.addEventListener('ended', () => {
+          setIsPlaying(false);
+          audioLoadingRef.current = false;
+        });
+        
+        newAudio.addEventListener('error', (e) => {
+          console.error('Audio playback error:', e);
+          setIsPlaying(false);
+          audioLoadingRef.current = false;
+        });
+
+        newAudio.addEventListener('loadstart', () => {
+          audioLoadingRef.current = true;
+        });
+
+        newAudio.addEventListener('canplay', () => {
+          audioLoadingRef.current = false;
+        });
+
+        setAudioElement(newAudio);
+        
+        try {
+          await newAudio.play();
           setIsPlaying(true);
           console.log('Auto-play started successfully');
-        })
-        .catch((e) => {
-          console.error('Failed to play audio on start:', e);
+        } catch (error: unknown) {
+          if ((error as Error).name !== 'AbortError') {
+            console.error('Failed to play audio on start:', error);
+          }
           setIsPlaying(false);
-        });
+        }
+      } finally {
+        audioLoadingRef.current = false;
+      }
     }
   };
 
