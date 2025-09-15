@@ -396,6 +396,7 @@ const questionsData: { [key: string]: { title: string; description: string; icon
 export default function QuestionTypePage() {
   const params = useParams();
   const router = useRouter();
+  const category = params.category as string;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<'a' | 'b' | 'c' | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -406,7 +407,7 @@ export default function QuestionTypePage() {
   const [audioProgress, setAudioProgress] = useState(0);
   const [score, setScore] = useState({ correct: 0, total: 0 });
 
-  const questionType = params.type as string;
+  const questionType = category;
   const typeData = questionsData[questionType];
 
   if (!typeData) {

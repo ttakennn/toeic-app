@@ -1,0 +1,161 @@
+{
+  "practiceItems": [
+    {
+      "id": "what",
+      "title": "Câu hỏi WHAT",
+      "description": "Luyện tập câu hỏi về vật, sự việc, hoạt động. Thường bắt đầu bằng 'What' và yêu cầu thông tin cụ thể.",
+      "icon": "/images/categories/object-icon.svg",
+      "color": "#1976d2",
+      "bgColor": "#e3f2fd",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - What cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
+        { "id": 2, "title": "TEST 2 - What nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+      ]
+    },
+    {
+      "id": "who",
+      "title": "Câu hỏi WHO",
+      "description": "Luyện tập câu hỏi về người, danh tính. Thường hỏi về chủ thể thực hiện hành động.",
+      "icon": "/images/categories/people-icon.svg",
+      "color": "#388e3c",
+      "bgColor": "#e8f5e8",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Who cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
+        { "id": 2, "title": "TEST 2 - Who nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+      ]
+    },
+    {
+      "id": "where",
+      "title": "Câu hỏi WHERE",
+      "description": "Luyện tập câu hỏi về địa điểm, vị trí. Yêu cầu thông tin về nơi chốn.",
+      "icon": "/images/categories/scene-icon.svg",
+      "color": "#f57c00",
+      "bgColor": "#fff3e0",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Where cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
+        { "id": 2, "title": "TEST 2 - Where nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+      ]
+    },
+    {
+      "id": "when",
+      "title": "Câu hỏi WHEN",
+      "description": "Luyện tập câu hỏi về thời gian, thời điểm. Hỏi về khi nào sự việc xảy ra.",
+      "icon": "/images/categories/mixed-icon.svg",
+      "color": "#7b1fa2",
+      "bgColor": "#f3e5f5",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - When cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
+        { "id": 2, "title": "TEST 2 - When nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+      ]
+    },
+    {
+      "id": "how",
+      "title": "Câu hỏi HOW",
+      "description": "Luyện tập câu hỏi về cách thức, phương pháp. Bao gồm How much, How many, How long...",
+      "icon": "/images/categories/object-icon.svg",
+      "color": "#d32f2f",
+      "bgColor": "#ffebee",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - How cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
+        { "id": 2, "title": "TEST 2 - How nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+      ]
+    },
+    {
+      "id": "why",
+      "title": "Câu hỏi WHY",
+      "description": "Luyện tập câu hỏi về lý do, nguyên nhân. Thường yêu cầu giải thích tại sao.",
+      "icon": "/images/categories/scene-icon.svg",
+      "color": "#1976d2",
+      "bgColor": "#e3f2fd",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Why cơ bản", "difficulty": "Dễ", "questions": 6, "duration": "4 phút" },
+        { "id": 2, "title": "TEST 2 - Why nâng cao", "difficulty": "Trung bình", "questions": 8, "duration": "5 phút" }
+      ]
+    },
+    {
+      "id": "yesno",
+      "title": "Câu hỏi YES/NO",
+      "description": "Luyện tập câu hỏi đóng, chỉ cần trả lời có hoặc không. Thường bắt đầu bằng động từ.",
+      "icon": "/images/categories/people-icon.svg",
+      "color": "#388e3c",
+      "bgColor": "#e8f5e8",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Yes/No cơ bản", "difficulty": "Dễ", "questions": 10, "duration": "6 phút" },
+        { "id": 2, "title": "TEST 2 - Yes/No nâng cao", "difficulty": "Trung bình", "questions": 12, "duration": "7 phút" }
+      ]
+    },
+    {
+      "id": "tag",
+      "title": "Câu hỏi đuôi",
+      "description": "Luyện tập câu hỏi có đuôi xác nhận như 'isn't it?', 'don't you?', 'right?'.",
+      "icon": "/images/categories/mixed-icon.svg",
+      "color": "#f57c00",
+      "bgColor": "#fff3e0",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Câu hỏi đuôi cơ bản", "difficulty": "Dễ", "questions": 6, "duration": "4 phút" },
+        { "id": 2, "title": "TEST 2 - Câu hỏi đuôi nâng cao", "difficulty": "Khó", "questions": 8, "duration": "5 phút" }
+      ]
+    },
+    {
+      "id": "choice",
+      "title": "Câu hỏi lựa chọn",
+      "description": "Luyện tập câu hỏi đưa ra các lựa chọn với 'or'. Yêu cầu chọn một trong các phương án.",
+      "icon": "/images/categories/object-icon.svg",
+      "color": "#7b1fa2",
+      "bgColor": "#f3e5f5",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Lựa chọn cơ bản", "difficulty": "Dễ", "questions": 6, "duration": "4 phút" },
+        { "id": 2, "title": "TEST 2 - Lựa chọn nâng cao", "difficulty": "Trung bình", "questions": 8, "duration": "5 phút" }
+      ]
+    },
+    {
+      "id": "request",
+      "title": "Câu yêu cầu, đề nghị",
+      "description": "Luyện tập câu yêu cầu, đề nghị lịch sự. Thường dùng 'Could you...?', 'Would you mind...?'.",
+      "icon": "/images/categories/people-icon.svg",
+      "color": "#d32f2f",
+      "bgColor": "#ffebee",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Yêu cầu cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
+        { "id": 2, "title": "TEST 2 - Yêu cầu nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+      ]
+    },
+    {
+      "id": "statement",
+      "title": "Câu trần thuật",
+      "description": "Luyện tập phản hồi câu khẳng định, phát biểu. Không phải câu hỏi nhưng cần phản hồi phù hợp.",
+      "icon": "/images/categories/scene-icon.svg",
+      "color": "#1976d2",
+      "bgColor": "#e3f2fd",
+      "totalTests": 2,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Trần thuật cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
+        { "id": 2, "title": "TEST 2 - Trần thuật nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+      ]
+    },
+    {
+      "id": "mixed",
+      "title": "Câu hỏi tổng hợp",
+      "description": "Luyện tập tổng hợp tất cả các loại câu hỏi Part 2. Mô phỏng điều kiện thi thực tế với các dạng câu hỏi đa dạng.",
+      "icon": "/images/categories/mixed-icon.svg",
+      "color": "#ff9800",
+      "bgColor": "#fff3e0",
+      "totalTests": 3,
+      "tests": [
+        { "id": 1, "title": "TEST 1 - Tổng hợp cơ bản", "difficulty": "Trung bình", "questions": 15, "duration": "9 phút" },
+        { "id": 2, "title": "TEST 2 - Tổng hợp nâng cao", "difficulty": "Khó", "questions": 20, "duration": "12 phút" },
+        { "id": 3, "title": "TEST 3 - Thi thử thực tế", "difficulty": "Thực tế", "questions": 25, "duration": "15 phút" }
+      ]
+    }
+  ]
+}
