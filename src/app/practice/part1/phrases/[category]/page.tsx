@@ -381,6 +381,13 @@ export default function PhraseCategoryPage() {
               </Typography>
               <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
                 <Chip 
+                  label={`Hoàn thành: ${Math.round(((currentIndex + 1) / categoryData.data.length) * 100)}%`} 
+                  size="small" 
+                  color="success" 
+                  variant="filled"
+                  sx={{ fontWeight: 'medium' }}
+                />
+                <Chip 
                   label={getDifficultyLabel(currentPhrase.difficulty)}
                   size="small"
                   sx={{ 
@@ -685,10 +692,55 @@ export default function PhraseCategoryPage() {
                   display: 'flex', 
                   justifyContent: 'center', 
                   alignItems: 'center', 
-                  gap: { xs: 2, sm: 3 }, 
+                  gap: { xs: 1.5, sm: 2 }, 
                   mb: 3,
                   flexWrap: 'wrap'
                 }}>
+                  {/* Previous Button */}
+                  <Tooltip title="Bài trước" arrow>
+                    <IconButton 
+                      onClick={handlePrevious}
+                      disabled={currentIndex === 0}
+                      sx={{ 
+                        backgroundColor: currentIndex === 0 ? 'grey.200' : 'primary.light',
+                        color: currentIndex === 0 ? 'grey.500' : 'primary.main',
+                        width: { xs: 36, sm: 40 },
+                        height: { xs: 36, sm: 40 },
+                        '&:hover': {
+                          backgroundColor: currentIndex === 0 ? 'grey.200' : 'primary.main',
+                          color: currentIndex === 0 ? 'grey.500' : 'white',
+                          transform: currentIndex === 0 ? 'none' : 'scale(1.1)',
+                        },
+                        '&:disabled': {
+                          backgroundColor: 'grey.200',
+                          color: 'grey.500'
+                        },
+                        transition: 'all 0.3s ease-in-out'
+                      }}
+                    >
+                      <NavigateBefore sx={{ fontSize: { xs: 18, sm: 20 } }} />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title="Lặp lại" arrow>
+                    <IconButton 
+                      onClick={handlePlayAudio}
+                      sx={{ 
+                        backgroundColor: 'grey.100',
+                        width: { xs: 36, sm: 40 },
+                        height: { xs: 36, sm: 40 },
+                        '&:hover': {
+                          backgroundColor: 'primary.light',
+                          color: 'white',
+                          transform: 'rotate(360deg)',
+                        },
+                        transition: 'all 0.5s ease-in-out'
+                      }}
+                    >
+                      <Repeat sx={{ fontSize: { xs: 16, sm: 18 } }} />
+                    </IconButton>
+                  </Tooltip>
+
                   <Tooltip title="Phát âm" arrow>
                     <IconButton 
                       onClick={handlePlayAudio}
@@ -722,39 +774,47 @@ export default function PhraseCategoryPage() {
                     </IconButton>
                   </Tooltip>
 
-                  <Tooltip title="Lặp lại" arrow>
-                    <IconButton 
-                      onClick={handlePlayAudio}
-                      sx={{ 
-                        backgroundColor: 'grey.100',
-                        width: { xs: 40, sm: 48 },
-                        height: { xs: 40, sm: 48 },
-                        '&:hover': {
-                          backgroundColor: 'primary.light',
-                          color: 'white',
-                          transform: 'rotate(360deg)',
-                        },
-                        transition: 'all 0.5s ease-in-out'
-                      }}
-                    >
-                      <Repeat sx={{ fontSize: { xs: 20, sm: 24 } }} />
-                    </IconButton>
-                  </Tooltip>
-
                   <Tooltip title={`Tốc độ: ${playbackSpeed}x`} arrow>
                     <Button
                       variant="outlined"
                       onClick={handleSpeedChange}
                       size="small"
                       sx={{ 
-                        minWidth: { xs: 50, sm: 60 },
+                        minWidth: { xs: 45, sm: 50 },
+                        height: { xs: 32, sm: 36 },
                         borderRadius: 20,
                         fontWeight: 'bold',
-                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                        fontSize: { xs: '0.7rem', sm: '0.75rem' }
                       }}
                     >
                       {playbackSpeed}x
                     </Button>
+                  </Tooltip>
+
+                  {/* Next Button */}
+                  <Tooltip title="Bài tiếp theo" arrow>
+                    <IconButton 
+                      onClick={handleNext}
+                      disabled={currentIndex === categoryData.data.length - 1}
+                      sx={{ 
+                        backgroundColor: currentIndex === categoryData.data.length - 1 ? 'grey.200' : 'primary.light',
+                        color: currentIndex === categoryData.data.length - 1 ? 'grey.500' : 'primary.main',
+                        width: { xs: 36, sm: 40 },
+                        height: { xs: 36, sm: 40 },
+                        '&:hover': {
+                          backgroundColor: currentIndex === categoryData.data.length - 1 ? 'grey.200' : 'primary.main',
+                          color: currentIndex === categoryData.data.length - 1 ? 'grey.500' : 'white',
+                          transform: currentIndex === categoryData.data.length - 1 ? 'none' : 'scale(1.1)',
+                        },
+                        '&:disabled': {
+                          backgroundColor: 'grey.200',
+                          color: 'grey.500'
+                        },
+                        transition: 'all 0.3s ease-in-out'
+                      }}
+                    >
+                      <NavigateNext sx={{ fontSize: { xs: 18, sm: 20 } }} />
+                    </IconButton>
                   </Tooltip>
                 </Box>
 
@@ -795,198 +855,6 @@ export default function PhraseCategoryPage() {
           </CardContent>
         </Card>
 
-        {/* Enhanced Navigation Controls */}
-        <Paper elevation={1} sx={{ p: { xs: 2, sm: 3 }, mb: 4, borderRadius: 3, backgroundColor: '#f8f9fa' }}>
-          <Typography variant="h6" sx={{ mb: 3, textAlign: 'center', color: 'primary.main', fontWeight: 600 }}>
-            🧭 Điều hướng
-          </Typography>
-          
-          {/* Mobile Navigation - Stack all buttons vertically */}
-          <Box sx={{ display: { xs: 'flex', sm: 'none' }, flexDirection: 'column', gap: 2, mb: 3 }}>
-            <Button
-              variant={currentIndex === 0 ? 'outlined' : 'contained'}
-              startIcon={<NavigateBefore />}
-              onClick={handlePrevious}
-              disabled={currentIndex === 0}
-              size="large"
-              fullWidth
-              sx={{ 
-                borderRadius: 25,
-                fontWeight: 'medium'
-              }}
-            >
-              Trước
-            </Button>
-
-            <Stack direction="row" spacing={2}>
-              <Button
-                variant="contained"
-                onClick={handleBack}
-                size="large"
-                color="secondary"
-                sx={{ 
-                  borderRadius: 25,
-                  fontWeight: 'bold',
-                  flex: 1
-                }}
-              >
-                🏠 Quay lại
-              </Button>
-              
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  setCurrentIndex(Math.floor(Math.random() * categoryData.data.length));
-                  setShowTranslation(false);
-                  setShowPhonetic(false);
-                }}
-                size="large"
-                sx={{ 
-                  borderRadius: 25,
-                  fontWeight: 'medium',
-                  flex: 1
-                }}
-              >
-                🎲 Ngẫu nhiên
-              </Button>
-            </Stack>
-
-            <Button
-              variant={currentIndex === categoryData.data.length - 1 ? 'outlined' : 'contained'}
-              endIcon={<NavigateNext />}
-              onClick={handleNext}
-              disabled={currentIndex === categoryData.data.length - 1}
-              size="large"
-              fullWidth
-              sx={{ 
-                borderRadius: 25,
-                fontWeight: 'medium'
-              }}
-            >
-              Tiếp theo
-            </Button>
-          </Box>
-
-          {/* Desktop Navigation - Original layout */}
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-            <Button
-              variant={currentIndex === 0 ? 'outlined' : 'contained'}
-              startIcon={<NavigateBefore />}
-              onClick={handlePrevious}
-              disabled={currentIndex === 0}
-              size="large"
-              sx={{ 
-                minWidth: 140,
-                borderRadius: 25,
-                fontWeight: 'medium'
-              }}
-            >
-              Trước
-            </Button>
-
-            <Stack direction="row" spacing={2}>
-              <Button
-                variant="contained"
-                onClick={handleBack}
-                size="large"
-                color="secondary"
-                sx={{ 
-                  borderRadius: 25,
-                  fontWeight: 'bold',
-                  minWidth: 120
-                }}
-              >
-                🏠 Quay lại
-              </Button>
-              
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  setCurrentIndex(Math.floor(Math.random() * categoryData.data.length));
-                  setShowTranslation(false);
-                  setShowPhonetic(false);
-                }}
-                size="large"
-                sx={{ 
-                  borderRadius: 25,
-                  fontWeight: 'medium',
-                  minWidth: 120
-                }}
-              >
-                🎲 Ngẫu nhiên
-              </Button>
-            </Stack>
-
-            <Button
-              variant={currentIndex === categoryData.data.length - 1 ? 'outlined' : 'contained'}
-              endIcon={<NavigateNext />}
-              onClick={handleNext}
-              disabled={currentIndex === categoryData.data.length - 1}
-              size="large"
-              sx={{ 
-                minWidth: 140,
-                borderRadius: 25,
-                fontWeight: 'medium'
-              }}
-            >
-              Tiếp theo
-            </Button>
-          </Box>
-
-          {/* Progress Info */}
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              Bài học {currentIndex + 1} / {categoryData.data.length}
-            </Typography>
-            <Stack direction="row" spacing={1} justifyContent="center">
-              <Chip 
-                label={`Còn lại: ${categoryData.data.length - currentIndex - 1}`} 
-                size="small" 
-                color="primary" 
-                variant="outlined" 
-              />
-              <Chip 
-                label={`Hoàn thành: ${Math.round(((currentIndex + 1) / categoryData.data.length) * 100)}%`} 
-                size="small" 
-                color="success" 
-                variant="filled" 
-              />
-            </Stack>
-          </Box>
-        </Paper>
-
-        {/* Progress Dots */}
-        <Box sx={{ textAlign: 'center', mb: 4 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mb: 2 }}>
-            {categoryData.data.map((_, index) => (
-              <Box
-                key={index}
-                sx={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: '50%',
-                  backgroundColor: index === currentIndex ? 'primary.main' : 'grey.300',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    backgroundColor: index === currentIndex ? 'primary.dark' : 'grey.400',
-                    transform: 'scale(1.2)',
-                  },
-                }}
-                onClick={() => {
-                  setCurrentIndex(index);
-                  setShowTranslation(false);
-                  setShowPhonetic(false);
-                  setAudioProgress(0);
-                }}
-              />
-            ))}
-          </Box>
-          
-          <Typography variant="body2" color="text.secondary">
-            Click vào chấm tròn để chuyển bài nhanh
-          </Typography>
-        </Box>
 
         {/* Enhanced Study Tips */}
         <Paper 
