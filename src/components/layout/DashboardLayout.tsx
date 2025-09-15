@@ -533,10 +533,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               boxSizing: 'border-box', 
               width: drawerWidth,
               borderRight: `1px solid ${theme.palette.divider}`,
-              transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.easeInOut,
-                duration: theme.transitions.duration.standard,
-              }),
               overflowX: 'hidden',
             },
           }}
