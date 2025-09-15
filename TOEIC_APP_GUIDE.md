@@ -24,7 +24,7 @@ Ken TOEIC là một ứng dụng web học TOEIC được thiết kế với **N
   - Cụm từ tả người (25 cụm từ)
   - Cụm từ tả cảnh (30 cụm từ)
   - Cụm từ tả vật (22 cụm từ)
-  - Cụm từ tả người + vật/cảnh (35 cụm từ)
+  - Cụm từ tổng hợp (35 cụm từ)
 
 #### Trang chi tiết cụm từ:
 - ✅ Hình minh họa đẹp mắt với placeholder

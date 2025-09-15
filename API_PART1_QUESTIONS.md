@@ -176,7 +176,7 @@ Lấy dữ liệu chi tiết của một test cụ thể.
 3. **TEST 3 - Vật dụng gia đình** (TB, 12 câu, 18 phút)
 4. **TEST 4 - Công cụ chuyên dụng** (Khó, 15 câu, 22 phút)
 
-### Mixed (Cụm từ tả người + vật/cảnh) - 6 tests
+### Mixed (Cụm từ tổng hợp) - 6 tests
 1. **TEST 1 - Tương tác cơ bản** (Dễ, 10 câu, 15 phút)
 2. **TEST 2 - Hoạt động hàng ngày** (TB, 12 câu, 18 phút)
 3. **TEST 3 - Môi trường làm việc** (TB, 14 câu, 20 phút)

@@ -262,7 +262,7 @@ function TestContent() {
       },
       mixed: {
         id: 'mixed',
-        title: 'Cụm từ tả người + vật/cảnh',
+        title: 'Cụm từ tổng hợp',
         description: 'Tương tác giữa người và môi trường',
         icon: '/images/categories/mixed-icon.svg',
         color: '#ff9800',
@@ -725,7 +725,7 @@ function TestContent() {
                         alt={`Question ${currentQuestion}`}
                         sx={{
                           maxWidth: '100%',
-                          maxHeight: { xs: 280, md: 330 },
+                          maxHeight: { xs: 280, md: 330, lg: 400 },
                           objectFit: 'contain',
                         }}
                       />

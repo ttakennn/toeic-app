@@ -175,7 +175,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             'people': 'Cụm từ tả người',
             'scene': 'Cụm từ tả cảnh', 
             'object': 'Cụm từ tả vật',
-            'people-object': 'Cụm từ tả người + vật/cảnh'
+            'summary': 'Cụm từ tổng hợp'
           };
           
           breadcrumbs.push({ 

@@ -2,252 +2,108 @@
   "testInfo": {
     "id": 2,
     "title": "TEST 2 - Hoạt động hàng ngày",
-    "difficulty": "TB",
-    "questions": 12,
-    "duration": "18 phút",
+    "difficulty": "Trung bình",
+    "questions": 6,
+    "duration": "10 phút",
     "category": "mixed",
-    "description": "Bài test TEST 2 - Hoạt động hàng ngày cho Cụm từ tả người + vật/cảnh"
+    "description": "Bài test TEST 2 - Hoạt động hàng ngày cho Cụm từ tổng hợp"
   },
   "questions": [
     {
       "id": 1,
-      "imageUrl": "/images/test/mixed/test1/question1.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question1.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923076/toeic-part1/practice/tranh-tong-hop/test2/bags-of-merchandise-are-on-display_bsbbhb.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923077/toeic-part1/practice/tranh-tong-hop/test2/bags-of-merchandise-are-on-display_p7lqyk.mp3",
       "options": [
-        "A man is using computer at office",
-        "A man is drinking coffee at desk",
-        "A man is talking on phone at work",
-        "A man is writing notes on paper"
+        "Bags of merchandise are on display.",
+        "A shopping cart is being filled.",
+        "The woman is putting on an apron.",
+        "The woman is handing a bag to a customer."
       ],
       "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác trong môi trường làm việc",
-      "theme": "Tương tác tại văn phòng",
-      "vocabulary": [
-        "man",
-        "using",
-        "computer",
-        "office"
-      ]
+      "explanation": "Một túi đồ đang được trưng bày. 'Bags of merchandise are on display.' mô tả chính xác hành động này.",
+      "transcript": "A. Một túi đồ đang được trưng bày.\nB. Một xe chở hàng đang được chất đầy.\nC. Người phụ nữ đang mặc một cái tạp dề vào.\nD. Người phụ nữ đang đưa một cái túi cho 1 khách hàng.",
+      "theme": "Tiệm tạp hoá",
+      "vocabulary": ["merchandise", "display", "shopping", "cart"]
     },
     {
       "id": 2,
-      "imageUrl": "/images/test/mixed/test1/question2.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question2.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923284/toeic-part1/practice/tranh-tong-hop/test2/one-of-the-people-is-standing-by-a-podium_ytzqxm.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923285/toeic-part1/practice/tranh-tong-hop/test2/one-of-the-people-is-standing-by-a-podium_zuvxax.mp3",
       "options": [
-        "A woman is sitting on a bench in the park",
-        "A woman is feeding birds in the park",
-        "A woman is jogging through the park",
-        "A woman is reading under a tree"
+        "One of the people is picking up a laptop.",
+        "One of the people is standing by a podium.",
+        "One of the people is taking notes on paper.",
+        "One of the people is adjusting a microphone."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác giữa người và môi trường",
-      "theme": "Tương tác trong công viên",
-      "vocabulary": [
-        "woman",
-        "sitting",
-        "bench",
-        "park"
-      ]
+      "correctAnswer": "B",
+      "explanation": "Một trong số họ đang đứng trên bục. 'Standing by a podium' mô tả chính xác hành động này.",
+      "transcript": "A. Một trong số họ đang nhặt một máy tính xách tay.\nB. Một trong số họ đang đứng trên bục.\nC. Một trong số họ đang ghi chép trên giấy.\nD. Một trong số họ đang điều chỉnh micrô.",
+      "theme": "Văn phòng",
+      "vocabulary": ["people", "picking", "laptop", "podium", "taking", "notes", "adjusting", "microphone"]
     },
     {
       "id": 3,
-      "imageUrl": "/images/test/mixed/test1/question3.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question3.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923419/toeic-part1/practice/tranh-tong-hop/test2/a-customer-is-standing-near-a-shopping-cart_yy6lgv.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923420/toeic-part1/practice/tranh-tong-hop/test2/a-customer-is-standing-near-a-shopping-cart_oq8gpn.mp3",
       "options": [
-        "A man is using computer at office",
-        "A man is drinking coffee at desk",
-        "A man is talking on phone at work",
-        "A man is writing notes on paper"
+        "A customer is standing near a shopping cart.",
+        "Some bags have been left on the floor.",
+        "A shopping cart has been left in a parking area.",
+        "A customer is leaning into a freezer."
       ],
       "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác trong môi trường làm việc",
-      "theme": "Tương tác tại văn phòng",
-      "vocabulary": [
-        "man",
-        "using",
-        "computer",
-        "office"
-      ]
+      "explanation": "Một khách hàng đang đứng gần một xe chở hàng. 'Standing near a shopping cart' mô tả chính xác hành động này.",
+      "transcript": "A. Một khách hàng đang đứng gần một xe chở hàng.\nB. Một số túi đã được để lại trên sàn nhà.\nC. Một xe chở hàng đã được để lại trong khu vực đậu xe.\nD. Một khách hàng đang nghiêng vào một tủ lạnh.",
+      "theme": "Siêu thị",
+      "vocabulary": ["customer", "standing", "shopping", "cart", "freezer"]
     },
     {
       "id": 4,
-      "imageUrl": "/images/test/mixed/test1/question4.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question4.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923604/toeic-part1/practice/tranh-tong-hop/test2/a-server-is-taking-an-order_kz5ve5.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923604/toeic-part1/practice/tranh-tong-hop/test2/a-server-is-taking-an-order_mskjor.mp3",
       "options": [
-        "A woman is sitting on a bench in the park",
-        "A woman is feeding birds in the park",
-        "A woman is jogging through the park",
-        "A woman is reading under a tree"
+        "Some light fixtures are being installed.",
+        "A display case is being wiped.",
+        "A server is distributing menus.",
+        "A server is taking an order."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác giữa người và môi trường",
-      "theme": "Tương tác trong công viên",
-      "vocabulary": [
-        "woman",
-        "sitting",
-        "bench",
-        "park"
-      ]
+      "correctAnswer": "D",
+      "explanation": "Một server đang nhận việc đặt món. 'Taking an order' mô tả chính xác hành động này.",
+      "transcript": "A. Một vài thiết bị chiếu sáng đang được lắp đặt.\nB. Một kệ trưng bày đang được lau.\nC. Một người phục vụ đang phát thực đơn ra.\nD. Một người phục vụ đang nhận việc đặt món.",
+      "theme": "Nhà hàng",
+      "vocabulary": ["light", "fixtures", "display", "case", "server", "taking", "order"]
     },
     {
       "id": 5,
-      "imageUrl": "/images/test/mixed/test1/question5.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question5.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923748/toeic-part1/practice/tranh-tong-hop/test2/two-people-are-having-a-meal-together_aaxv0c.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923748/toeic-part1/practice/tranh-tong-hop/test2/two-people-are-having-a-meal-together_e90jdc.mp3",
       "options": [
-        "A man is using computer at office",
-        "A man is drinking coffee at desk",
-        "A man is talking on phone at work",
-        "A man is writing notes on paper"
+        "Two people are standing around a buffet counter.",
+        "Two people are having a meal together.",
+        "A server is bringing dishes to a customer.",
+        "A server is pouring water into glasses."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác trong môi trường làm việc",
-      "theme": "Tương tác tại văn phòng",
-      "vocabulary": [
-        "man",
-        "using",
-        "computer",
-        "office"
-      ]
+      "correctAnswer": "B",
+      "explanation": "Hai người đang ăn cùng nhau. 'Having a meal together' mô tả chính xác hành động này.",
+      "transcript": "A. Hai người đang đứng quanh quầy buffet.\nB. Hai người đang ăn cùng nhau.\nC. Người phục vụ đang bưng đồ ăn cho thực khách.\nD. Người phục vụ đang đổ nước vào ly.",
+      "theme": "Nhà hàng",
+      "vocabulary": ["people", "buffet", "counter", "server", "pouring", "water", "glasses"]
     },
     {
       "id": 6,
-      "imageUrl": "/images/test/mixed/test1/question6.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question6.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923910/toeic-part1/practice/tranh-tong-hop/test2/two-of-the-people-are-having-a-conversation_lf47sd.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923911/toeic-part1/practice/tranh-tong-hop/test2/two-of-the-people-are-having-a-conversation_sm8evn.mp3",
       "options": [
-        "A woman is sitting on a bench in the park",
-        "A woman is feeding birds in the park",
-        "A woman is jogging through the park",
-        "A woman is reading under a tree"
+        "Some workers are hanging art in a gallary.",
+        "Two of the people are having a conversation.",
+        "One of the men is rearranging cushions on a sofa.",
+        "One of the men is painting a picture."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác giữa người và môi trường",
-      "theme": "Tương tác trong công viên",
-      "vocabulary": [
-        "woman",
-        "sitting",
-        "bench",
-        "park"
-      ]
-    },
-    {
-      "id": 7,
-      "imageUrl": "/images/test/mixed/test1/question7.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question7.mp3",
-      "options": [
-        "A man is using computer at office",
-        "A man is drinking coffee at desk",
-        "A man is talking on phone at work",
-        "A man is writing notes on paper"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác trong môi trường làm việc",
-      "theme": "Tương tác tại văn phòng",
-      "vocabulary": [
-        "man",
-        "using",
-        "computer",
-        "office"
-      ]
-    },
-    {
-      "id": 8,
-      "imageUrl": "/images/test/mixed/test1/question8.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question8.mp3",
-      "options": [
-        "A woman is sitting on a bench in the park",
-        "A woman is feeding birds in the park",
-        "A woman is jogging through the park",
-        "A woman is reading under a tree"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác giữa người và môi trường",
-      "theme": "Tương tác trong công viên",
-      "vocabulary": [
-        "woman",
-        "sitting",
-        "bench",
-        "park"
-      ]
-    },
-    {
-      "id": 9,
-      "imageUrl": "/images/test/mixed/test1/question9.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question9.mp3",
-      "options": [
-        "A man is using computer at office",
-        "A man is drinking coffee at desk",
-        "A man is talking on phone at work",
-        "A man is writing notes on paper"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác trong môi trường làm việc",
-      "theme": "Tương tác tại văn phòng",
-      "vocabulary": [
-        "man",
-        "using",
-        "computer",
-        "office"
-      ]
-    },
-    {
-      "id": 10,
-      "imageUrl": "/images/test/mixed/test1/question10.jpg",
-      "audioUrl": "/audio/test/mixed/test1/question10.mp3",
-      "options": [
-        "A woman is sitting on a bench in the park",
-        "A woman is feeding birds in the park",
-        "A woman is jogging through the park",
-        "A woman is reading under a tree"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác giữa người và môi trường",
-      "theme": "Tương tác trong công viên",
-      "vocabulary": [
-        "woman",
-        "sitting",
-        "bench",
-        "park"
-      ]
-    },
-    {
-      "id": 11,
-      "imageUrl": "/images/test/mixed/test2/question11.jpg",
-      "audioUrl": "/audio/test/mixed/test2/question11.mp3",
-      "options": [
-        "A man is using computer at office",
-        "A man is drinking coffee at desk",
-        "A man is talking on phone at work",
-        "A man is writing notes on paper"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác trong môi trường làm việc",
-      "theme": "Tương tác tại văn phòng",
-      "vocabulary": [
-        "man",
-        "using",
-        "computer",
-        "office"
-      ]
-    },
-    {
-      "id": 12,
-      "imageUrl": "/images/test/mixed/test2/question12.jpg",
-      "audioUrl": "/audio/test/mixed/test2/question12.mp3",
-      "options": [
-        "A woman is sitting on a bench in the park",
-        "A woman is feeding birds in the park",
-        "A woman is jogging through the park",
-        "A woman is reading under a tree"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về tương tác giữa người và môi trường",
-      "theme": "Tương tác trong công viên",
-      "vocabulary": [
-        "woman",
-        "sitting",
-        "bench",
-        "park"
-      ]
+      "correctAnswer": "B",
+      "explanation": "Hai người đang trò chuyện. 'Having a conversation' mô tả chính xác hành động này.",
+      "transcript": "A. Một số công nhân đang treo tác phẩm nghệ thuật trong phòng trưng bày.\nB. Hai người đang trò chuyện.\nC. Một trong những người đàn ông đang sắp xếp lại những chiếc đệm trên ghế sofa.\nD. Một trong những người đàn ông đang vẽ một bức tranh.",
+      "theme": "Văn phòng",
+      "vocabulary": ["workers", "gallary", "art", "sofa", "painting"]
     }
   ]
 }

@@ -3,131 +3,107 @@
     "id": 1,
     "title": "TEST 1 - Đồ dùng cơ bản",
     "difficulty": "Dễ",
-    "questions": 8,
-    "duration": "12 phút",
+    "questions": 6,
+    "duration": "10 phút",
     "category": "simulation",
     "description": "Bài test về mô tả các đồ vật và thiết bị cơ bản"
   },
   "questions": [
     {
       "id": 1,
-      "imageUrl": "/images/test/simulation/test1/question1.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question1.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757909541/toeic-part1/practice/tranh-ta-vat/test1/some-pillows-have-been-placed-on-a-bed_ppyysd.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757909542/toeic-part1/practice/tranh-ta-vat/test1/some-pillows-have-been-placed-on-a-bed_voroe5.mp3",
       "options": [
-        "The laptop is on the desk",
-        "The laptop is in the bag",
-        "The laptop is being repaired",
-        "The laptop is charging"
+        "Some pillows have been placed on a bed.",
+        "Some lamps are hanging from the ceiling",
+        "Some bed linens are piled on the floor.",
+        "Some chairs are next to a nightstand."
       ],
       "correctAnswer": "A",
-      "explanation": "Máy tính xách tay đang được đặt trên bàn. 'On the desk' mô tả chính xác vị trí của laptop.",
-      "theme": "Thiết bị công nghệ",
-      "vocabulary": ["laptop", "desk", "on"]
+      "explanation": "Một số gối được đặt trên giường. 'Placed on a bed' mô tả chính xác vị trí của gối.",
+      "transcript": "A. Vài chiếc gối đã được đặt trên giường.\nB. Vài cái đèn đang được treo trên trần nhà.\nC. Vài tấm lót giường đang được xếp chồng lên trên nền nhà.\nD. Vài cái ghế ở bên cạnh chiếc bàn đầu giường.",
+      "theme": "Phòng ngủ",
+      "vocabulary": ["pillsow", "bed", "placed"]
     },
     {
       "id": 2,
-      "imageUrl": "/images/test/simulation/test1/question2.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question2.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757909686/toeic-part1/practice/tranh-ta-vat/test1/bulletin-boards-have-been-mounted-to-the-wall_peniti.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757909687/toeic-part1/practice/tranh-ta-vat/test1/bulletin-boards-have-been-mounted-to-the-wall_z8wcxd.mp3",
       "options": [
-        "The books are arranged neatly",
-        "The books are scattered around",
-        "The books are stacked high",
-        "The books are being sorted"
+        "A rug is being unrolled.",
+        "A potted plant has been placed on top  of a shelf.",
+        "Bulletin boards have been mounted  to the wall.",
+        "Some tiles have been removed from the floor."
       ],
       "correctAnswer": "C",
-      "explanation": "Các cuốn sách được xếp chồng cao. 'Stacked high' mô tả chính xác cách sắp xếp sách.",
-      "theme": "Đồ dùng học tập",
-      "vocabulary": ["books", "stacked", "high"]
+      "explanation": "Các bảng thông báo được treo trên tường. 'Mounted to the wall' mô tả chính xác cách sắp xếp sách.",
+      "transcript": "A. Một tấm thảm đang được trải ra.\nB. Có một chậu cây được đặt trên kệ.\nC. Những tấm bảng thông báo đã được đóng vào tường.\nD. Có vài viên gạch đã được bóc ra khỏi sàn.",
+      "theme": "Sau nhà",
+      "vocabulary": ["bulletin boards", "mounted", "wall"]
     },
     {
       "id": 3,
-      "imageUrl": "/images/test/simulation/test1/question3.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question3.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757909841/toeic-part1/practice/tranh-ta-vat/test1/some-vegetables-have-been-arranged-on-wooden-platforms_dw9a7r.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757909842/toeic-part1/practice/tranh-ta-vat/test1/some-vegetables-have-been-arranged-on-wooden-platforms_mj5tkd.mp3",
       "options": [
-        "The chair is broken",
-        "The chair is comfortable",
-        "The chair is made of wood",
-        "The chair is empty"
+        "There’s a ladder leaning against  the trunk of a tree.",
+        "A man is standing on the roof of  a building.",
+        "Some potted plants are hanging  from a pole.",
+        "Some vegetables have been arranged on wooden platforms."
       ],
       "correctAnswer": "D",
-      "explanation": "Chiếc ghế không có người ngồi. 'Empty' mô tả chính xác trạng thái của chiếc ghế.",
-      "theme": "Nội thất",
-      "vocabulary": ["chair", "empty", "seat"]
+      "explanation": "Các loại rau được xếp trên các giàn gỗ. 'Arranged on wooden platforms' mô tả chính xác cách sắp xếp rau.",
+      "transcript": "A. Có một cái thang dựa vào thân cây.\nB. Một người đàn ông đang đứng trên nóc một tòa nhà.\nC. Một số chậu cây được treo trên cột.\nD. Một số loại rau đã được xếp trên giàn gỗ.",
+      "theme": "Ngoài sân",
+      "vocabulary": ["vegetables", "arranged", "wooden"]
     },
     {
       "id": 4,
-      "imageUrl": "/images/test/simulation/test1/question4.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question4.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757910109/toeic-part1/practice/tranh-ta-vat/test1/some-jars-are-arranged-on-shelves_trz7jz.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757910111/toeic-part1/practice/tranh-ta-vat/test1/some-jars-are-arranged-on-shelves_eqalip.mp3",
       "options": [
-        "The clock shows 3 o'clock",
-        "The clock is running fast",
-        "The clock needs new batteries",
-        "The clock is hanging on wall"
+        "He’s placing a pan in an oven.",
+        "He’s hanging up an apron.",
+        "Some pots are stacked on the floor.",
+        "Some jars are arranged on shelves."
       ],
       "correctAnswer": "D",
-      "explanation": "Đồng hồ được treo trên tường. 'Hanging on wall' mô tả chính xác vị trí của đồng hồ.",
-      "theme": "Đồ dùng gia đình",
-      "vocabulary": ["clock", "hanging", "wall"]
+      "explanation": "Một số lọ được sắp xếp trên kệ. 'Arranged on shelves' mô tả chính xác cách sắp xếp lọ.",
+      "transcript": "A. Anh ấy đang đặt một cái chảo trong lò nướng.\nB. Anh ấy đang treo tạp dề.\nC. Một số chậu được xếp chồng lên nhau trên sàn nhà.\nD. Một số lọ được sắp xếp trên kệ.",
+      "theme": "Nhà bếp",
+      "vocabulary": ["jars", "arranged", "shelves"]
     },
     {
       "id": 5,
-      "imageUrl": "/images/test/simulation/test1/question5.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question5.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757910243/toeic-part1/practice/tranh-ta-vat/test1/a-bicycle-has-been-loaded-onto-a-truck_enfwxd.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757910309/toeic-part1/practice/tranh-ta-vat/test1/a-bicycle-has-been-loaded-onto-a-truck_pbe241.mp3",
       "options": [
-        "The phone is ringing",
-        "The phone is charging",
-        "The phone is turned off",
-        "The phone is waterproof"
+        "A bicycle has been loaded onto a truck.",
+        "Cyclists are riding down a city street.",
+        "Several cars are parked in a row.",
+        "A driver is getting out of a vehicle."
       ],
-      "correctAnswer": "B",
-      "explanation": "Điện thoại đang được sạc pin. 'Charging' mô tả chính xác trạng thái của điện thoại.",
-      "theme": "Thiết bị di động",
-      "vocabulary": ["phone", "charging", "battery"]
+      "correctAnswer": "A",
+      "explanation": "Một chiếc xe đạp được chất lên xe tải. 'Loaded onto a truck' mô tả chính xác cách sắp xếp xe đạp.",
+      "transcript": "Một chiếc xe đạp được chất lên xe tải.\nB. Những người đi xe đạp đang đi trên đường phố thành phố.\nC. Vài chiếc xe hơi đang được đậu trên một hàng.\nD. Một người lái xe đang ra khỏi một chiếc xe.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["bicycle", "loaded", "truck"]
     },
     {
       "id": 6,
-      "imageUrl": "/images/test/simulation/test1/question6.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question6.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757910422/toeic-part1/practice/tranh-ta-vat/test1/several-brooms-have-been-placed-next-to-a-plastic-bin_vbq0wm.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757910425/toeic-part1/practice/tranh-ta-vat/test1/several-brooms-have-been-placed-next-to-a-plastic-bin_znihxa.mp3",
       "options": [
-        "The bag is full of items",
-        "The bag is made of leather",
-        "The bag has multiple pockets",
-        "The bag is left unattended"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Chiếc túi đựng đầy đồ. 'Full of items' mô tả chính xác nội dung bên trong túi.",
-      "theme": "Đồ dùng cá nhân",
-      "vocabulary": ["bag", "full", "items"]
-    },
-    {
-      "id": 7,
-      "imageUrl": "/images/test/simulation/test1/question7.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question7.mp3",
-      "options": [
-        "The bottle is half empty",
-        "The bottle is made of glass",
-        "The bottle contains water",
-        "The bottle has a label"
+        "A clock has been left on the ground.",
+        "Some cabinets are being painted.",
+        "Several brooms have been placed next to a plastic bin.",
+        "Boxes are being loaded onto a truck."
       ],
       "correctAnswer": "C",
-      "explanation": "Chai chứa nước. 'Contains water' mô tả chính xác nội dung bên trong chai.",
-      "theme": "Đồ chứa đựng",
-      "vocabulary": ["bottle", "contains", "water"]
-    },
-    {
-      "id": 8,
-      "imageUrl": "/images/test/simulation/test1/question8.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question8.mp3",
-      "options": [
-        "The pen is out of ink",
-        "The pen is expensive",
-        "The pen writes smoothly",
-        "The pen is lying on paper"
-      ],
-      "correctAnswer": "D",
-      "explanation": "Chiếc bút đang nằm trên giấy. 'Lying on paper' mô tả chính xác vị trí của bút.",
-      "theme": "Đồ dùng viết",
-      "vocabulary": ["pen", "lying", "paper"]
+      "explanation": "Một số cây chổi đã được đặt bên cạnh thùng nhựa. 'Placed next to a plastic bin' mô tả chính xác cách sắp xếp cây chổi.",
+      "transcript": "A. Một chiếc đồng hồ đã bị bỏ lại trên mặt đất. \nB. Một số tủ đang được sơn. \nC. Một số cây chổi đã được đặt bên cạnh thùng nhựa. \nD. Hộp đang được tải lên xe tải. ",
+      "theme": "Nhà bếp",
+      "vocabulary": ["brooms", "placed", "plastic"]
     }
   ]
 }

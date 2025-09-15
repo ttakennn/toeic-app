@@ -3,296 +3,107 @@
     "id": 2,
     "title": "TEST 2 - Cảnh quan thiên nhiên",
     "difficulty": "TB",
-    "questions": 15,
-    "duration": "20 phút",
+    "questions": 6,
+    "duration": "10 phút",
     "category": "advanced",
     "description": "Bài test TEST 2 - Cảnh quan thiên nhiên cho Cụm từ tả cảnh"
   },
   "questions": [
     {
       "id": 1,
-      "imageUrl": "/images/test/advanced/test1/question1.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question1.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907403/toeic-part1/practice/tranh-ta-canh/test2/a-man-is-walking-behind-some-parked-cars_orsrja.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907404/toeic-part1/practice/tranh-ta-canh/test2/a-man-is-walking-behind-some-parked-cars_vadtnn.mp3",
       "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
+        "A man is walking behind some parked cars.",
+        "A woman is cleaning snow off a walkway.",
+        "A man is maintaining a fence.",
+        "A woman is taking off a snow jacket."
       ],
       "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
+      "explanation": "Đi bộ phía sau một số xe ô tô đang đỗ. 'Walking behind some parked cars' mô tả chính xác hành động này.",
+      "transcript": "A. Một người đàn ông đang đi bộ phía sau một số xe ô tô đang đỗ.\nB. Một người phụ nữ đang lau băng trên đường.\nC. Một người đàn ông đang bảo trì một hàng rào.\nD. Một người phụ nữ đang bỏ áo khoác.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["walking", "parked", "cars"]
     },
     {
       "id": 2,
-      "imageUrl": "/images/test/advanced/test1/question2.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question2.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907837/toeic-part1/practice/tranh-ta-canh/test2/some-bushes-are-being-planted_e8gu44.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907839/toeic-part1/practice/tranh-ta-canh/test2/some-bushes-are-being-planted_r6qm2b.mp3",
       "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
+        "Men are washing some cars.",
+        "A building is being constructed.",
+        "The pavement is covered with leaves.",
+        "Some bushes are being planted."
       ],
-      "correctAnswer": "B",
-      "explanation": "Mô tả về tình trạng của công viên",
-      "theme": "Công viên",
-      "vocabulary": [
-        "park",
-        "empty",
-        "quiet"
-      ]
+      "correctAnswer": "D",
+      "explanation": "Một số bụi cây đang được trồng. 'Some bushes are being planted' mô tả chính xác hành động này.",
+      "transcript": "A. Đàn ông đang rửa một số xe hơi. \nB. Một tòa nhà đang được xây dựng. \nC. Vỉa hè được phủ lá. \nD. Một số bụi cây đang được trồng. ",
+      "theme": "Ngoài trời",
+      "vocabulary": ["bushes", "planting"]
     },
     {
       "id": 3,
-      "imageUrl": "/images/test/advanced/test1/question3.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question3.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907685/toeic-part1/practice/tranh-ta-canh/test2/some-soil-is-in-a-pile-on-the-ground_vi2qkt.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907685/toeic-part1/practice/tranh-ta-canh/test2/some-soil-is-in-a-pile-on-the-ground_j6ggmj.mp3",
       "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
+        "Cones are blocking access to a road.",
+        "Some soil is in a pile on the ground.",
+        "Some bushes have been planted in front of a building.",
+        "A tree is lying in the roadway."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
+      "correctAnswer": "B",
+      "explanation": "Một ít đất nằm thành đống trên mặt đất. 'Some soil is in a pile on the ground' mô tả chính xác hành động này.",
+      "transcript": "A. Các cọc đang chặn đường vào.\nB. Một ít đất nằm thành đống trên mặt đất.\nC. Một số cây cối đã được trồng trước một tòa nhà.\nD. Một cây đang nằm trên đường.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["cones", "soil", "pile", "ground"]
     },
     {
       "id": 4,
-      "imageUrl": "/images/test/advanced/test1/question4.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question4.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907966/toeic-part1/practice/tranh-ta-canh/test2/some-fruit-has-been-stacked-in-a-bin_vqcv3a.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907967/toeic-part1/practice/tranh-ta-canh/test2/some-fruit-has-been-stacked-in-a-bin_bapacz.mp3",
       "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
+        "Some flowers are being planted.",
+        "Some leaves have been raked into a pile.",
+        "Some stairs are being repaired.",
+        "Some fruit has been stacked in a bin."
       ],
-      "correctAnswer": "B",
-      "explanation": "Mô tả về tình trạng của công viên",
-      "theme": "Công viên",
-      "vocabulary": [
-        "park",
-        "empty",
-        "quiet"
-      ]
+      "correctAnswer": "D",
+      "explanation": "Một số trái cây đã được xếp vào một thùng. 'Some fruit has been stacked in a bin' mô tả chính xác hành động này.",
+      "transcript": "A. Một số hoa đang được trồng.\nB. Một số lá đã được đắp thành đống.\nC. Một số bậc thang đang được sửa chữa.\nD. Một số trái cây đã được xếp vào một thùng.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["flowers", "leaves", "stairs", "fruit"]
     },
     {
       "id": 5,
-      "imageUrl": "/images/test/advanced/test1/question5.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question5.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757908138/toeic-part1/practice/tranh-ta-canh/test2/a-garden-has-been-planted-outside-of-a-building_sujdpb.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757908138/toeic-part1/practice/tranh-ta-canh/test2/a-garden-has-been-planted-outside-of-a-building_fvyrq9.mp3",
       "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
+        "A jacket has been placed on the ground.",
+        "A man is watering some flowers.",
+        "A garden has been planted outside of a building.",
+        "A man is putting some tools in a toolbox."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
+      "correctAnswer": "C",
+      "explanation": "Một khu vườn đã được trồng bên ngoài một tòa nhà. 'A garden has been planted outside of a building' mô tả chính xác hành động này.",
+      "transcript": "A. Một chiếc áo khoác đã được đặt trên mặt đất.\nB. Một người đàn ông đang tưới một số hoa.\nC. Một khu vườn đã được trồng bên ngoài một tòa nhà.\nD. Một người đàn ông đang đặt một số công cụ vào một chiếc hộp công cụ.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["jacket", "ground", "garden", "toolbox"]
     },
     {
       "id": 6,
-      "imageUrl": "/images/test/advanced/test1/question6.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question6.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757908366/toeic-part1/practice/tranh-ta-canh/test2/some-people-are-seated-outdoors_jzcuqy.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757908365/toeic-part1/practice/tranh-ta-canh/test2/some-people-are-seated-outdoors_x8vxej.mp3",
       "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
+        "Workers are exiting from the back of a van.",
+        "Some trees have fallen across a road.",
+        "A man is watering some potted plants.",
+        "Some people are seated outdoors."
       ],
-      "correctAnswer": "B",
-      "explanation": "Mô tả về tình trạng của công viên",
-      "theme": "Công viên",
-      "vocabulary": [
-        "park",
-        "empty",
-        "quiet"
-      ]
-    },
-    {
-      "id": 7,
-      "imageUrl": "/images/test/advanced/test1/question7.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question7.mp3",
-      "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
-    },
-    {
-      "id": 8,
-      "imageUrl": "/images/test/advanced/test1/question8.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question8.mp3",
-      "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
-      ],
-      "correctAnswer": "B",
-      "explanation": "Mô tả về tình trạng của công viên",
-      "theme": "Công viên",
-      "vocabulary": [
-        "park",
-        "empty",
-        "quiet"
-      ]
-    },
-    {
-      "id": 9,
-      "imageUrl": "/images/test/advanced/test1/question9.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question9.mp3",
-      "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
-    },
-    {
-      "id": 10,
-      "imageUrl": "/images/test/advanced/test1/question10.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question10.mp3",
-      "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
-      ],
-      "correctAnswer": "B",
-      "explanation": "Mô tả về tình trạng của công viên",
-      "theme": "Công viên",
-      "vocabulary": [
-        "park",
-        "empty",
-        "quiet"
-      ]
-    },
-    {
-      "id": 11,
-      "imageUrl": "/images/test/advanced/test2/question11.jpg",
-      "audioUrl": "/audio/test/advanced/test2/question11.mp3",
-      "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
-    },
-    {
-      "id": 12,
-      "imageUrl": "/images/test/advanced/test2/question12.jpg",
-      "audioUrl": "/audio/test/advanced/test2/question12.mp3",
-      "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
-      ],
-      "correctAnswer": "B",
-      "explanation": "Mô tả về tình trạng của công viên",
-      "theme": "Công viên",
-      "vocabulary": [
-        "park",
-        "empty",
-        "quiet"
-      ]
-    },
-    {
-      "id": 13,
-      "imageUrl": "/images/test/advanced/test2/question13.jpg",
-      "audioUrl": "/audio/test/advanced/test2/question13.mp3",
-      "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
-    },
-    {
-      "id": 14,
-      "imageUrl": "/images/test/advanced/test2/question14.jpg",
-      "audioUrl": "/audio/test/advanced/test2/question14.mp3",
-      "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
-      ],
-      "correctAnswer": "B",
-      "explanation": "Mô tả về tình trạng của công viên",
-      "theme": "Công viên",
-      "vocabulary": [
-        "park",
-        "empty",
-        "quiet"
-      ]
-    },
-    {
-      "id": 15,
-      "imageUrl": "/images/test/advanced/test2/question15.jpg",
-      "audioUrl": "/audio/test/advanced/test2/question15.mp3",
-      "options": [
-        "The building is very tall",
-        "The building has many windows",
-        "The building is newly painted",
-        "The building is under renovation"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về đặc điểm của tòa nhà",
-      "theme": "Tòa nhà",
-      "vocabulary": [
-        "building",
-        "tall",
-        "high"
-      ]
+      "correctAnswer": "D",
+      "explanation": "Một số người đang ngồi ở ngoài trời. 'Some people are seated outdoors' mô tả chính xác hành động này.",
+      "transcript": "A. Những người nhân viên đang đi ra từ cửa sau của xe tải.\nB. Một số cây đã rơi xuống trên một con đường.\nC. Một người đàn ông đang tưới một số cây cảnh trong chậu.\nD. Một số người đang ngồi ở ngoài trời.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["workers", "van", "trees", "potted plants"]
     }
   ]
 }

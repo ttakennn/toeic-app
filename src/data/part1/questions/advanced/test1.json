@@ -3,191 +3,107 @@
     "id": 1,
     "title": "TEST 1 - Môi trường cơ bản",
     "difficulty": "Dễ",
-    "questions": 12,
-    "duration": "16 phút",
+    "questions": 6,
+    "duration": "10 phút",
     "category": "advanced",
     "description": "Bài test về mô tả cảnh quan và môi trường xung quanh"
   },
   "questions": [
     {
       "id": 1,
-      "imageUrl": "/images/test/advanced/test1/question1.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question1.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906209/toeic-part1/practice/tranh-ta-canh/test1/theres-a-deck-overlooking-a-lake_amajnl.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906203/toeic-part1/practice/tranh-ta-canh/test1/theres-a-deck-overlooking-a-lake_rcopns.mp3",
       "options": [
-        "The park is crowded with people",
-        "The park is empty and quiet",
-        "The park is under construction",
-        "The park is closed for maintenance"
+        "There are some passengers boarding a boat.",
+        "There's a deck overlooking a lake.",
+        "A motorboat is passing under bridge.",
+        "Some people are diving off a pier."
       ],
       "correctAnswer": "B",
-      "explanation": "Công viên trong hình trống vắng và yên tĩnh. 'Empty and quiet' mô tả chính xác tình trạng của công viên.",
-      "theme": "Công viên",
-      "vocabulary": ["park", "empty", "quiet"]
+      "explanation": "Có một bến cảng nhìn ra cái hồ. 'Overlooking a lake' mô tả chính xác vị trí của bến cảng.",
+      "transcript": "A. Một vài hành khách đang lên tàu.\nB. Có một bến cảng nhìn ra cái hồ.\nC. Một chiếc thuyền máy đang đi qua bên dưới cây cầu.\nD. Một vài người đang lặn xuống từ cầu tàu.",
+      "theme": "Bến cảng",
+      "vocabulary": ["overlooking", "lake", "deck"]
     },
     {
       "id": 2,
-      "imageUrl": "/images/test/advanced/test1/question2.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question2.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906209/toeic-part1/practice/tranh-ta-canh/test1/theres-a-window-overlooking-a-garden_rlcttw.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906210/toeic-part1/practice/tranh-ta-canh/test1/theres-a-window-overlooking-a-garden_jzkesv.mp3",
       "options": [
-        "The street is wet from rain",
-        "The street is covered with snow",
-        "The street is dusty and dry",
-        "The street is blocked by construction"
+        "There’s long grass behind a fence.",
+        "There’s a door open beneath a light.",
+        "There’s a pot with flowers by the door.",
+        "There’s a window overlooking a garden."
       ],
-      "correctAnswer": "A",
-      "explanation": "Đường phố ướt do mưa. 'Wet from rain' mô tả chính xác tình trạng của đường sau cơn mưa.",
-      "theme": "Đường phố",
-      "vocabulary": ["street", "wet", "rain"]
+      "correctAnswer": "D",
+      "explanation": "Có một cửa sổ nhìn ra khu vườn. 'Overlooking a garden' mô tả chính xác vị trí của cửa sổ.",
+      "transcript": "A. Có một đám cỏ dài phía sau hàng rào.\nB. Có một cánh cửa mở dưới ánh đèn.\nC. Có một chậu hoa cạnh cửa.\nD. Có một cửa sổ nhìn ra khu vườn.",
+      "theme": "Khu vườn",
+      "vocabulary": ["overlooking", "garden", "window"]
     },
     {
       "id": 3,
-      "imageUrl": "/images/test/advanced/test1/question3.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question3.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906490/toeic-part1/practice/tranh-ta-canh/test1/the-man-is-gesturing-towards-a-whiteboard_qhz8bd.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906491/toeic-part1/practice/tranh-ta-canh/test1/the-man-is-gesturing-towards-a-whiteboard_sp7zh7.mp3",
       "options": [
-        "The building has many windows",
-        "The building is very tall",
-        "The building is newly painted",
-        "The building is under renovation"
+        "They are rearranging the tables in a room.",
+        "The man is gesturing towards a  whiteboard.",
+        "The man's briefcase has fallen onto the  floor.",
+        "One of the women is filling a vase."
       ],
       "correctAnswer": "B",
-      "explanation": "Tòa nhà rất cao. 'Very tall' mô tả chính xác đặc điểm nổi bật của tòa nhà.",
-      "theme": "Tòa nhà",
-      "vocabulary": ["building", "tall", "high"]
+      "explanation": "Người đàn ông đang ra hiệu về phía bảng trắng. 'Gesturing towards a whiteboard' mô tả chính xác hành động này.",
+      "transcript": "A. Họ đang sắp xếp lại các bàn trong một căn phòng.\nB. Người đàn ông đang ra hiệu về phía bảng trắng.\nC. Chiếc cặp của người đàn ông đã rơi xuống đất.\nD. Một trong những người phụ nữ đang làm đầy một chiếc bình.",
+      "theme": "Phòng họp",
+      "vocabulary": ["gesturing", "whiteboard", "briefcase"]
     },
     {
       "id": 4,
-      "imageUrl": "/images/test/advanced/test1/question4.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question4.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906592/toeic-part1/practice/tranh-ta-canh/test1/they-re-walking-toward-a-park_adilbz.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906594/toeic-part1/practice/tranh-ta-canh/test1/they-re-walking-toward-a-park_f8n3yh.mp3",
       "options": [
-        "The garden is full of flowers",
-        "The garden needs watering",
-        "The garden is being maintained",
-        "The garden is covered with leaves"
+        "They're crossing a bridge.",
+        "They're standing under some trees.",
+        "They're taking off their coats.",
+        "They're walking toward a park."
       ],
-      "correctAnswer": "A",
-      "explanation": "Khu vườn đầy hoa. 'Full of flowers' mô tả chính xác cảnh quan khu vườn đang nở rộ.",
-      "theme": "Khu vườn",
-      "vocabulary": ["garden", "full", "flowers"]
+      "correctAnswer": "D",
+      "explanation": "Họ đang đi về phía công viên. 'Walking toward a park' mô tả chính xác hành động này.",
+      "transcript": "A. Họ đang băng qua một cây cầu.\nB. Họ đang đứng dưới tán cây.\nC. Họ đang cởi áo khoác.\nD. Họ đang đi về phía công viên.",
+      "theme": "Công viên",
+      "vocabulary": ["walking", "toward", "park"]
     },
     {
       "id": 5,
-      "imageUrl": "/images/test/advanced/test1/question5.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question5.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906857/toeic-part1/practice/tranh-ta-canh/test1/theyre-approaching-a-sign-in-a-parking-area_grmvvh.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906858/toeic-part1/practice/tranh-ta-canh/test1/theyre-approaching-a-sign-in-a-parking-area_zbmnur.mp3",
       "options": [
-        "The beach is crowded with tourists",
-        "The beach is clean and pristine",
-        "The beach is rocky and dangerous",
-        "The beach is covered with seaweed"
+        "They're carrying trays of food.",
+        "They're walking into a building.",
+        "They're approaching a sign in a parking area.",
+        "They're opening the doors of a vehicle."
       ],
-      "correctAnswer": "B",
-      "explanation": "Bãi biển sạch và nguyên sơ. 'Clean and pristine' mô tả chính xác trạng thái tươi đẹp của bãi biển.",
-      "theme": "Bãi biển",
-      "vocabulary": ["beach", "clean", "pristine"]
+      "correctAnswer": "C",
+      "explanation": "Họ đang đến gần một biển báo trong khu vực đậu xe. 'Approaching a sign in a parking area' mô tả chính xác hành động này.",
+      "transcript": "A. Họ đang mang các đĩa thức ăn.\nB. Họ đang đi vào một tòa nhà.\nC. Họ đang đến gần một biển báo trong khu vực đậu xe.\nD. Họ đang mở cánh cửa của một phương tiện.",
+      "theme": "Khu vực đậu xe",
+      "vocabulary": ["approaching", "sign", "parking"]
     },
     {
       "id": 6,
-      "imageUrl": "/images/test/advanced/test1/question6.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question6.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906998/toeic-part1/practice/tranh-ta-canh/test1/theyre-walking-past-a-seating-area_d4g7cv.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907000/toeic-part1/practice/tranh-ta-canh/test1/theyre-walking-past-a-seating-area_mhqvzc.mp3",
       "options": [
-        "The lake is frozen over",
-        "The lake is calm and peaceful",
-        "The lake is polluted with trash",
-        "The lake is surrounded by mountains"
+        "She's holding a jacket.",
+        "She's packing items into a bag.",
+        "They're sweeping a walkway.",
+        "They're walking past a seating area."
       ],
       "correctAnswer": "D",
-      "explanation": "Hồ nước được bao quanh bởi núi. 'Surrounded by mountains' mô tả chính xác vị trí của hồ.",
-      "theme": "Hồ nước",
-      "vocabulary": ["lake", "surrounded", "mountains"]
-    },
-    {
-      "id": 7,
-      "imageUrl": "/images/test/advanced/test1/question7.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question7.mp3",
-      "options": [
-        "The forest is dense and green",
-        "The forest is being cut down",
-        "The forest is dry and brown",
-        "The forest is covered with fog"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Rừng cây rậm rạp và xanh tươi. 'Dense and green' mô tả chính xác cảnh rừng tươi tốt.",
-      "theme": "Rừng cây",
-      "vocabulary": ["forest", "dense", "green"]
-    },
-    {
-      "id": 8,
-      "imageUrl": "/images/test/advanced/test1/question8.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question8.mp3",
-      "options": [
-        "The restaurant is busy during lunch",
-        "The restaurant is closed for renovation",
-        "The restaurant has outdoor seating",
-        "The restaurant serves traditional food"
-      ],
-      "correctAnswer": "C",
-      "explanation": "Nhà hàng có chỗ ngồi ngoài trời. 'Has outdoor seating' mô tả chính xác đặc điểm của nhà hàng.",
-      "theme": "Nhà hàng",
-      "vocabulary": ["restaurant", "outdoor", "seating"]
-    },
-    {
-      "id": 9,
-      "imageUrl": "/images/test/advanced/test1/question9.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question9.mp3",
-      "options": [
-        "The market is open early morning",
-        "The market is crowded with shoppers",
-        "The market sells fresh produce",
-        "The market is located downtown"
-      ],
-      "correctAnswer": "B",
-      "explanation": "Chợ đông đúc người mua sắm. 'Crowded with shoppers' mô tả chính xác tình cảnh nhộn nhịp của chợ.",
-      "theme": "Chợ",
-      "vocabulary": ["market", "crowded", "shoppers"]
-    },
-    {
-      "id": 10,
-      "imageUrl": "/images/test/advanced/test1/question10.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question10.mp3",
-      "options": [
-        "The library is quiet for studying",
-        "The library has many books",
-        "The library is newly renovated",
-        "The library offers computer access"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Thư viện yên tĩnh để học tập. 'Quiet for studying' mô tả chính xác không khí học tập tại thư viện.",
-      "theme": "Thư viện",
-      "vocabulary": ["library", "quiet", "studying"]
-    },
-    {
-      "id": 11,
-      "imageUrl": "/images/test/advanced/test1/question11.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question11.mp3",
-      "options": [
-        "The bridge connects two cities",
-        "The bridge is under construction",
-        "The bridge crosses over water",
-        "The bridge is made of steel"
-      ],
-      "correctAnswer": "C",
-      "explanation": "Cây cầu bắc qua mặt nước. 'Crosses over water' mô tả chính xác vị trí và chức năng của cây cầu.",
-      "theme": "Cây cầu",
-      "vocabulary": ["bridge", "crosses", "water"]
-    },
-    {
-      "id": 12,
-      "imageUrl": "/images/test/advanced/test1/question12.jpg",
-      "audioUrl": "/audio/test/advanced/test1/question12.mp3",
-      "options": [
-        "The airport is busy with travelers",
-        "The airport has many terminals",
-        "The airport is modern and spacious",
-        "The airport provides shuttle service"
-      ],
-      "correctAnswer": "C",
-      "explanation": "Sân bay hiện đại và rộng rãi. 'Modern and spacious' mô tả chính xác kiến trúc của sân bay.",
-      "theme": "Sân bay",
-      "vocabulary": ["airport", "modern", "spacious"]
+      "explanation": "Họ đang đi qua một khu vực chỗ ngồi. 'Walking past a seating area' mô tả chính xác hành động này.",
+      "transcript": "A. Cô bé đang giữ áo khoác.\nB. Cô bé đang đóng các vật dụng vào một chiếc túi.\nC. Họ đang quét một đường đi.\nD. Họ đang đi qua một khu vực chỗ ngồi.",
+      "theme": "Khu vực chỗ ngồi",
+      "vocabulary": ["walking", "past", "seating"]
     }
   ]
 }

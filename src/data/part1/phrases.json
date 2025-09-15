@@ -699,9 +699,9 @@
       }
     ]
   },
-  "people-object": {
-    "title": "Cụm từ tả người + vật/cảnh",
-    "description": "Tương tác giữa người và môi trường xung quanh, người với vật dụng.",
+  "summary": {
+    "title": "Cụm từ tổng hợp",
+    "description": "Tương tác giữa người và môi trường xung quanh, người với vật dụng, người với cảnh quan",
     "icon": "/images/categories/mixed-icon.svg",
     "color": "#7b1fa2",
     "bgColor": "#f3e5f5",
@@ -710,7 +710,7 @@
       {
         "id": 1,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823970/toeic-part1/cum-tu-ta-nguoi-canh-vat/theyre-shaking-hands-across-a-counter_chuxdm.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823970/toeic-part1/cum-tu-tong-hop/theyre-shaking-hands-across-a-counter_chuxdm.mp3",
         "english": "They're shaking hands across a counter.",
         "vietnamese": "Họ đang gắp tay qua một cái bàn.",
         "phonetic": "/ðeɪ ər ˈʃeɪkɪŋ ˈhændz ˈæksroʊ əv ə ˈkaʊntər/",
@@ -720,7 +720,7 @@
       {
         "id": 2,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823968/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-women-are-shaking-hands_dtbbfn.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757823968/toeic-part1/cum-tu-tong-hop/the-women-are-shaking-hands_dtbbfn.mp3",
         "english": "The women are shaking hands.",
         "vietnamese": "Một số người phụ nữ đang gắp tay.",
         "phonetic": "/ðə wʊmən ər ˈʃeɪkɪŋ ˈhændz/",
@@ -730,7 +730,7 @@
       {
         "id": 3,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824208/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-audience-is-facing-a-screen_rpczac.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824208/toeic-part1/cum-tu-tong-hop/the-audience-is-facing-a-screen_rpczac.mp3",
         "english": "The audience is facing a screen.",
         "vietnamese": "Người hâm mộ đang nhìn vào một màn hình.",
         "phonetic": "/ðə ˈɔdɪʃən ɪz ˈfæsɪŋ əv ə ˈskriːn/",
@@ -740,7 +740,7 @@
       {
         "id": 4,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824207/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-women-are-facing-each-other_akbz5r.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824207/toeic-part1/cum-tu-tong-hop/the-women-are-facing-each-other_akbz5r.mp3",
         "english": "The women are facing each other.",
         "vietnamese": "Một số người phụ nữ đang nhìn vào nhau.",
         "phonetic": "/ðə wʊmən ər ˈfæsɪŋ ˈɛɡəθ ˈəʊðər/",
@@ -750,7 +750,7 @@
       {
         "id": 5,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824297/toeic-part1/cum-tu-ta-nguoi-canh-vat/some-people-are-attending-a-presentation_o6afkk.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824297/toeic-part1/cum-tu-tong-hop/some-people-are-attending-a-presentation_o6afkk.mp3",
         "english": "Some people are attending a presentation.",
         "vietnamese": "Một số người đang tham dự một buổi trình bày.",
         "phonetic": "/səm ˈpɜrsən ər ˈætəndɪŋ ə ˈpɜsən.tæʃən/",
@@ -760,7 +760,7 @@
       {
         "id": 6,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824295/toeic-part1/cum-tu-ta-nguoi-canh-vat/they-are-attending-a-meeting_bz84tm.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824295/toeic-part1/cum-tu-tong-hop/they-are-attending-a-meeting_bz84tm.mp3",
         "english": "They are attending a meeting.",
         "vietnamese": "Họ đang tham dự một cuộc họp.",
         "phonetic": "/ðeɪ ər ˈætəndɪŋ ə ˈmiːtɪŋ/",
@@ -770,7 +770,7 @@
       {
         "id": 7,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824382/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-man-is-handing-a-cup-to-the-woman_m1jfca.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824382/toeic-part1/cum-tu-tong-hop/the-man-is-handing-a-cup-to-the-woman_m1jfca.mp3",
         "english": "The man is handing a cup to the woman.",
         "vietnamese": "Một người đàn ông đang đưa một cốc đến cho một người phụ nữ.",
         "phonetic": "/ðə mæn ɪz ˈhændɪŋ ə ˈkʌp ˈtə ɪz ˈwʊmən/",
@@ -780,7 +780,7 @@
       {
         "id": 8,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824384/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-woman-is-handing-some-food-to-the-man_qrpefx.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824384/toeic-part1/cum-tu-tong-hop/the-woman-is-handing-some-food-to-the-man_qrpefx.mp3",
         "english": "The woman is handing some food to the man.",
         "vietnamese": "Một người phụ nữ đang đưa một số loại thức ăn đến cho một người đàn ông.",
         "phonetic": "/ðə wʊmən ɪz ˈhændɪŋ səm ˈfʊd ˈtə ɪz ˈmæn/",
@@ -790,7 +790,7 @@
       {
         "id": 9,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824499/toeic-part1/cum-tu-ta-nguoi-canh-vat/a-shop-assistant-is-giving-a-man-some-money_o9tdry.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824499/toeic-part1/cum-tu-tong-hop/a-shop-assistant-is-giving-a-man-some-money_o9tdry.mp3",
         "english": "A shop assistant is giving a man some money.",
         "vietnamese": "Một người phục vụ đang đưa một số tiền đến cho một người đàn ông.",
         "phonetic": "/ə ˈʃɒp əˈsɪstənt ɪz ˈɡɪvɪŋ ə ˈmæn səm ˈmʌnɪ/",
@@ -800,7 +800,7 @@
       {
         "id": 10,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824501/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-man-is-giving-the-woman-a-book_zikrpw.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824501/toeic-part1/cum-tu-tong-hop/the-man-is-giving-the-woman-a-book_zikrpw.mp3",
         "english": "The man is giving the woman a book.",
         "vietnamese": "Một người đàn ông đang đưa một cuốn sách đến cho một người phụ nữ.",
         "phonetic": "/ðə mæn ɪz ˈɡɪvɪŋ ɪz ˈwʊmən ə ˈbʊk/",
@@ -810,7 +810,7 @@
       {
         "id": 11,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824704/toeic-part1/cum-tu-ta-nguoi-canh-vat/one-of-the-people-is-standing-by-a-podium_coi1uc.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824704/toeic-part1/cum-tu-tong-hop/one-of-the-people-is-standing-by-a-podium_coi1uc.mp3",
         "english": "One of the people is standing by a podium.",
         "vietnamese": "Một người đang đứng ở một cái bục giảng.",
         "phonetic": "/wən əv ðə ˈpɜrsən ɪz ˈstændɪŋ ˈbaɪ ðə ˈpəʊdɪəm/",
@@ -820,7 +820,7 @@
       {
         "id": 12,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824706/toeic-part1/cum-tu-ta-nguoi-canh-vat/one-of-the-women-is-standing-next-to-an-entrance_hrkfgr.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824706/toeic-part1/cum-tu-tong-hop/one-of-the-women-is-standing-next-to-an-entrance_hrkfgr.mp3",
         "english": "One of the women is standing next to an entrance.",
         "vietnamese": "Một người phụ nữ đang đứng ở gần một cái cửa ra vào.",
         "phonetic": "/wən əv ðə ˈwʊmən ɪz ˈstændɪŋ ˈneɪkst tə ən ˈɛn.trəns/",
@@ -830,7 +830,7 @@
       {
         "id": 13,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824709/toeic-part1/cum-tu-ta-nguoi-canh-vat/some-people-are-sitting-in-a-car_qjrimm.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824709/toeic-part1/cum-tu-tong-hop/some-people-are-sitting-in-a-car_qjrimm.mp3",
         "english": "Some people are sitting in a car.",
         "vietnamese": "Một số người đang ngồi trong một chiếc xe hơi.",
         "phonetic": "/səm ˈpɜrsən ər ˈsɪtɪŋ ɪn ə ˈkɑr/",
@@ -840,7 +840,7 @@
       {
         "id": 14,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824712/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-women-are-sitting-at-their-desks_kkebun.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824712/toeic-part1/cum-tu-tong-hop/the-women-are-sitting-at-their-desks_kkebun.mp3",
         "english": "The women are sitting at their desks.",
         "vietnamese": "Một số người phụ nữ đang ngồi ở bàn làm việc.",
         "phonetic": "/ðə wʊmən ər ˈsɪtɪŋ ˈæt ðəɪr ˈdɛskz/",
@@ -850,7 +850,7 @@
       {
         "id": 15,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824714/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-people-are-looking-at-some-menus_viccun.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824714/toeic-part1/cum-tu-tong-hop/the-people-are-looking-at-some-menus_viccun.mp3",
         "english": "The people are looking at some menus.",
         "vietnamese": "Một số người đang nhìn vào một số thực đơn.",
         "phonetic": "/ðə ˈpɜrsən ər ˈlʊkɪŋ ˈæt səm ˈmɛnus/",
@@ -860,7 +860,7 @@
       {
         "id": 16,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824717/toeic-part1/cum-tu-ta-nguoi-canh-vat/theyre-looking-at-a-document_ul8urp.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824717/toeic-part1/cum-tu-tong-hop/theyre-looking-at-a-document_ul8urp.mp3",
         "english": "They're looking at a document.",
         "vietnamese": "Họ đang nhìn vào một tài liệu.",
         "phonetic": "/ðeɪ ər ˈlʊkɪŋ ˈæt ə ˈdɑkjəmənt/",
@@ -870,7 +870,7 @@
       {
         "id": 17,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824970/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-woman-is-taking-a-pen-from-a-drawer_ljnoay.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824970/toeic-part1/cum-tu-tong-hop/the-woman-is-taking-a-pen-from-a-drawer_ljnoay.mp3",
         "english": "The woman is taking a pen from a drawer.",
         "vietnamese": "Người phụ nữ đang lấy một cái bút bi từ ngăn kéo.",
         "phonetic": "/ðə wʊmən ɪz ˈtækɪŋ ə ˈpɛn ˈfɜr ðə ˈdrɔːɚ/",
@@ -880,7 +880,7 @@
       {
         "id": 18,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824973/toeic-part1/cum-tu-ta-nguoi-canh-vat/the-man-is-taking-a-lab-coat-from-a-hook_wu6wfm.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824973/toeic-part1/cum-tu-tong-hop/the-man-is-taking-a-lab-coat-from-a-hook_wu6wfm.mp3",
         "english": "The man is taking a lab coat from a hook.",
         "vietnamese": "Người đàn ông đang lấy một chiếc áo choàng phòng thí nghiệm từ cái móc treo.",
         "phonetic": "/ðə mæn ɪz ˈtækɪŋ ə ˈlæb ˈkoʊt ˈfɜr ðə ˈhʊk/",
@@ -890,7 +890,7 @@
       {
         "id": 19,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824976/toeic-part1/cum-tu-ta-nguoi-canh-vat/two-of-the-people-are-having-a-conversation_v8cmaq.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824976/toeic-part1/cum-tu-tong-hop/two-of-the-people-are-having-a-conversation_v8cmaq.mp3",
         "english": "Two of the people are having a conversation.",
         "vietnamese": "Hai người đang trò chuyện.",
         "phonetic": "/twə əv ðə ˈpɜrsən ər ˈhævɪŋ ə ˈkɑn.vɜr.seɪʃən/",
@@ -900,7 +900,7 @@
       {
         "id": 20,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824982/toeic-part1/cum-tu-ta-nguoi-canh-vat/two-people-are-having-a-meal-together_rx8ccx.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824982/toeic-part1/cum-tu-tong-hop/two-people-are-having-a-meal-together_rx8ccx.mp3",
         "english": "Two people are having a meal together.",
         "vietnamese": "Hai người đang ăn cùng nhau.",
         "phonetic": "/twə əv ðə ˈpɜrsən ər ˈhævɪŋ ə ˈmɛl ˈtəɡəðər/",
@@ -910,7 +910,7 @@
       {
         "id": 21,
         "image": "",
-        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824979/toeic-part1/cum-tu-ta-nguoi-canh-vat/a-motorboat-is-passing-under-bridge_jljzsu.mp3",
+        "audio": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757824979/toeic-part1/cum-tu-tong-hop/a-motorboat-is-passing-under-bridge_jljzsu.mp3",
         "english": "A motorboat is passing under a bridge.",
         "vietnamese": "Một chiếc thuyền máy đang đi dưới một cái cầu.",
         "phonetic": "/ə ˈməʊtər.bəʊt ɪz ˈpɑsɪŋ ˈʌndər ə ˈbrɪdʒ/",

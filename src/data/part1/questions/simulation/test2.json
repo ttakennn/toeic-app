@@ -3,201 +3,107 @@
     "id": 2,
     "title": "TEST 2 - Thiết bị văn phòng",
     "difficulty": "TB",
-    "questions": 10,
-    "duration": "15 phút",
+    "questions": 6,
+    "duration": "10 phút",
     "category": "simulation",
     "description": "Bài test TEST 2 - Thiết bị văn phòng cho Cụm từ tả vật"
   },
   "questions": [
     {
       "id": 1,
-      "imageUrl": "/images/test/simulation/test1/question1.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question1.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757917127/toeic-part1/practice/tranh-ta-vat/test2/some-chairs-have-been-placed-along-a-canal_kvehas.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757917128/toeic-part1/practice/tranh-ta-vat/test2/some-chairs-have-been-placed-along-a-canal_ihrb0k.mp3",
       "options": [
-        "The chair is broken",
-        "The chair is comfortable",
-        "The chair is made of wood",
-        "The chair is empty"
+        "A kayak is being paddled down a river.",
+        "A pile of bricks has been left on a walkway.",
+        "Some roofs are being repaired.",
+        "Some chairs have been placed along a canal."
       ],
       "correctAnswer": "D",
-      "explanation": "Mô tả về trạng thái của chiếc ghế",
-      "theme": "Nội thất",
-      "vocabulary": [
-        "chair",
-        "empty",
-        "seat"
-      ]
+      "explanation": "Một số chiếc ghế đã được đặt dọc theo một con kênh. 'Placed along a canal' mô tả chính xác vị trí của chiếc ghế.",
+      "transcript": "A. Một chiếc kayak đang được đẩy xuống dòng sông.\nB. Một đống gạch đã được để lại trên đường đi.\nC. Một số mái nhà đang được sửa chữa.\nD. Một số chiếc ghế đã được đặt dọc theo một con kênh.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["kayak", "paddle", "river", "bricks", "walkway", "repaired", "chairs", "canal"]
     },
     {
       "id": 2,
-      "imageUrl": "/images/test/simulation/test1/question2.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question2.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757917251/toeic-part1/practice/tranh-ta-vat/test2/some-umbrellas-have-been-opened_nkvjmq.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757917253/toeic-part1/practice/tranh-ta-vat/test2/some-umbrellas-have-been-opened_zs5l1i.mp3",
       "options": [
-        "The laptop is on the desk",
-        "The laptop is in the bag",
-        "The laptop is being repaired",
-        "The laptop is charging"
+        "Some people are picking items up off the ground.",
+        "Some umbrellas have been opened.",
+        "There’s some furniture in a hotel lobby.",
+        "There are some people hanging up lights."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về vị trí của laptop",
-      "theme": "Thiết bị công nghệ",
-      "vocabulary": [
-        "laptop",
-        "desk",
-        "on"
-      ]
+      "correctAnswer": "B",
+      "explanation": "Một số chiếc ô dù đã được mở. 'Opened' mô tả chính xác hành động này.",
+      "transcript": "A. Một số người đang lấy các vật thể lên từ mặt đất.\nB. Một số chiếc ô dù đã được mở.\nC. Có một số bộ bàn ghế trong loại khách sạn.\nD. Có một số người đang treo các đèn lên.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["people", "picking", "items", "up", "off", "ground", "umbrellas", "opened", "furniture", "hotel", "lobby", "lights", "hanging"]
     },
     {
       "id": 3,
-      "imageUrl": "/images/test/simulation/test1/question3.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question3.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757917420/toeic-part1/practice/tranh-ta-vat/test2/some-boxes-are-stacked-on-a-cart_sgio11.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757917421/toeic-part1/practice/tranh-ta-vat/test2/some-boxes-are-stacked-on-a-cart_whuugp.mp3",
       "options": [
-        "The chair is broken",
-        "The chair is comfortable",
-        "The chair is made of wood",
-        "The chair is empty"
+        "A man is washing the floor.",
+        "A man is painting a wall.",
+        "Some boxes are stacked on a cart.",
+        "Some carts are being pushed outdoors."
       ],
-      "correctAnswer": "D",
-      "explanation": "Mô tả về trạng thái của chiếc ghế",
-      "theme": "Nội thất",
-      "vocabulary": [
-        "chair",
-        "empty",
-        "seat"
-      ]
+      "correctAnswer": "C",
+      "explanation": "Một số hộp đã được xếp lên trên một xe đẩy. 'Stacked on a cart' mô tả chính xác vị trí của hộp.",
+      "transcript": "A. Một người đàn ông đang rửa sàn nhà.\nB. Một người đàn ông đang sơn một bức tường.\nC. Một số hộp đã được xếp lên trên một xe đẩy.\nD. Một số xe đã được đẩy ra ngoài.",
+      "theme": "Trong nhà",
+      "vocabulary": ["man", "washing", "floor", "painting", "wall", "boxes", "stacked", "cart", "pushed", "outdoors"]
     },
     {
       "id": 4,
-      "imageUrl": "/images/test/simulation/test1/question4.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question4.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757917558/toeic-part1/practice/tranh-ta-vat/test2/a-tree-is-near-a-sign_gxesy2.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757917559/toeic-part1/practice/tranh-ta-vat/test2/a-tree-is-near-a-sign_ddbkuu.mp3",
       "options": [
-        "The laptop is on the desk",
-        "The laptop is in the bag",
-        "The laptop is being repaired",
-        "The laptop is charging"
+        "A wall is covered with vines.",
+        "A tree is near a sign.",
+        "There are puddles on the road.",
+        "A tree has fallen onto the pavement."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về vị trí của laptop",
-      "theme": "Thiết bị công nghệ",
-      "vocabulary": [
-        "laptop",
-        "desk",
-        "on"
-      ]
+      "correctAnswer": "B",
+      "explanation": "Một cây đang ở gần một cái biển báo. 'Near a sign' mô tả chính xác vị trí của cây.",
+      "transcript": "A. Một bức tường được phủ bằng các loại dây leo.\nB. Một cây đang ở gần một cái biển báo.\nC. Có một số vũng nước trên đường.\nD. Một cây đã rơi xuống trên mặt đường.",
+      "theme": "Ngoài trời",
+      "vocabulary": ["vines", "tree", "sign", "puddles", "pavement"]
     },
     {
       "id": 5,
-      "imageUrl": "/images/test/simulation/test1/question5.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question5.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757917740/toeic-part1/practice/tranh-ta-vat/test2/some-pillows-are-organized-on-shelves_ppqijg.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757917741/toeic-part1/practice/tranh-ta-vat/test2/some-pillows-are-organized-on-shelves_cmoui0.mp3",
       "options": [
-        "The chair is broken",
-        "The chair is comfortable",
-        "The chair is made of wood",
-        "The chair is empty"
+        "A floor is covered with boxes.",
+        "A sign is leaning against a wall.",
+        "Some pillows are organized on shelves.",
+        "Some lamps have been placed on the floor."
       ],
-      "correctAnswer": "D",
-      "explanation": "Mô tả về trạng thái của chiếc ghế",
-      "theme": "Nội thất",
-      "vocabulary": [
-        "chair",
-        "empty",
-        "seat"
-      ]
+      "correctAnswer": "C",
+      "explanation": "Một số gối đã được sắp xếp trên các kệ. 'Organized on shelves' mô tả chính xác vị trí của gối.",
+      "transcript": "A. Sàn nhà được bao phủ bởi những chiếc hộp.\nB. Một tấm biển dựa vào tường.\nC. Một số gối được sắp xếp trên các kệ.\nD. Một số đèn đã được đặt trên sàn nhà.",
+      "theme": "Siêu thị",
+      "vocabulary": ["boxes", "sign", "pillsow", "shelves", "lamps", "placed", "floor"]
     },
     {
       "id": 6,
-      "imageUrl": "/images/test/simulation/test1/question6.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question6.mp3",
+      "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757917894/toeic-part1/practice/tranh-ta-vat/test2/she-has-opened-a-refrigerator_bac5le.jpg",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757917896/toeic-part1/practice/tranh-ta-vat/test2/she-has-opened-a-refrigerator_kcemv2.mp3",
       "options": [
-        "The laptop is on the desk",
-        "The laptop is in the bag",
-        "The laptop is being repaired",
-        "The laptop is charging"
+        "She's paying at a counter.",
+        "She has stacked books on shelves.",
+        "She has opened a refrigerator.",
+        "She's eating a meal in a restaurant."
       ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về vị trí của laptop",
-      "theme": "Thiết bị công nghệ",
-      "vocabulary": [
-        "laptop",
-        "desk",
-        "on"
-      ]
-    },
-    {
-      "id": 7,
-      "imageUrl": "/images/test/simulation/test1/question7.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question7.mp3",
-      "options": [
-        "The chair is broken",
-        "The chair is comfortable",
-        "The chair is made of wood",
-        "The chair is empty"
-      ],
-      "correctAnswer": "D",
-      "explanation": "Mô tả về trạng thái của chiếc ghế",
-      "theme": "Nội thất",
-      "vocabulary": [
-        "chair",
-        "empty",
-        "seat"
-      ]
-    },
-    {
-      "id": 8,
-      "imageUrl": "/images/test/simulation/test1/question8.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question8.mp3",
-      "options": [
-        "The laptop is on the desk",
-        "The laptop is in the bag",
-        "The laptop is being repaired",
-        "The laptop is charging"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về vị trí của laptop",
-      "theme": "Thiết bị công nghệ",
-      "vocabulary": [
-        "laptop",
-        "desk",
-        "on"
-      ]
-    },
-    {
-      "id": 9,
-      "imageUrl": "/images/test/simulation/test1/question9.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question9.mp3",
-      "options": [
-        "The chair is broken",
-        "The chair is comfortable",
-        "The chair is made of wood",
-        "The chair is empty"
-      ],
-      "correctAnswer": "D",
-      "explanation": "Mô tả về trạng thái của chiếc ghế",
-      "theme": "Nội thất",
-      "vocabulary": [
-        "chair",
-        "empty",
-        "seat"
-      ]
-    },
-    {
-      "id": 10,
-      "imageUrl": "/images/test/simulation/test1/question10.jpg",
-      "audioUrl": "/audio/test/simulation/test1/question10.mp3",
-      "options": [
-        "The laptop is on the desk",
-        "The laptop is in the bag",
-        "The laptop is being repaired",
-        "The laptop is charging"
-      ],
-      "correctAnswer": "A",
-      "explanation": "Mô tả về vị trí của laptop",
-      "theme": "Thiết bị công nghệ",
-      "vocabulary": [
-        "laptop",
-        "desk",
-        "on"
-      ]
+      "correctAnswer": "C",
+      "explanation": "Một người đang mở một chiếc tủ lạnh. 'Opened a refrigerator' mô tả chính xác hành động này.",
+      "transcript": "A. Cô ấy đang trả tiền tại quầy. \nB. Cô ấy đã xếp chồng sách lên kệ. \nC. Cô ấy đã mở cửa tủ lạnh. \nD. Cô ấy đang ăn một bữa ăn trong nhà hàng. ",
+      "theme": "Siêu thị",
+      "vocabulary": ["counter", "stacked", "refrigerator", "restaurant"]
     }
   ]
 }

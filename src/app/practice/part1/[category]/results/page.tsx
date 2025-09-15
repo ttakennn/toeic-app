@@ -141,7 +141,7 @@ function ResultsContent() {
       },
       mixed: {
         id: 'mixed',
-        title: 'Cụm từ tả người + vật/cảnh',
+        title: 'Cụm từ tổng hợp',
         description: 'Tương tác giữa người và môi trường',
         icon: '/images/categories/mixed-icon.svg',
         color: '#ff9800',

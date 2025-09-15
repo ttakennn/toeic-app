@@ -66,7 +66,7 @@ GET /api/part1/phrases/[category]
 1. **people** - Cụm từ tả người (8 items)
 2. **scene** - Cụm từ tả cảnh (6 items)  
 3. **object** - Cụm từ tả vật (5 items)
-4. **people-object** - Cụm từ tả người + vật/cảnh (6 items)
+4. **summary** - Cụm từ tổng hợp (6 items)
 
 ## Features Implemented
 
