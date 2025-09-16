@@ -12,12 +12,24 @@ interface RouteParams {
 interface Question {
   id: number;
   audioUrl: string;
+  question: {
+    en: string;
+    vi: string;
+  };
+  answerA: {
+    en: string;
+    vi: string;
+  };
+  answerB: {
+    en: string;
+    vi: string;
+  };
+  answerC: {
+    en: string;
+    vi: string;
+  };
   correctAnswer: string;
   explanation: string;
-  questionTranscript: string;
-  optionA_Transcript: string;
-  optionB_Transcript: string;
-  optionC_Transcript: string;
   theme: string;
   difficulty: string;
   vocabulary: string[];

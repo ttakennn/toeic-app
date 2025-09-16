@@ -12,12 +12,24 @@
     {
       "id": 1,
       "audioUrl": "https://example.com/part2/what/test1/q1-complete.mp3",
+      "question": {
+        "en": "What time does the meeting start?",
+        "vi": "Cuộc họp bắt đầu lúc mấy giờ?"
+      },
+      "answerA": {
+        "en": "At 2:30 PM.",
+        "vi": "Lúc 2:30 chiều."
+      },
+      "answerB": {
+        "en": "In the conference room.",
+        "vi": "Trong phòng họp."
+      },
+      "answerC": {
+        "en": "Yes, I'll be there.",
+        "vi": "Vâng, tôi sẽ có mặt."
+      },
       "correctAnswer": "A",
       "explanation": "Câu hỏi 'What time does the meeting start?' yêu cầu thông tin về thời gian.\nCâu trả lời A 'At 2:30 PM' cung cấp thông tin thời gian cụ thể.",
-      "questionTranscript": "What time does the meeting start?",
-      "optionA_Transcript": "At 2:30 PM.",
-      "optionB_Transcript": "In the conference room.",
-      "optionC_Transcript": "Yes, I'll be there.",
       "theme": "Lịch hẹn",
       "difficulty": "Dễ",
       "vocabulary": ["meeting", "start", "time"]
@@ -25,12 +37,24 @@
     {
       "id": 2,
       "audioUrl": "https://example.com/part2/what/test1/q2-complete.mp3",
+      "question": {
+        "en": "What did you think of the presentation?",
+        "vi": "Bạn nghĩ gì về buổi thuyết trình?"
+      },
+      "answerA": {
+        "en": "Next Tuesday.",
+        "vi": "Thứ Ba tới."
+      },
+      "answerB": {
+        "en": "In the main hall.",
+        "vi": "Trong hội trường chính."
+      },
+      "answerC": {
+        "en": "It was very informative.",
+        "vi": "Rất bổ ích."
+      },
       "correctAnswer": "C",
       "explanation": "Câu hỏi 'What did you think of the presentation?' hỏi về ý kiến, đánh giá.\nCâu trả lời C 'It was very informative' đưa ra đánh giá về buổi thuyết trình.",
-      "questionTranscript": "What did you think of the presentation?",
-      "optionA_Transcript": "Next Tuesday.",
-      "optionB_Transcript": "In the main hall.",
-      "optionC_Transcript": "It was very informative.",
       "theme": "Đánh giá",
       "difficulty": "Dễ",
       "vocabulary": ["think", "presentation", "informative"]
@@ -38,12 +62,24 @@
     {
       "id": 3,
       "audioUrl": "https://example.com/part2/what/test1/q3-complete.mp3",
+      "question": {
+        "en": "What kind of coffee do you prefer?",
+        "vi": "Bạn thích loại cà phê nào?"
+      },
+      "answerA": {
+        "en": "At the coffee shop.",
+        "vi": "Ở quán cà phê."
+      },
+      "answerB": {
+        "en": "I like dark roast.",
+        "vi": "Tôi thích cà phê rang đậm."
+      },
+      "answerC": {
+        "en": "Every morning.",
+        "vi": "Mỗi sáng."
+      },
       "correctAnswer": "B",
       "explanation": "Câu hỏi 'What kind of coffee do you prefer?' hỏi về loại, kiểu.\nCâu trả lời B 'I like dark roast' chỉ ra loại cà phê ưa thích.",
-      "questionTranscript": "What kind of coffee do you prefer?",
-      "optionA_Transcript": "At the coffee shop.",
-      "optionB_Transcript": "I like dark roast.",
-      "optionC_Transcript": "Every morning.",
       "theme": "Sở thích",
       "difficulty": "Dễ",
       "vocabulary": ["prefer", "coffee", "dark roast"]
@@ -51,12 +87,24 @@
     {
       "id": 4,
       "audioUrl": "https://example.com/part2/what/test1/q4-complete.mp3",
+      "question": {
+        "en": "What's the weather like today?",
+        "vi": "Thời tiết hôm nay như thế nào?"
+      },
+      "answerA": {
+        "en": "It's sunny and warm.",
+        "vi": "Trời nắng và ấm."
+      },
+      "answerB": {
+        "en": "I'll check tomorrow.",
+        "vi": "Tôi sẽ kiểm tra vào ngày mai."
+      },
+      "answerC": {
+        "en": "At the weather station.",
+        "vi": "Ở trạm thời tiết."
+      },
       "correctAnswer": "A",
       "explanation": "Câu hỏi 'What's the weather like today?' hỏi về thời tiết.\nCâu trả lời A 'It's sunny and warm' mô tả tình trạng thời tiết.",
-      "questionTranscript": "What's the weather like today?",
-      "optionA_Transcript": "It's sunny and warm.",
-      "optionB_Transcript": "I'll check tomorrow.",
-      "optionC_Transcript": "At the weather station.",
       "theme": "Thời tiết",
       "difficulty": "Dễ",
       "vocabulary": ["weather", "sunny", "warm"]
@@ -64,12 +112,24 @@
     {
       "id": 5,
       "audioUrl": "https://example.com/part2/what/test1/q5-complete.mp3",
+      "question": {
+        "en": "What are you working on?",
+        "vi": "Bạn đang làm gì?"
+      },
+      "answerA": {
+        "en": "Since last week.",
+        "vi": "Từ tuần trước."
+      },
+      "answerB": {
+        "en": "In my office.",
+        "vi": "Trong văn phòng của tôi."
+      },
+      "answerC": {
+        "en": "The quarterly report.",
+        "vi": "Báo cáo quý."
+      },
       "correctAnswer": "C",
       "explanation": "Câu hỏi 'What are you working on?' hỏi về công việc đang làm.\nCâu trả lời C 'The quarterly report' chỉ ra dự án đang thực hiện.",
-      "questionTranscript": "What are you working on?",
-      "optionA_Transcript": "Since last week.",
-      "optionB_Transcript": "In my office.",
-      "optionC_Transcript": "The quarterly report.",
       "theme": "Công việc",
       "difficulty": "Dễ",
       "vocabulary": ["working", "quarterly", "report"]
@@ -77,12 +137,24 @@
     {
       "id": 6,
       "audioUrl": "https://example.com/part2/what/test1/q6-complete.mp3",
+      "question": {
+        "en": "What should I bring to the party?",
+        "vi": "Tôi nên mang gì đến bữa tiệc?"
+      },
+      "answerA": {
+        "en": "At 7 PM.",
+        "vi": "Lúc 7 giờ tối."
+      },
+      "answerB": {
+        "en": "Just bring yourself.",
+        "vi": "Chỉ cần có mặt thôi."
+      },
+      "answerC": {
+        "en": "At Sarah's house.",
+        "vi": "Ở nhà Sarah."
+      },
       "correctAnswer": "B",
       "explanation": "Câu hỏi 'What should I bring to the party?' hỏi về vật cần mang theo.\nCâu trả lời B 'Just bring yourself' là lời khuyên phù hợp.",
-      "questionTranscript": "What should I bring to the party?",
-      "optionA_Transcript": "At 7 PM.",
-      "optionB_Transcript": "Just bring yourself.",
-      "optionC_Transcript": "At Sarah's house.",
       "theme": "Tiệc tùng",
       "difficulty": "Dễ",
       "vocabulary": ["bring", "party", "yourself"]
@@ -90,12 +162,24 @@
     {
       "id": 7,
       "audioUrl": "https://example.com/part2/what/test1/q7-complete.mp3",
+      "question": {
+        "en": "What does this button do?",
+        "vi": "Nút này có chức năng gì?"
+      },
+      "answerA": {
+        "en": "It turns on the printer.",
+        "vi": "Nó bật máy in."
+      },
+      "answerB": {
+        "en": "It's red and round.",
+        "vi": "Nó màu đỏ và tròn."
+      },
+      "answerC": {
+        "en": "Push it gently.",
+        "vi": "Nhấn nhẹ nhàng."
+      },
       "correctAnswer": "A",
       "explanation": "Câu hỏi 'What does this button do?' hỏi về chức năng.\nCâu trả lời A 'It turns on the printer' giải thích chức năng của nút bấm.",
-      "questionTranscript": "What does this button do?",
-      "optionA_Transcript": "It turns on the printer.",
-      "optionB_Transcript": "It's red and round.",
-      "optionC_Transcript": "Push it gently.",
       "theme": "Thiết bị",
       "difficulty": "Dễ",
       "vocabulary": ["button", "printer", "turns on"]
@@ -103,12 +187,24 @@
     {
       "id": 8,
       "audioUrl": "https://example.com/part2/what/test1/q8-complete.mp3",
+      "question": {
+        "en": "What's your favorite restaurant?",
+        "vi": "Nhà hàng yêu thích của bạn là gì?"
+      },
+      "answerA": {
+        "en": "I eat there often.",
+        "vi": "Tôi thường ăn ở đó."
+      },
+      "answerB": {
+        "en": "Around 6:30 PM.",
+        "vi": "Khoảng 6:30 tối."
+      },
+      "answerC": {
+        "en": "The Italian place downtown.",
+        "vi": "Nhà hàng Ý ở trung tâm thành phố."
+      },
       "correctAnswer": "C",
       "explanation": "Câu hỏi 'What's your favorite restaurant?' hỏi về sở thích ăn uống.\nCâu trả lời C 'The Italian place downtown' chỉ ra nhà hàng ưa thích.",
-      "questionTranscript": "What's your favorite restaurant?",
-      "optionA_Transcript": "I eat there often.",
-      "optionB_Transcript": "Around 6:30 PM.",
-      "optionC_Transcript": "The Italian place downtown.",
       "theme": "Ăn uống",
       "difficulty": "Dễ",
       "vocabulary": ["favorite", "restaurant", "Italian", "downtown"]

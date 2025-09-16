@@ -15,7 +15,19 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@mui/material';
 import { 
   PlayArrow, 
@@ -27,17 +39,18 @@ import {
   Psychology,
   CheckCircle,
   QuestionMark,
-  CompareArrows,
-  RequestPage,
-  ChatBubble,
   Timer,
   Star,
   TrendingUp,
-  Category,
   MenuBook,
-  Quiz
+  Quiz,
+  Close,
+  ExpandMore,
+  VolumeUp,
+  Lightbulb,
+  CheckCircleOutline,
+  ErrorOutline
 } from '@mui/icons-material';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 interface TestSummary {
@@ -72,6 +85,38 @@ interface PracticeQuestionsResponse {
   timestamp: string;
 }
 
+interface GuideItemExample {
+  question: string;
+  options: string[];
+  correct: string;
+  explanation: string;
+}
+
+interface GuideItemKeyPoint {
+  title: string;
+  content: string;
+}
+
+interface GuideItemDetailContent {
+  overview: string;
+  keyPoints: GuideItemKeyPoint[];
+  commonMistakes: string[];
+  strategies: string[];
+  examples: GuideItemExample[];
+}
+
+interface GuideItem {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  tips: string[];
+  examples: string[];
+  color: string;
+  bgColor: string;
+  detailContent?: GuideItemDetailContent;
+}
+
 export default function Part2Page() {
   // State để quản lý đề TEST được chọn cho mỗi practice item
   const [selectedPracticeTests, setSelectedPracticeTests] = useState<{[key: string]: number}>({});
@@ -80,6 +125,10 @@ export default function Part2Page() {
   const [practiceCategories, setPracticeCategories] = useState<PracticeCategory[]>([]);
   const [practiceLoading, setPracticeLoading] = useState(true);
   const [practiceError, setPracticeError] = useState<string | null>(null);
+
+  // State để quản lý modal chi tiết
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
+  const [selectedGuideItem, setSelectedGuideItem] = useState<GuideItem | null>(null);
 
   // Data cho section hướng dẫn
   const guideItems = [
@@ -109,7 +158,66 @@ export default function Part2Page() {
       ],
       examples: ['Who is...?', 'Who did...?', 'Who will...?'],
       color: '#388e3c',
-      bgColor: '#e8f5e8'
+      bgColor: '#e8f5e8',
+      detailContent: {
+        overview: 'Câu hỏi WHO là một trong những dạng phổ biến nhất trong Part 2 TOEIC. Câu hỏi này yêu cầu thông tin về người - có thể là tên, chức danh, hoặc mối quan hệ.',
+        keyPoints: [
+          {
+            title: 'Đặc điểm nhận biết',
+            content: 'Câu hỏi bắt đầu bằng "Who" và thường có các dạng như "Who is...?", "Who did...?", "Who will...?"'
+          },
+          {
+            title: 'Các dạng câu trả lời',
+            content: 'Tên người cụ thể (John, Mary), chức danh (the manager, my boss), mối quan hệ (my colleague, our client)'
+          },
+          {
+            title: 'Lưu ý quan trọng',
+            content: 'Đôi khi câu trả lời không trực tiếp nêu tên mà dùng đại từ hoặc cách diễn đạt gián tiếp'
+          }
+        ],
+        commonMistakes: [
+          'Nhầm lẫn giữa "who" (chủ ngữ) và "whom" (tân ngữ)',
+          'Không chú ý đến ngữ cảnh để hiểu đúng người được nhắc đến',
+          'Bỏ qua các từ đồng nghĩa hoặc cách diễn đạt gián tiếp'
+        ],
+        strategies: [
+          'Tập trung vào từ khóa chỉ người trong câu hỏi',
+          'Chú ý đến thì của động từ để hiểu đúng thời điểm',
+          'Luyện tập nhận biết các cách diễn đạt khác nhau về cùng một người'
+        ],
+        examples: [
+          {
+            question: 'Who organized the meeting?',
+            options: [
+              'A) Sarah from marketing',
+              'B) At 3 PM tomorrow', 
+              'C) In the conference room'
+            ],
+            correct: 'A',
+            explanation: 'Câu hỏi hỏi về người tổ chức cuộc họp. Đáp án A đưa ra tên người cụ thể, trong khi B và C trả lời về thời gian và địa điểm.'
+          },
+          {
+            question: 'Who should I contact about this issue?',
+            options: [
+              'A) It\'s very urgent',
+              'B) The IT department',
+              'C) By email or phone'
+            ],
+            correct: 'B',
+            explanation: 'Câu hỏi hỏi nên liên hệ với ai. Đáp án B chỉ ra bộ phận cụ thể, đây là cách trả lời gián tiếp nhưng phù hợp.'
+          },
+          {
+            question: 'Who\'s coming to the presentation?',
+            options: [
+              'A) All the department heads',
+              'B) Next Friday at 2 PM',
+              'C) In the main auditorium'
+            ],
+            correct: 'A',
+            explanation: 'Câu hỏi về những người tham dự. Đáp án A nêu rõ nhóm người sẽ đến, còn B và C về thời gian và địa điểm.'
+          }
+        ]
+      }
     },
     {
       id: 'where',
@@ -202,6 +310,17 @@ export default function Part2Page() {
       ...prev,
       [practiceId]: testNumber
     }));
+  };
+
+  // Handle detail modal
+  const handleOpenDetailModal = (item: GuideItem) => {
+    setSelectedGuideItem(item);
+    setDetailModalOpen(true);
+  };
+
+  const handleCloseDetailModal = () => {
+    setDetailModalOpen(false);
+    setSelectedGuideItem(null);
   };
 
   // Fetch practice questions from API
@@ -470,6 +589,7 @@ export default function Part2Page() {
                       variant="outlined" 
                       fullWidth 
                       size="small"
+                      onClick={() => handleOpenDetailModal(item)}
                       sx={{ 
                         borderColor: item.color,
                         color: item.color,
@@ -868,6 +988,301 @@ export default function Part2Page() {
             ⚠️ Lưu ý: Trong thi thực tế, bạn sẽ KHÔNG thấy câu hỏi và đáp án dưới dạng text!
           </Typography>
         </Box>
+
+        {/* Detail Modal */}
+        <Dialog 
+          open={detailModalOpen} 
+          onClose={handleCloseDetailModal}
+          maxWidth="md"
+          fullWidth
+          PaperProps={{
+            sx: {
+              borderRadius: 3,
+              maxHeight: '90vh'
+            }
+          }}
+        >
+          <DialogTitle sx={{ 
+            pb: 2, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between',
+            backgroundColor: selectedGuideItem?.bgColor + '40',
+            borderBottom: `2px solid ${selectedGuideItem?.color}20`
+          }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Box sx={{
+                width: 50,
+                height: 50,
+                borderRadius: '50%',
+                backgroundColor: selectedGuideItem?.color,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                fontSize: '24px'
+              }}>
+                {selectedGuideItem?.icon}
+              </Box>
+              <Box>
+                <Typography variant="h5" sx={{ 
+                  fontWeight: 600,
+                  color: selectedGuideItem?.color 
+                }}>
+                  {selectedGuideItem?.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Hướng dẫn chi tiết và ví dụ thực tế
+                </Typography>
+              </Box>
+            </Box>
+            <IconButton onClick={handleCloseDetailModal} sx={{ color: selectedGuideItem?.color }}>
+              <Close />
+            </IconButton>
+          </DialogTitle>
+          
+          <DialogContent sx={{ p: 0 }}>
+            {selectedGuideItem?.detailContent && (
+              <Box sx={{ p: 3 }}>
+                {/* Overview */}
+                <Box sx={{ mb: 4 }}>
+                  <Typography variant="h6" gutterBottom sx={{ 
+                    color: selectedGuideItem.color,
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                  }}>
+                    <Lightbulb /> Tổng quan
+                  </Typography>
+                  <Typography variant="body1" sx={{ 
+                    lineHeight: 1.6,
+                    p: 2,
+                    backgroundColor: selectedGuideItem.bgColor + '30',
+                    borderRadius: 2,
+                    borderLeft: `4px solid ${selectedGuideItem.color}`
+                  }}>
+                    {selectedGuideItem.detailContent.overview}
+                  </Typography>
+                </Box>
+
+                {/* Key Points */}
+                <Box sx={{ mb: 4 }}>
+                  <Typography variant="h6" gutterBottom sx={{ 
+                    color: selectedGuideItem.color,
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                  }}>
+                    <CheckCircleOutline /> Điểm quan trọng
+                  </Typography>
+                  <Stack spacing={2}>
+                    {selectedGuideItem.detailContent.keyPoints.map((point: GuideItemKeyPoint, index: number) => (
+                      <Accordion key={index} sx={{ 
+                        boxShadow: 1,
+                        '&:before': { display: 'none' },
+                        borderRadius: '8px !important',
+                        overflow: 'hidden'
+                      }}>
+                        <AccordionSummary 
+                          expandIcon={<ExpandMore sx={{ color: selectedGuideItem.color }} />}
+                          sx={{ 
+                            backgroundColor: selectedGuideItem.bgColor + '20',
+                            '&:hover': {
+                              backgroundColor: selectedGuideItem.bgColor + '40'
+                            }
+                          }}
+                        >
+                          <Typography variant="subtitle1" sx={{ 
+                            fontWeight: 600,
+                            color: selectedGuideItem.color
+                          }}>
+                            {point.title}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ pt: 2 }}>
+                          <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
+                            {point.content}
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                  </Stack>
+                </Box>
+
+                {/* Common Mistakes */}
+                <Box sx={{ mb: 4 }}>
+                  <Typography variant="h6" gutterBottom sx={{ 
+                    color: '#f44336',
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                  }}>
+                    <ErrorOutline /> Lỗi thường gặp
+                  </Typography>
+                  <List sx={{ 
+                    backgroundColor: '#ffebee',
+                    borderRadius: 2,
+                    p: 2
+                  }}>
+                    {selectedGuideItem.detailContent.commonMistakes.map((mistake: string, index: number) => (
+                      <ListItem key={index} sx={{ py: 0.5 }}>
+                        <ListItemIcon sx={{ minWidth: 30 }}>
+                          <Typography variant="h6" color="error">❌</Typography>
+                        </ListItemIcon>
+                        <ListItemText 
+                          primary={mistake}
+                          primaryTypographyProps={{
+                            variant: 'body2',
+                            sx: { lineHeight: 1.5 }
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+
+                {/* Strategies */}
+                <Box sx={{ mb: 4 }}>
+                  <Typography variant="h6" gutterBottom sx={{ 
+                    color: '#2196f3',
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                  }}>
+                    <TrendingUp /> Chiến lược làm bài
+                  </Typography>
+                  <List sx={{ 
+                    backgroundColor: '#e3f2fd',
+                    borderRadius: 2,
+                    p: 2
+                  }}>
+                    {selectedGuideItem.detailContent.strategies.map((strategy: string, index: number) => (
+                      <ListItem key={index} sx={{ py: 0.5 }}>
+                        <ListItemIcon sx={{ minWidth: 30 }}>
+                          <Typography variant="h6" color="primary">💡</Typography>
+                        </ListItemIcon>
+                        <ListItemText 
+                          primary={strategy}
+                          primaryTypographyProps={{
+                            variant: 'body2',
+                            sx: { lineHeight: 1.5 }
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+
+                {/* Examples */}
+                <Box>
+                  <Typography variant="h6" gutterBottom sx={{ 
+                    color: selectedGuideItem.color,
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                  }}>
+                    <VolumeUp /> Ví dụ thực tế
+                  </Typography>
+                  <Stack spacing={3}>
+                    {selectedGuideItem.detailContent.examples.map((example: GuideItemExample, index: number) => (
+                      <Card key={index} sx={{ 
+                        border: `2px solid ${selectedGuideItem.color}20`,
+                        borderRadius: 2
+                      }}>
+                        <CardContent>
+                          <Typography variant="subtitle1" gutterBottom sx={{ 
+                            fontWeight: 600,
+                            color: selectedGuideItem.color,
+                            mb: 2
+                          }}>
+                            📢 {example.question}
+                          </Typography>
+                          
+                          <Box sx={{ mb: 2 }}>
+                            <Typography variant="body2" color="text.secondary" gutterBottom>
+                              Các lựa chọn:
+                            </Typography>
+                            <Stack spacing={1}>
+                              {example.options.map((option: string, optionIndex: number) => (
+                                <Box key={optionIndex} sx={{ 
+                                  p: 1.5,
+                                  borderRadius: 1,
+                                  backgroundColor: option.startsWith(example.correct + ')') 
+                                    ? '#e8f5e8' 
+                                    : '#f5f5f5',
+                                  border: option.startsWith(example.correct + ')') 
+                                    ? '2px solid #4caf50' 
+                                    : '1px solid #e0e0e0'
+                                }}>
+                                  <Typography variant="body2" sx={{ 
+                                    fontWeight: option.startsWith(example.correct + ')') ? 600 : 400,
+                                    color: option.startsWith(example.correct + ')') ? '#2e7d32' : 'text.primary'
+                                  }}>
+                                    {option}
+                                    {option.startsWith(example.correct + ')') && (
+                                      <Chip 
+                                        label="Đáp án đúng" 
+                                        size="small" 
+                                        color="success" 
+                                        sx={{ ml: 1, height: 20 }}
+                                      />
+                                    )}
+                                  </Typography>
+                                </Box>
+                              ))}
+                            </Stack>
+                          </Box>
+
+                          <Box sx={{ 
+                            p: 2,
+                            backgroundColor: selectedGuideItem.bgColor + '40',
+                            borderRadius: 1,
+                            borderLeft: `4px solid ${selectedGuideItem.color}`
+                          }}>
+                            <Typography variant="body2" sx={{ 
+                              fontWeight: 600,
+                              color: selectedGuideItem.color,
+                              mb: 1
+                            }}>
+                              💡 Giải thích:
+                            </Typography>
+                            <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
+                              {example.explanation}
+                            </Typography>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </Stack>
+                </Box>
+              </Box>
+            )}
+          </DialogContent>
+          
+          <DialogActions sx={{ 
+            p: 3, 
+            backgroundColor: selectedGuideItem?.bgColor + '20',
+            borderTop: `1px solid ${selectedGuideItem?.color}20`
+          }}>
+            <Button 
+              onClick={handleCloseDetailModal}
+              variant="contained"
+              sx={{ 
+                backgroundColor: selectedGuideItem?.color,
+                '&:hover': {
+                  backgroundColor: selectedGuideItem?.color + 'dd'
+                }
+              }}
+            >
+              Đã hiểu
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </DashboardLayout>
   );

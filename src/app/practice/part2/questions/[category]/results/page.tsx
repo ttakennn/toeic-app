@@ -25,6 +25,7 @@ import {
   QuestionAnswer,
   Assignment,
   Visibility,
+  Translate,
 } from '@mui/icons-material';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
@@ -38,12 +39,24 @@ interface QuestionResult {
   question: {
     id: number;
     audioUrl: string;
+    question: {
+      en: string;
+      vi: string;
+    };
+    answerA: {
+      en: string;
+      vi: string;
+    };
+    answerB: {
+      en: string;
+      vi: string;
+    };
+    answerC: {
+      en: string;
+      vi: string;
+    };
     correctAnswer: string;
     explanation: string;
-    questionTranscript: string;
-    optionA_Transcript: string;
-    optionB_Transcript: string;
-    optionC_Transcript: string;
     theme: string;
     difficulty: string;
     vocabulary: string[];
@@ -151,6 +164,7 @@ function Part2ResultsPageContent() {
   const [results, setResults] = useState<TestResults | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showTranslationById, setShowTranslationById] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     try {
@@ -238,7 +252,8 @@ function Part2ResultsPageContent() {
                     {getCategoryEmoji(category)} {results.testInfo.title}
                   </Typography>
                 </Stack>
-                <Avatar
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <Avatar
                   sx={{
                     width: { xs: 60, sm: 80 },
                     height: { xs: 60, sm: 80 },
@@ -250,6 +265,7 @@ function Part2ResultsPageContent() {
                 >
                   {results.score}%
                 </Avatar>
+                </Stack>
               </Stack>
 
               <Grid container spacing={3}>
@@ -478,6 +494,21 @@ function Part2ResultsPageContent() {
                             <Cancel sx={{ color: 'error.main' }} />
                           )}
                           <Button
+                            variant="text"
+                            size="small"
+                            startIcon={<Translate />}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowTranslationById((prev) => ({
+                                ...prev,
+                                [result.questionId]: !prev[result.questionId]
+                              }));
+                            }}
+                            sx={{ minWidth: 'auto', px: 1 }}
+                          >
+                            {showTranslationById[result.questionId] ? 'Ẩn dịch' : 'Dịch'}
+                          </Button>
+                          <Button
                             variant="outlined"
                             size="small"
                             startIcon={<Visibility />}
@@ -498,16 +529,21 @@ function Part2ResultsPageContent() {
 
                       {/* Question Content */}
                       <Box>
-                        <Typography variant="body1" sx={{ fontWeight: 'medium', mb: 2 }}>
-                          📝 {result.question.questionTranscript}
+                        <Typography variant="body1" sx={{ fontWeight: 'medium', mb: 1 }}>
+                          📝 {result.question.question.en}
                         </Typography>
+                        {showTranslationById[result.questionId] && result.question.question.vi && (
+                          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mb: 2 }}>
+                            🇻🇳 {result.question.question.vi}
+                          </Typography>
+                        )}
 
                         <Grid container spacing={2}>
                           {[
-                            { option: 'A', text: result.question.optionA_Transcript },
-                            { option: 'B', text: result.question.optionB_Transcript },
-                            { option: 'C', text: result.question.optionC_Transcript }
-                          ].map(({ option, text }) => (
+                            { option: 'A', text: result.question.answerA.en, textVN: result.question.answerA.vi },
+                            { option: 'B', text: result.question.answerB.en, textVN: result.question.answerB.vi },
+                            { option: 'C', text: result.question.answerC.en, textVN: result.question.answerC.vi }
+                          ].map(({ option, text, textVN }) => (
                             <Grid size={{ xs: 12, sm: 4 }} key={option}>
                               <Card
                                 variant="outlined"
@@ -542,6 +578,11 @@ function Part2ResultsPageContent() {
                                   <Typography variant="body2" sx={{ mt: 0.5 }}>
                                     {text}
                                   </Typography>
+                                  {showTranslationById[result.questionId] && textVN && (
+                                    <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mt: 0.3 }}>
+                                      🇻🇳 {textVN}
+                                    </Typography>
+                                  )}
                                 </CardContent>
                               </Card>
                             </Grid>

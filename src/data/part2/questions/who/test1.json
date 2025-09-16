@@ -1,0 +1,213 @@
+{
+  "testInfo": {
+    "id": 1,
+    "title": "TEST 1 - Who cơ bản",
+    "difficulty": "Dễ",
+    "questions": 8,
+    "duration": "5 phút",
+    "category": "who",
+    "description": "Bài test cơ bản về các câu hỏi Who trong Part 2"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1758026487/toeic-part2/who/who-is-doing-the-product-demonstration-this-afternoon_mzmnaq.mp3",
+      "question": {
+        "en": "Who's doing the product demonstration this afternoon?",
+        "vi": "Ai sẽ thực hiện demo sản phẩm vào buổi chiều hôm nay?"
+      },
+      "answerA": {
+        "en": "That bus station is closed, sorry.",
+        "vi": "Trạm buýt này đóng cửa rồi, xin lỗi."
+      },
+      "answerB": {
+        "en": "I'm leaving for New York at lunchtime.",
+        "vi": "Tôi đang đi New York vào giờ trưa."
+      },
+      "answerC": {
+        "en": "Let me show you a few more.",
+        "vi": "Hãy để tôi cho bạn xem thêm một vài."
+      },
+      "correctAnswer": "B",
+      "explanation": "Câu hỏi 'Who's doing the product demonstration this afternoon?' yêu cầu thông tin về người.\nCâu trả lời B 'I'm leaving for New York at lunchtime.' cung cấp thông tin về người.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["product", "demonstration", "afternoon", "New York", "lunchtime"]
+    },
+    {
+      "id": 2,
+      "audioUrl": "https://example.com/part2/who/test1/q2-complete.mp3",
+      "question": {
+        "en": "Who will handle the customer complaints?",
+        "vi": "Ai sẽ xử lý khiếu nại của khách hàng?"
+      },
+      "answerA": {
+        "en": "Tomorrow morning.",
+        "vi": "Sáng mai."
+      },
+      "answerB": {
+        "en": "Sarah from customer service.",
+        "vi": "Sarah từ bộ phận chăm sóc khách hàng."
+      },
+      "answerC": {
+        "en": "In the main office.",
+        "vi": "Trong văn phòng chính."
+      },
+      "correctAnswer": "B",
+      "explanation": "Câu hỏi 'Who will handle the customer complaints?' yêu cầu thông tin về người.\nCâu trả lời B 'Sarah from customer service.' cung cấp thông tin về người sẽ xử lý.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["handle", "customer", "complaints", "service"]
+    },
+    {
+      "id": 3,
+      "audioUrl": "https://example.com/part2/who/test1/q3-complete.mp3",
+      "question": {
+        "en": "Who is responsible for the project?",
+        "vi": "Ai chịu trách nhiệm cho dự án?"
+      },
+      "answerA": {
+        "en": "Next month.",
+        "vi": "Tháng tới."
+      },
+      "answerB": {
+        "en": "Mr. Johnson is leading it.",
+        "vi": "Ông Johnson đang dẫn dắt nó."
+      },
+      "answerC": {
+        "en": "In the conference room.",
+        "vi": "Trong phòng hội nghị."
+      },
+      "correctAnswer": "B",
+      "explanation": "Câu hỏi 'Who is responsible for the project?' yêu cầu thông tin về người.\nCâu trả lời B 'Mr. Johnson is leading it.' cung cấp thông tin về người chịu trách nhiệm.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["responsible", "project", "leading"]
+    },
+    {
+      "id": 4,
+      "audioUrl": "https://example.com/part2/who/test1/q4-complete.mp3",
+      "question": {
+        "en": "Who called the meeting?",
+        "vi": "Ai đã triệu tập cuộc họp?"
+      },
+      "answerA": {
+        "en": "The manager did.",
+        "vi": "Người quản lý đã làm."
+      },
+      "answerB": {
+        "en": "At 3 o'clock.",
+        "vi": "Lúc 3 giờ."
+      },
+      "answerC": {
+        "en": "About the budget.",
+        "vi": "Về ngân sách."
+      },
+      "correctAnswer": "A",
+      "explanation": "Câu hỏi 'Who called the meeting?' yêu cầu thông tin về người.\nCâu trả lời A 'The manager did.' cung cấp thông tin về người triệu tập cuộc họp.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["called", "meeting", "manager"]
+    },
+    {
+      "id": 5,
+      "audioUrl": "https://example.com/part2/who/test1/q5-complete.mp3",
+      "question": {
+        "en": "Who is joining us for lunch?",
+        "vi": "Ai sẽ tham gia cùng chúng ta ăn trưa?"
+      },
+      "answerA": {
+        "en": "At the restaurant.",
+        "vi": "Tại nhà hàng."
+      },
+      "answerB": {
+        "en": "Around noon.",
+        "vi": "Khoảng trưa."
+      },
+      "answerC": {
+        "en": "Lisa and Tom will come.",
+        "vi": "Lisa và Tom sẽ đến."
+      },
+      "correctAnswer": "C",
+      "explanation": "Câu hỏi 'Who is joining us for lunch?' yêu cầu thông tin về người.\nCâu trả lời C 'Lisa and Tom will come.' cung cấp thông tin về những người tham gia.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["joining", "lunch", "come"]
+    },
+    {
+      "id": 6,
+      "audioUrl": "https://example.com/part2/who/test1/q6-complete.mp3",
+      "question": {
+        "en": "Who designed this website?",
+        "vi": "Ai đã thiết kế trang web này?"
+      },
+      "answerA": {
+        "en": "Last month.",
+        "vi": "Tháng trước."
+      },
+      "answerB": {
+        "en": "Our IT team did.",
+        "vi": "Đội IT của chúng tôi đã làm."
+      },
+      "answerC": {
+        "en": "It looks great.",
+        "vi": "Nó trông tuyệt vời."
+      },
+      "correctAnswer": "B",
+      "explanation": "Câu hỏi 'Who designed this website?' yêu cầu thông tin về người.\nCâu trả lời B 'Our IT team did.' cung cấp thông tin về người thiết kế.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["designed", "website", "team"]
+    },
+    {
+      "id": 7,
+      "audioUrl": "https://example.com/part2/who/test1/q7-complete.mp3",
+      "question": {
+        "en": "Who should I contact about this issue?",
+        "vi": "Tôi nên liên hệ với ai về vấn đề này?"
+      },
+      "answerA": {
+        "en": "Call the help desk.",
+        "vi": "Gọi bộ phận hỗ trợ."
+      },
+      "answerB": {
+        "en": "It's very urgent.",
+        "vi": "Nó rất khẩn cấp."
+      },
+      "answerC": {
+        "en": "By email is fine.",
+        "vi": "Qua email là được."
+      },
+      "correctAnswer": "A",
+      "explanation": "Câu hỏi 'Who should I contact about this issue?' yêu cầu thông tin về người hoặc bộ phận.\nCâu trả lời A 'Call the help desk.' cung cấp thông tin về bộ phận cần liên hệ.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["contact", "issue", "help desk"]
+    },
+    {
+      "id": 8,
+      "audioUrl": "https://example.com/part2/who/test1/q8-complete.mp3",
+      "question": {
+        "en": "Who will be presenting at the conference?",
+        "vi": "Ai sẽ thuyết trình tại hội nghị?"
+      },
+      "answerA": {
+        "en": "Next Friday.",
+        "vi": "Thứ Sáu tới."
+      },
+      "answerB": {
+        "en": "About marketing strategies.",
+        "vi": "Về chiến lược tiếp thị."
+      },
+      "answerC": {
+        "en": "Dr. Smith will speak.",
+        "vi": "Tiến sĩ Smith sẽ phát biểu."
+      },
+      "correctAnswer": "C",
+      "explanation": "Câu hỏi 'Who will be presenting at the conference?' yêu cầu thông tin về người.\nCâu trả lời C 'Dr. Smith will speak.' cung cấp thông tin về người thuyết trình.",
+      "theme": "Thông tin về người",
+      "difficulty": "Dễ",
+      "vocabulary": ["presenting", "conference", "speak"]
+    }
+  ]
+}

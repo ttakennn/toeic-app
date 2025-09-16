@@ -25,6 +25,7 @@ import {
   ArrowBack,
   Headphones,
   QuestionAnswer,
+  Translate,
 } from '@mui/icons-material';
 import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
@@ -38,12 +39,24 @@ interface QuestionResult {
   question: {
     id: number;
     audioUrl: string;
+    question: {
+      en: string;
+      vi: string;
+    };
+    answerA: {
+      en: string;
+      vi: string;
+    };
+    answerB: {
+      en: string;
+      vi: string;
+    };
+    answerC: {
+      en: string;
+      vi: string;
+    };
     correctAnswer: string;
     explanation: string;
-    questionTranscript: string;
-    optionA_Transcript: string;
-    optionB_Transcript: string;
-    optionC_Transcript: string;
     theme: string;
     difficulty: string;
     vocabulary: string[];
@@ -140,6 +153,14 @@ function Part2ReviewPageContent() {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const currentResult = results?.questionResults[currentQuestionIndex];
+
+  // Translation toggle (per question panel)
+  const [showTranslation, setShowTranslation] = useState(false);
+
+  // Reset translation state when changing question
+  useEffect(() => {
+    setShowTranslation(false);
+  }, [currentQuestionIndex]);
 
   useEffect(() => {
     try {
@@ -389,22 +410,37 @@ function Part2ReviewPageContent() {
                     {/* Question Transcript */}
                     <Card variant="outlined" sx={{ mb: 4 }}>
                       <CardContent>
-                        <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                          <QuestionAnswer /> Nội dung câu hỏi
+                        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0 }}>
+                            <QuestionAnswer /> Nội dung câu hỏi
+                          </Typography>
+                          <Button
+                            variant="text"
+                            size="small"
+                            startIcon={<Translate />}
+                            onClick={() => setShowTranslation((prev) => !prev)}
+                          >
+                            {showTranslation ? 'Ẩn dịch' : 'Dịch'}
+                          </Button>
+                        </Stack>
+                        <Typography variant="body1" sx={{ fontWeight: 'medium', mb: 2 }}>
+                          📝 {currentResult.question.question.en}
                         </Typography>
-                        <Typography variant="body1" sx={{ fontWeight: 'medium', mb: 3 }}>
-                          📝 {currentResult.question.questionTranscript}
-                        </Typography>
+                        {showTranslation && currentResult.question.question.vi && (
+                          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mb: 3 }}>
+                            🇻🇳 {currentResult.question.question.vi}
+                          </Typography>
+                        )}
 
                         <Typography variant="h6" gutterBottom>
                           Các lựa chọn:
                         </Typography>
                         <Grid container spacing={2}>
                           {[
-                            { option: 'A', text: currentResult.question.optionA_Transcript },
-                            { option: 'B', text: currentResult.question.optionB_Transcript },
-                            { option: 'C', text: currentResult.question.optionC_Transcript }
-                          ].map(({ option, text }) => (
+                            { option: 'A', text: currentResult.question.answerA.en, textVN: currentResult.question.answerA.vi },
+                            { option: 'B', text: currentResult.question.answerB.en, textVN: currentResult.question.answerB.vi },
+                            { option: 'C', text: currentResult.question.answerC.en, textVN: currentResult.question.answerC.vi }
+                          ].map(({ option, text, textVN }) => (
                             <Grid size={{ xs: 12 }} key={option}>
                               <Card
                                 variant="outlined"
@@ -430,9 +466,16 @@ function Part2ReviewPageContent() {
                                     }}>
                                       {option}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ flex: 1 }}>
-                                      {text}
-                                    </Typography>
+                                    <Box sx={{ flex: 1 }}>
+                                      <Typography variant="body1">
+                                        {text}
+                                      </Typography>
+                                      {showTranslation && textVN && (
+                                        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mt: 0.5 }}>
+                                          🇻🇳 {textVN}
+                                        </Typography>
+                                      )}
+                                    </Box>
                                     <Stack direction="row" spacing={1} alignItems="center">
                                       {option === currentResult.correctAnswer && (
                                         <Chip
@@ -441,7 +484,7 @@ function Part2ReviewPageContent() {
                                           sx={{
                                             backgroundColor: 'success.main',
                                             color: 'white',
-                                            display: { xs: 'none', md: 'block' }
+                                            display: { xs: 'none', md: 'flex' }
                                           }}
                                         />
                                       )}
