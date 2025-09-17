@@ -12,6 +12,7 @@ import {
   Chip,
   LinearProgress,
   IconButton,
+  Slider,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -22,7 +23,6 @@ import {
 import {
   PlayArrow,
   Pause,
-  VolumeUp,
   NavigateBefore,
   NavigateNext,
   Flag,
@@ -128,6 +128,8 @@ function TestContent() {
   const [showStartDialog, setShowStartDialog] = useState(false);
   const [testStarted, setTestStarted] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   // Use ref to track if we should auto play (to avoid loops) and user interaction
   const shouldAutoPlayRef = useRef(false);
@@ -180,6 +182,53 @@ function TestContent() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
+  }, [audioElement]);
+
+  // Attach audio listeners for time/duration updates when audio element changes
+  useEffect(() => {
+    if (!audioElement) return;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audioElement.currentTime || 0);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(audioElement.duration || 0);
+      setCurrentTime(audioElement.currentTime || 0);
+    };
+
+    const handleDurationChange = () => {
+      setDuration(audioElement.duration || 0);
+    };
+
+    audioElement.addEventListener('timeupdate', handleTimeUpdate);
+    audioElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audioElement.addEventListener('durationchange', handleDurationChange);
+
+    // Ensure playback rate is applied to the current element
+    try {
+      audioElement.playbackRate = 1;
+    } catch {}
+
+    // Initialize duration if already available
+    if (!Number.isNaN(audioElement.duration) && audioElement.duration) {
+      setDuration(audioElement.duration);
+    }
+
+    return () => {
+      audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+      audioElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audioElement.removeEventListener('durationchange', handleDurationChange);
+    };
+  }, [audioElement]);
+
+  // Keep playback rate in sync when it changes
+  useEffect(() => {
+    if (audioElement) {
+      try {
+        audioElement.playbackRate = 1;
+      } catch {}
+    }
   }, [audioElement]);
 
   // Load test data from API
@@ -276,7 +325,7 @@ function TestContent() {
   const handlePlayAudio = useCallback(async () => {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
-    
+
     const currentQuestionData = testData?.questions.find((q) => q.id === currentQuestion);
     if (!currentQuestionData?.audioUrl || audioLoadingRef.current) return;
 
@@ -298,12 +347,12 @@ function TestContent() {
         }
 
         const newAudio = new Audio(currentQuestionData.audioUrl);
-        
+
         newAudio.addEventListener('ended', () => {
           setIsPlaying(false);
           audioLoadingRef.current = false;
         });
-        
+
         newAudio.addEventListener('error', (e) => {
           console.error('Audio playback error:', e);
           setIsPlaying(false);
@@ -364,12 +413,12 @@ function TestContent() {
 
             // Create new audio element for auto play
             const newAudio = new Audio(currentQuestionData.audioUrl);
-            
+
             newAudio.addEventListener('ended', () => {
               setIsPlaying(false);
               audioLoadingRef.current = false;
             });
-            
+
             newAudio.addEventListener('error', (e) => {
               console.error('Audio playback error:', e);
               setIsPlaying(false);
@@ -385,7 +434,7 @@ function TestContent() {
             });
 
             setAudioElement(newAudio);
-            
+
             try {
               await newAudio.play();
               setIsPlaying(true);
@@ -422,7 +471,7 @@ function TestContent() {
   const handleAnswerSelect = (questionId: number, answer: string) => {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
-    
+
     setAnswers((prev) => ({
       ...prev,
       [questionId]: answer,
@@ -432,18 +481,20 @@ function TestContent() {
   const handleNextQuestion = () => {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
-    
+
     // Safely stop current audio when changing questions
     if (audioElement && !audioLoadingRef.current) {
       try {
         audioElement.pause();
         audioElement.currentTime = 0;
         setIsPlaying(false);
+        setCurrentTime(0);
+        setDuration(0);
       } catch (error) {
         console.warn('Error pausing audio:', error);
       }
     }
-    
+
     if (testData && currentQuestion < testData.questions.length) {
       setCurrentQuestion(currentQuestion + 1);
       // Mark that we should auto play the next question
@@ -454,18 +505,20 @@ function TestContent() {
   const handlePrevQuestion = () => {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
-    
+
     // Safely stop current audio when changing questions
     if (audioElement && !audioLoadingRef.current) {
       try {
         audioElement.pause();
         audioElement.currentTime = 0;
         setIsPlaying(false);
+        setCurrentTime(0);
+        setDuration(0);
       } catch (error) {
         console.warn('Error pausing audio:', error);
       }
     }
-    
+
     if (currentQuestion > 1) {
       setCurrentQuestion(currentQuestion - 1);
       // Mark that we should auto play the previous question
@@ -476,11 +529,11 @@ function TestContent() {
   const handleStartTest = async () => {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
-    
+
     // Start the test
     setTestStarted(true);
     setShowStartDialog(false);
-    
+
     // Play first question audio immediately
     const currentQuestionData = testData?.questions.find((q) => q.id === 1);
     if (currentQuestionData?.audioUrl && !audioLoadingRef.current) {
@@ -493,6 +546,8 @@ function TestContent() {
             audioElement.pause();
             audioElement.currentTime = 0;
             setIsPlaying(false);
+            setCurrentTime(0);
+            setDuration(0);
           } catch (error) {
             console.warn('Error cleaning up existing audio:', error);
           }
@@ -500,12 +555,12 @@ function TestContent() {
 
         // Create and play audio for first question
         const newAudio = new Audio(currentQuestionData.audioUrl);
-        
+
         newAudio.addEventListener('ended', () => {
           setIsPlaying(false);
           audioLoadingRef.current = false;
         });
-        
+
         newAudio.addEventListener('error', (e) => {
           console.error('Audio playback error:', e);
           setIsPlaying(false);
@@ -520,8 +575,13 @@ function TestContent() {
           audioLoadingRef.current = false;
         });
 
+        // Apply current playback rate
+        try {
+          newAudio.playbackRate = 1;
+        } catch {}
+
         setAudioElement(newAudio);
-        
+
         try {
           await newAudio.play();
           setIsPlaying(true);
@@ -542,10 +602,21 @@ function TestContent() {
     setShowFinishDialog(true);
   };
 
+  // Seek and skip controls
+  const handleSeek = (newTime: number) => {
+    if (audioElement && !Number.isNaN(newTime)) {
+      const clamped = Math.max(0, Math.min(duration || 0, newTime));
+      try {
+        audioElement.currentTime = clamped;
+        setCurrentTime(clamped);
+      } catch {}
+    }
+  };
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
   if (loading) {
@@ -592,6 +663,36 @@ function TestContent() {
   return (
     <DashboardLayout>
       <Box>
+        {/* Timer */}
+        <Box
+          sx={{
+            position: 'fixed',
+            top: { xs: 10, md: 12 },
+            right: { xs: 10, md: 12 },
+            textAlign: 'right',
+            zIndex: 9999,
+            pointerEvents: 'none',
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 'bold',
+              color: timeLeft < 300 ? '#f44336' : categoryData.color,
+              backgroundColor: 'white',
+              padding: { xs: 0.5, md: 0.5 },
+              borderRadius: 4,
+              fontSize: { xs: '1.5rem', md: '2rem' },
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Timer sx={{ mr: 1, fontSize: 'inherit' }} />
+            {formatTime(timeLeft)}
+          </Typography>
+        </Box>
+
         {/* Header với thông tin test */}
         <Box sx={{ mb: { xs: 3, md: 4 }, p: { xs: 2, md: 3 }, backgroundColor: categoryData.bgColor, borderRadius: 2 }}>
           <Stack
@@ -602,18 +703,18 @@ function TestContent() {
             spacing={{ xs: 2, sm: 0 }}
           >
             <Box>
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: 600,
-                  color: categoryData.color,
-                  mb: 1,
-                  fontSize: { xs: '1.3rem', md: '1.5rem' },
-                }}
-              >
-                {getCategoryEmoji(category)} {testData.testInfo.title}
-              </Typography>
-              <Stack direction="row" spacing={1} flexWrap="wrap">
+              <Stack sx={{ display: 'flex', alignItems: 'center' }} direction="row" spacing={1} flexWrap="wrap">
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: 600,
+                    color: categoryData.color,
+                    mb: 1,
+                    fontSize: { xs: '1rem', md: '1.5rem' },
+                  }}
+                >
+                  {getCategoryEmoji(category)} {testData.testInfo.title}
+                </Typography>
                 <Chip
                   label={testData.testInfo.difficulty}
                   size="small"
@@ -636,23 +737,6 @@ function TestContent() {
                 />
               </Stack>
             </Box>
-
-            <Box sx={{ textAlign: { xs: 'left', sm: 'right' } }}>
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: 'bold',
-                  color: timeLeft < 300 ? '#f44336' : categoryData.color,
-                  fontSize: { xs: '1.8rem', md: '2.125rem' },
-                }}
-              >
-                <Timer sx={{ mr: 1, fontSize: 'inherit' }} />
-                {formatTime(timeLeft)}
-              </Typography>
-              <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.7rem', md: '0.75rem' } }}>
-                Thời gian còn lại
-              </Typography>
-            </Box>
           </Stack>
 
           {/* Progress bar */}
@@ -663,10 +747,14 @@ function TestContent() {
               sx={{ mb: 1 }}
               spacing={{ xs: 0.5, sm: 0 }}
             >
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
+              {/* <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                 Câu {currentQuestion}/{testData.questions.length}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
+              </Typography> */}
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' }, fontWeight: 'bold' }}
+              >
                 Đã trả lời: {answeredCount}/{testData.questions.length}
               </Typography>
             </Stack>
@@ -730,41 +818,57 @@ function TestContent() {
                         }}
                       />
                     </Box>
+
+                    {/* Audio Controls */}
+                    <Box sx={{ mt: 2, mb: { xs: 2, md: 4 } }}>
+                      <Stack direction="row" alignItems="center" spacing={{ xs: 1, md: 1.5 }}>
+                        <IconButton
+                          onClick={handlePlayAudio}
+                          sx={{
+                            backgroundColor: categoryData.color,
+                            color: 'white',
+                            width: { xs: 30, md: 40 },
+                            height: { xs: 30, md: 40 },
+                            '&:hover': {
+                              backgroundColor: categoryData.color + 'dd',
+                            },
+                          }}
+                        >
+                          {isPlaying ? (
+                            <Pause sx={{ fontSize: { xs: 24, md: 30 } }} />
+                          ) : (
+                            <PlayArrow sx={{ fontSize: { xs: 24, md: 30 } }} />
+                          )}
+                        </IconButton>
+
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ minWidth: { xs: 68, md: 80 }, textAlign: 'center' }}
+                        >
+                          {formatTime(Math.floor(currentTime || 0))} / {formatTime(Math.floor(duration || 0))}
+                        </Typography>
+
+                        <Slider
+                          value={Math.min(currentTime, duration || 0)}
+                          min={0}
+                          max={duration || 0}
+                          step={0.1}
+                          onChange={(_, val) => {
+                            if (typeof val === 'number') setCurrentTime(val);
+                          }}
+                          onChangeCommitted={(_, val) => {
+                            if (typeof val === 'number') handleSeek(val);
+                          }}
+                          disabled={!duration}
+                          sx={{ color: categoryData.color, flexGrow: 1, minWidth: 0 }}
+                        />
+                      </Stack>
+                    </Box>
                   </Grid>
 
                   {/* Controls and answers section */}
                   <Grid size={{ xs: 12, md: 6 }}>
-                    {/* Audio Controls */}
-                    <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 4 } }}>
-                      <IconButton
-                        onClick={handlePlayAudio}
-                        sx={{
-                          backgroundColor: categoryData.color,
-                          color: 'white',
-                          width: { xs: 50, md: 70 },
-                          height: { xs: 50, md: 70 },
-                          mb: 1,
-                          '&:hover': {
-                            backgroundColor: categoryData.color + 'dd',
-                          },
-                        }}
-                      >
-                        {isPlaying ? (
-                          <Pause sx={{ fontSize: { xs: 24, md: 35 } }} />
-                        ) : (
-                          <PlayArrow sx={{ fontSize: { xs: 24, md: 35 } }} />
-                        )}
-                      </IconButton>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ fontSize: { xs: '0.7rem', md: '0.875rem' } }}
-                      >
-                        <VolumeUp sx={{ mr: 0.5, verticalAlign: 'middle', fontSize: 14 }} />
-                        {!hasUserInteractedRef.current ? 'Click để nghe audio' : 'Nghe audio và chọn đáp án'}
-                      </Typography>
-                    </Box>
-
                     {/* Answer options */}
                     <Box sx={{ mb: { xs: 2, md: 4 } }}>
                       {/* Mobile: 4 buttons in one row, Desktop: Stack layout */}
@@ -780,12 +884,14 @@ function TestContent() {
                                   onClick={() => handleAnswerSelect(currentQuestion, optionLetter)}
                                   sx={{
                                     aspectRatio: '1',
-                                    minHeight: 60,
+                                    maxHeight: 40,
                                     backgroundColor: isSelected ? categoryData.color : 'transparent',
                                     borderColor: categoryData.color,
                                     color: isSelected ? 'white' : categoryData.color,
                                     '&:hover': {
-                                      backgroundColor: isSelected ? categoryData.color + 'dd' : categoryData.color + '10',
+                                      backgroundColor: isSelected
+                                        ? categoryData.color + 'dd'
+                                        : categoryData.color + '10',
                                     },
                                   }}
                                 >
@@ -830,8 +936,8 @@ function TestContent() {
                               >
                                 <Box
                                   sx={{
-                                    width: 50,
-                                    height: 50,
+                                    width: 30,
+                                    height: 30,
                                     borderRadius: '50%',
                                     backgroundColor: isSelected ? 'white' : 'transparent',
                                     color: isSelected ? categoryData.color : 'inherit',
@@ -840,7 +946,7 @@ function TestContent() {
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     fontWeight: 'bold',
-                                    fontSize: '1.3rem',
+                                    fontSize: '1.2rem',
                                     flexShrink: 0,
                                   }}
                                 >
@@ -1010,7 +1116,7 @@ function TestContent() {
         </Dialog>
 
         {/* Dialog bắt đầu làm bài */}
-        <Dialog 
+        <Dialog
           open={showStartDialog}
           maxWidth="sm"
           fullWidth
@@ -1018,23 +1124,23 @@ function TestContent() {
           PaperProps={{
             sx: {
               m: { xs: 2, sm: 3 },
-              width: { xs: 'calc(100% - 32px)', sm: 'auto' }
-            }
+              width: { xs: 'calc(100% - 32px)', sm: 'auto' },
+            },
           }}
           BackdropProps={{
             sx: {
-              backgroundColor: 'rgba(0, 0, 0, 0.7)'
-            }
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            },
           }}
         >
           <DialogTitle sx={{ textAlign: 'center', pb: 1, px: { xs: 2, sm: 3 } }}>
-            <Typography 
-              component="div" 
-              variant="h5" 
-              sx={{ 
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{
                 fontWeight: 600,
                 fontSize: { xs: '1.3rem', md: '1.5rem' },
-                color: categoryData?.color || '#1976d2'
+                color: categoryData?.color || '#1976d2',
               }}
             >
               🚀 Sẵn sàng làm bài?
@@ -1042,23 +1148,18 @@ function TestContent() {
           </DialogTitle>
 
           <DialogContent sx={{ textAlign: 'center', px: { xs: 2, sm: 3 } }}>
-            <Typography 
-              variant="body1" 
-              sx={{ 
+            <Typography
+              variant="body1"
+              sx={{
                 mb: 2,
-                fontSize: { xs: '0.9rem', md: '1rem' }
+                fontSize: { xs: '0.9rem', md: '1rem' },
               }}
             >
               Bạn sắp bắt đầu <strong>{testData?.testInfo.title}</strong>
             </Typography>
-            
-            <Stack 
-              direction={{ xs: 'column', sm: 'row' }} 
-              justifyContent="center" 
-              spacing={2} 
-              sx={{ mb: 3 }}
-            >
-              <Chip 
+
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="center" spacing={2} sx={{ mb: 3 }}>
+              <Chip
                 label={`${testData?.testInfo.questions} câu hỏi`}
                 color="primary"
                 size="medium"
@@ -1072,50 +1173,50 @@ function TestContent() {
               />
               <Chip
                 label={testData?.testInfo.difficulty || 'Trung bình'}
-                sx={{ 
+                sx={{
                   backgroundColor: getDifficultyColor(testData?.testInfo.difficulty || '') + '20',
                   color: getDifficultyColor(testData?.testInfo.difficulty || ''),
-                  fontSize: { xs: '0.8rem', md: '0.875rem' }
+                  fontSize: { xs: '0.8rem', md: '0.875rem' },
                 }}
                 size="medium"
               />
             </Stack>
 
-            <Typography 
-              variant="body2" 
+            <Typography
+              variant="body2"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 fontSize: { xs: '0.8rem', md: '0.875rem' },
-                mb: 2
+                mb: 2,
               }}
             >
               📢 Sau khi bấm &ldquo;Bắt đầu&rdquo;, đồng hồ sẽ chạy và audio câu đầu tiên sẽ tự động phát.
             </Typography>
 
-            <Typography 
-              variant="body2" 
+            <Typography
+              variant="body2"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 fontSize: { xs: '0.75rem', md: '0.8rem' },
-                fontStyle: 'italic'
+                fontStyle: 'italic',
               }}
             >
               💡 Hãy chuẩn bị tai nghe và tìm một không gian yên tĩnh để làm bài tốt nhất.
             </Typography>
           </DialogContent>
 
-          <DialogActions 
-            sx={{ 
-              justifyContent: 'center', 
+          <DialogActions
+            sx={{
+              justifyContent: 'center',
               pb: 3,
-              px: { xs: 2, sm: 3 }
+              px: { xs: 2, sm: 3 },
             }}
           >
             <Button
               variant="contained"
               size="large"
               onClick={handleStartTest}
-              sx={{ 
+              sx={{
                 backgroundColor: categoryData?.color || '#1976d2',
                 minWidth: 200,
                 py: 1.5,
@@ -1123,7 +1224,7 @@ function TestContent() {
                 fontWeight: 600,
                 '&:hover': {
                   backgroundColor: (categoryData?.color || '#1976d2') + 'dd',
-                }
+                },
               }}
             >
               🚀 Bắt đầu làm bài
