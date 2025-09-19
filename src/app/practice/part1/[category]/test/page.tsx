@@ -454,7 +454,8 @@ function TestContent() {
         return () => clearTimeout(autoPlayTimer);
       }
     }
-  }, [testData, currentQuestion, audioElement, testStarted]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- audioElement is intentionally excluded to prevent double play
+  }, [testData, currentQuestion, testStarted]);
 
   // Timer countdown (only start after test is started)
   useEffect(() => {
