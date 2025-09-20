@@ -24,8 +24,6 @@ import {
   ArrowBack,
   QuestionAnswer,
   Assignment,
-  Visibility,
-  Translate,
 } from '@mui/icons-material';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
@@ -164,7 +162,6 @@ function Part2ResultsPageContent() {
   const [results, setResults] = useState<TestResults | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showTranslationById, setShowTranslationById] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     try {
@@ -213,11 +210,7 @@ function Part2ResultsPageContent() {
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
             {error}
           </Typography>
-          <Button
-            variant="contained"
-            component={Link}
-            href={`/practice/part2`}
-          >
+          <Button variant="contained" component={Link} href={`/practice/part2`}>
             Quay về trang chủ Part 2
           </Button>
         </Box>
@@ -229,42 +222,48 @@ function Part2ResultsPageContent() {
     <DashboardLayout>
       <Box sx={{ maxWidth: 1200, mx: 'auto', p: { xs: 1, sm: 2, md: 3 } }}>
         {/* Header */}
-        <Card sx={{ mb: { xs: 2, sm: 3, md: 4 }, background: `linear-gradient(135deg, ${results.categoryInfo.color}20 0%, ${results.categoryInfo.color}10 100%)` }}>
+        <Card
+          sx={{
+            mb: { xs: 2, sm: 3, md: 4 },
+            background: `linear-gradient(135deg, ${results.categoryInfo.color}20 0%, ${results.categoryInfo.color}10 100%)`,
+          }}
+        >
           <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
             <Stack spacing={3}>
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'flex-start', sm: 'center' }} justifyContent="space-between">
+              <Stack
+                direction={{ xs: 'row', sm: 'row' }}
+                spacing={2}
+                alignItems={{ xs: 'flex-start', sm: 'center' }}
+                justifyContent="space-between"
+              >
                 <Stack>
-                  <Typography 
+                  <Typography
                     variant="h4"
-                    sx={{ 
-                      color: results.categoryInfo.color, 
+                    sx={{
+                      color: results.categoryInfo.color,
                       fontWeight: 'bold',
-                      fontSize: { xs: '1.5rem', sm: '2rem' }
+                      fontSize: { xs: '1.5rem', sm: '2rem' },
                     }}
                   >
                     {getScoreEmoji(results.score)} Kết quả bài test
                   </Typography>
-                  <Typography 
-                    variant="h6"
-                    color="text.secondary"
-                    sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}
-                  >
+                  <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                     {getCategoryEmoji(category)} {results.testInfo.title}
                   </Typography>
                 </Stack>
                 <Stack direction="row" spacing={2} alignItems="center">
                   <Avatar
-                  sx={{
-                    width: { xs: 60, sm: 80 },
-                    height: { xs: 60, sm: 80 },
-                    backgroundColor: getScoreColor(results.score),
-                    fontSize: { xs: '1.5rem', sm: '2rem' },
-                    fontWeight: 'bold',
-                    alignSelf: { xs: 'center', sm: 'auto' }
-                  }}
-                >
-                  {results.score}%
-                </Avatar>
+                    sx={{
+                      width: { xs: 60, sm: 80 },
+                      height: { xs: 60, sm: 80 },
+                      backgroundColor: getScoreColor(results.score),
+                      fontSize: { xs: '1.5rem', sm: '2rem' },
+                      fontWeight: 'bold',
+                      alignSelf: { xs: 'center', sm: 'auto' },
+                    }}
+                  >
+                    {results.score}%
+                  </Avatar>
                 </Stack>
               </Stack>
 
@@ -325,16 +324,162 @@ function Part2ResultsPageContent() {
             </Stack>
           </CardContent>
         </Card>
+        {/* Main Content Grid */}
+        <Grid container spacing={{ xs: 2, sm: 3 }}>
+          {/* Question Details - Takes more space */}
+          <Grid size={{ xs: 12, lg: 8 }}>
+            <Card>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <QuestionAnswer /> Chi tiết từng câu hỏi
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontStyle: 'italic' }}>
+                  💡 Click vào bất kỳ câu hỏi nào để xem chi tiết và review
+                </Typography>
 
-        {/* Performance Analysis */}
-        <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: { xs: 2, sm: 3, md: 4 } }}>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={{ height: '100%' }}>
+                <Stack spacing={2}>
+                  {results.questionResults.map((result) => (
+                    <Card
+                      key={result.questionId}
+                      variant="outlined"
+                      sx={{
+                        border: result.isCorrect ? '2px solid #4caf50' : '2px solid #f44336',
+                        backgroundColor: result.isCorrect ? '#f8fff8' : '#fff8f8',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: 3,
+                          backgroundColor: result.isCorrect ? '#f0fff0' : '#fff0f0',
+                        },
+                      }}
+                      onClick={() => {
+                        window.location.href = `/practice/part2/questions/${category}/review?testId=${testId}&questionIndex=${results.questionResults.indexOf(
+                          result,
+                        )}`;
+                      }}
+                    >
+                      <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                        <Stack spacing={{ xs: 2, sm: 3 }}>
+                          {/* Question Header */}
+                          <Stack
+                            direction={{ xs: 'column', sm: 'row' }}
+                            spacing={2}
+                            alignItems={{ xs: 'flex-start', sm: 'center' }}
+                            justifyContent="space-between"
+                          >
+                            <Stack direction="row" spacing={2} alignItems="center">
+                              <Chip
+                                label={`Câu ${result.questionId}`}
+                                sx={{ backgroundColor: results.categoryInfo.color, color: 'white' }}
+                              />
+                              <Chip label={result.question.theme} variant="outlined" size="small" />
+                              <Chip
+                                label={result.question.difficulty}
+                                size="small"
+                                sx={{
+                                  backgroundColor: getDifficultyColor(result.question.difficulty) + '20',
+                                  color: getDifficultyColor(result.question.difficulty),
+                                }}
+                              />
+                            </Stack>
+                          </Stack>
+
+                          {/* Question Content */}
+                          <Box>
+                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 2 }}>
+                              <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
+                                <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+                                  <strong>Câu trả lời của bạn:</strong>
+                                </Typography>
+                                <Chip
+                                  label={result.userAnswer}
+                                  size="small"
+                                  sx={{
+                                    backgroundColor: result.isCorrect ? 'success.main' : 'error.main',
+                                    color: 'white',
+                                  }}
+                                />
+                              </Stack>
+                              <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
+                                <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+                                  <strong>Đáp án đúng:</strong>
+                                </Typography>
+                                <Chip
+                                  label={result.correctAnswer}
+                                  size="small"
+                                  sx={{
+                                    backgroundColor: 'success.main',
+                                    color: 'white',
+                                  }}
+                                />
+                              </Stack>
+                            </Stack>
+                          </Box>
+                        </Stack>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Action Buttons - Takes less space */}
+          <Grid size={{ xs: 12, lg: 4 }}>
+            {/* Action Buttons */}
+            <Card sx={{ height: 'fit-content', position: 'sticky', top: 20, mb: 1 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Assignment /> Hành động
+                </Typography>
+                <Stack spacing={2}>
+                  <Button
+                    variant="outlined"
+                    startIcon={<ArrowBack />}
+                    component={Link}
+                    href={`/practice/part2`}
+                    size="large"
+                    fullWidth
+                  >
+                    Quay về Part 2
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    startIcon={<QuestionAnswer />}
+                    component={Link}
+                    href={`/practice/part2/questions/${category}/review?testId=${testId}`}
+                    size="large"
+                    fullWidth
+                  >
+                    Xem chi tiết
+                  </Button>
+                  <Button
+                    variant="contained"
+                    startIcon={<Refresh />}
+                    component={Link}
+                    href={`/practice/part2/questions/${category}/test?testId=${testId}`}
+                    size="large"
+                    fullWidth
+                    sx={{
+                      backgroundColor: results.categoryInfo.color,
+                      '&:hover': {
+                        backgroundColor: results.categoryInfo.color + 'dd',
+                      },
+                    }}
+                  >
+                    Làm lại
+                  </Button>
+                </Stack>
+              </CardContent>
+            </Card>
+            {/* Performance Analysis */}
+            <Card sx={{ height: 'fit-content', mb: 1 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <TrendingUp /> Phân tích kết quả
                 </Typography>
-                
+
                 <Stack spacing={2}>
                   <Box>
                     <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
@@ -350,8 +495,8 @@ function Part2ResultsPageContent() {
                         height: 8,
                         borderRadius: 4,
                         '& .MuiLinearProgress-bar': {
-                          backgroundColor: getScoreColor(results.score)
-                        }
+                          backgroundColor: getScoreColor(results.score),
+                        },
                       }}
                     />
                   </Box>
@@ -378,10 +523,8 @@ function Part2ResultsPageContent() {
                 </Stack>
               </CardContent>
             </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={{ height: '100%' }}>
+            {/* Statistics by theme */}
+            <Card sx={{ height: 'fit-content', mb: 1 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <Assignment /> Thống kê theo chủ đề
@@ -417,7 +560,7 @@ function Part2ResultsPageContent() {
                           sx={{
                             height: 6,
                             borderRadius: 3,
-                            backgroundColor: '#f0f0f0'
+                            backgroundColor: '#f0f0f0',
                           }}
                         />
                       </Box>
@@ -428,254 +571,6 @@ function Part2ResultsPageContent() {
             </Card>
           </Grid>
         </Grid>
-
-        {/* Question Details */}
-        <Card>
-          <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-            <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <QuestionAnswer /> Chi tiết từng câu hỏi
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontStyle: 'italic' }}>
-              💡 Click vào bất kỳ câu hỏi nào để xem chi tiết và review
-            </Typography>
-
-            <Stack spacing={2}>
-              {results.questionResults.map((result) => (
-                <Card
-                  key={result.questionId}
-                  variant="outlined"
-                  sx={{
-                    border: result.isCorrect ? '2px solid #4caf50' : '2px solid #f44336',
-                    backgroundColor: result.isCorrect ? '#f8fff8' : '#fff8f8',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: 3,
-                      backgroundColor: result.isCorrect ? '#f0fff0' : '#fff0f0'
-                    }
-                  }}
-                  onClick={() => {
-                    window.location.href = `/practice/part2/questions/${category}/review?testId=${testId}&questionIndex=${results.questionResults.indexOf(result)}`;
-                  }}
-                >
-                  <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                    <Stack spacing={{ xs: 2, sm: 3 }}>
-                      {/* Question Header */}
-                      <Stack 
-                        direction={{ xs: 'column', sm: 'row' }} 
-                        spacing={2} 
-                        alignItems={{ xs: 'flex-start', sm: 'center' }} 
-                        justifyContent="space-between"
-                      >
-                        <Stack direction="row" spacing={2} alignItems="center">
-                          <Chip
-                            label={`Câu ${result.questionId}`}
-                            sx={{ backgroundColor: results.categoryInfo.color, color: 'white' }}
-                          />
-                          <Chip
-                            label={result.question.theme}
-                            variant="outlined"
-                            size="small"
-                          />
-                          <Chip
-                            label={result.question.difficulty}
-                            size="small"
-                            sx={{
-                              backgroundColor: getDifficultyColor(result.question.difficulty) + '20',
-                              color: getDifficultyColor(result.question.difficulty)
-                            }}
-                          />
-                        </Stack>
-                        <Stack direction="row" spacing={1} alignItems="center">
-                          {result.isCorrect ? (
-                            <CheckCircle sx={{ color: 'success.main' }} />
-                          ) : (
-                            <Cancel sx={{ color: 'error.main' }} />
-                          )}
-                          <Button
-                            variant="text"
-                            size="small"
-                            startIcon={<Translate />}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setShowTranslationById((prev) => ({
-                                ...prev,
-                                [result.questionId]: !prev[result.questionId]
-                              }));
-                            }}
-                            sx={{ minWidth: 'auto', px: 1 }}
-                          >
-                            {showTranslationById[result.questionId] ? 'Ẩn dịch' : 'Dịch'}
-                          </Button>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            startIcon={<Visibility />}
-                            component={Link}
-                            href={`/practice/part2/questions/${category}/review?testId=${testId}&questionIndex=${results.questionResults.indexOf(result)}`}
-                            onClick={(e) => e.stopPropagation()}
-                            sx={{
-                              minWidth: 'auto',
-                              fontSize: '0.75rem',
-                              py: 0.5,
-                              px: 1
-                            }}
-                          >
-                            Xem chi tiết
-                          </Button>
-                        </Stack>
-                      </Stack>
-
-                      {/* Question Content */}
-                      <Box>
-                        <Typography variant="body1" sx={{ fontWeight: 'medium', mb: 1 }}>
-                          📝 {result.question.question.en}
-                        </Typography>
-                        {showTranslationById[result.questionId] && result.question.question.vi && (
-                          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mb: 2 }}>
-                            🇻🇳 {result.question.question.vi}
-                          </Typography>
-                        )}
-
-                        <Grid container spacing={2}>
-                          {[
-                            { option: 'A', text: result.question.answerA.en, textVN: result.question.answerA.vi },
-                            { option: 'B', text: result.question.answerB.en, textVN: result.question.answerB.vi },
-                            { option: 'C', text: result.question.answerC.en, textVN: result.question.answerC.vi }
-                          ].map(({ option, text, textVN }) => (
-                            <Grid size={{ xs: 12, sm: 4 }} key={option}>
-                              <Card
-                                variant="outlined"
-                                sx={{
-                                  backgroundColor: 
-                                    option === result.correctAnswer ? '#e8f5e8' :
-                                    option === result.userAnswer && !result.isCorrect ? '#ffebee' :
-                                    'transparent',
-                                  border:
-                                    option === result.correctAnswer ? '2px solid #4caf50' :
-                                    option === result.userAnswer && !result.isCorrect ? '2px solid #f44336' :
-                                    '1px solid #e0e0e0'
-                                }}
-                              >
-                                <CardContent sx={{ py: 1.5 }}>
-                                  <Stack direction="row" spacing={1} alignItems="center">
-                                    <Typography variant="h6" sx={{ 
-                                      color: 
-                                        option === result.correctAnswer ? 'success.main' :
-                                        option === result.userAnswer && !result.isCorrect ? 'error.main' :
-                                        'text.primary'
-                                    }}>
-                                      {option}
-                                    </Typography>
-                                    {option === result.correctAnswer && (
-                                      <CheckCircle sx={{ fontSize: 16, color: 'success.main' }} />
-                                    )}
-                                    {option === result.userAnswer && !result.isCorrect && (
-                                      <Cancel sx={{ fontSize: 16, color: 'error.main' }} />
-                                    )}
-                                  </Stack>
-                                  <Typography variant="body2" sx={{ mt: 0.5 }}>
-                                    {text}
-                                  </Typography>
-                                  {showTranslationById[result.questionId] && textVN && (
-                                    <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mt: 0.3 }}>
-                                      🇻🇳 {textVN}
-                                    </Typography>
-                                  )}
-                                </CardContent>
-                              </Card>
-                            </Grid>
-                          ))}
-                        </Grid>
-
-                        <Box sx={{ mt: 2, p: 2, backgroundColor: '#f8f9fa', borderRadius: 2 }}>
-                          <Typography variant="body2" sx={{ fontWeight: 'medium', mb: 1 }}>
-                            💡 Giải thích:
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {result.question.explanation}
-                          </Typography>
-                        </Box>
-
-                        {/* User's Answer */}
-                        <Stack 
-                          direction={{ xs: 'column', sm: 'row' }} 
-                          spacing={2} 
-                          sx={{ mt: 2 }}
-                        >
-                          <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
-                            <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-                              <strong>Câu trả lời của bạn:</strong>
-                            </Typography>
-                            <Chip
-                              label={result.userAnswer}
-                              size="small"
-                              sx={{
-                                backgroundColor: result.isCorrect ? 'success.main' : 'error.main',
-                                color: 'white'
-                              }}
-                            />
-                          </Stack>
-                          <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
-                            <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-                              <strong>Đáp án đúng:</strong>
-                            </Typography>
-                            <Chip
-                              label={result.correctAnswer}
-                              size="small"
-                              sx={{
-                                backgroundColor: 'success.main',
-                                color: 'white'
-                              }}
-                            />
-                          </Stack>
-                        </Stack>
-                      </Box>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              ))}
-            </Stack>
-          </CardContent>
-        </Card>
-
-        {/* Action Buttons */}
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 4 }}>
-          <Button
-            variant="outlined"
-            startIcon={<ArrowBack />}
-            component={Link}
-            href={`/practice/part2`}
-            size="large"
-          >
-            Quay về Part 2
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<Assignment />}
-            component={Link}
-            href={`/practice/part2/questions/${category}/review?testId=${testId}`}
-            size="large"
-          >
-            Xem chi tiết
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<Refresh />}
-            component={Link}
-            href={`/practice/part2/questions/${category}/test?testId=${testId}`}
-            size="large"
-            sx={{
-              backgroundColor: results.categoryInfo.color,
-              '&:hover': {
-                backgroundColor: results.categoryInfo.color + 'dd'
-              }
-            }}
-          >
-            Làm lại
-          </Button>
-        </Stack>
       </Box>
     </DashboardLayout>
   );
@@ -683,13 +578,15 @@ function Part2ResultsPageContent() {
 
 export default function Part2ResultsPage() {
   return (
-    <Suspense fallback={
-      <DashboardLayout>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-          <Typography variant="h6">Đang tải kết quả...</Typography>
-        </Box>
-      </DashboardLayout>
-    }>
+    <Suspense
+      fallback={
+        <DashboardLayout>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+            <Typography variant="h6">Đang tải kết quả...</Typography>
+          </Box>
+        </DashboardLayout>
+      }
+    >
       <Part2ResultsPageContent />
     </Suspense>
   );

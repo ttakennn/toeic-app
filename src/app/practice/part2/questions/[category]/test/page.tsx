@@ -514,10 +514,16 @@ function Part2TestPageContent() {
     // Mark that user has interacted
     hasUserInteractedRef.current = true;
 
-    setSelectedAnswers((prev) => ({
-      ...prev,
-      [questionId]: answer,
-    }));
+    console.log(`Selecting answer for question ${questionId}: ${answer}`);
+    
+    setSelectedAnswers((prev) => {
+      const newAnswers = {
+        ...prev,
+        [questionId]: answer,
+      };
+      console.log('Updated selected answers:', newAnswers);
+      return newAnswers;
+    });
   };
 
   // Flag question
@@ -533,6 +539,10 @@ function Part2TestPageContent() {
     setShowSubmitDialog(false);
     setIsTimeoutDialog(false);
 
+    // Debug: Log selected answers
+    console.log('Selected answers on submit:', selectedAnswers);
+    console.log('Test data questions:', testData?.questions.map(q => ({ id: q.id, correctAnswer: q.correctAnswer })));
+
     // Calculate results
     let correctCount = 0;
     const questionResults =
@@ -540,6 +550,8 @@ function Part2TestPageContent() {
         const userAnswer = selectedAnswers[question.id];
         const isCorrect = userAnswer === question.correctAnswer;
         if (isCorrect) correctCount++;
+
+        console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correctAnswer}", Is correct: ${isCorrect}`);
 
         return {
           questionId: question.id,
@@ -567,6 +579,7 @@ function Part2TestPageContent() {
       submittedAt: new Date().toISOString(),
     };
 
+    console.log('Storing results:', results);
     localStorage.setItem(`part2_test_results_${category}_${testId}`, JSON.stringify(results));
 
     // Redirect to results page
@@ -1305,17 +1318,7 @@ function Part2TestPageContent() {
               variant="contained"
               startIcon={<CheckCircle />}
               size="medium"
-              onClick={() => {
-                // Lưu answers vào sessionStorage
-                sessionStorage.setItem(`test_answers_${category}_${testId}`, JSON.stringify(selectedAnswers));
-                sessionStorage.setItem(
-                  `test_time_spent_${category}_${testId}`,
-                  Math.max(0, parseInt(testData.testInfo.duration.split(' ')[0]) * 60 - timeLeft).toString(),
-                );
-
-                // Chuyển hướng đến results page
-                window.location.href = `/practice/part2/questions/${category}/results?testId=${testId}`;
-              }}
+              onClick={handleSubmitTest}
               sx={{
                 backgroundColor: categoryInfo?.color,
                 order: { xs: 1, sm: 2 },
