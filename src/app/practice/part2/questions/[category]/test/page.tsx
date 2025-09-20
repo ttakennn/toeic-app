@@ -553,7 +553,7 @@ function Part2TestPageContent() {
 
   return (
     <DashboardLayout>
-      <Box sx={{ maxWidth: 1200, mx: 'auto', p: { xs: 1, sm: 2 }, pb: { xs: 9, sm: 10 } }}>
+      <Box sx={{ maxWidth: 1400, mx: 'auto', p: { xs: 1, sm: 2 }, pb: { xs: 9, sm: 10 } }}>
         {/* Header */}
         <Card sx={{ mb: 3, backgroundColor: categoryInfo?.bgColor + '30' }}>
           <CardContent>

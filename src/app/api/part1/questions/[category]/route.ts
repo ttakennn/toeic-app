@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import practiceItemsData from '@/data/part1/questions/practiceItems.json';
-
+import { GuideItem } from '@/app/types/core.interface';
 
 interface TestSummary {
   id: number;
@@ -22,15 +22,13 @@ interface CategoryInfo {
   color: string;
   bgColor: string;
   totalTests: number;
+  guides?: GuideItem;
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ category: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ category: string }> }) {
   try {
     const { category } = await params;
-    
+
     // Validate category
     const validCategories = ['basic', 'advanced', 'simulation', 'mixed'];
     if (!validCategories.includes(category)) {
@@ -39,19 +37,19 @@ export async function GET(
           error: 'Invalid category',
           message: `Category must be one of: ${validCategories.join(', ')}`,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     // Get category info from practiceItems
-    const categoryInfo = practiceItemsData.practiceItems.find(item => item.id === category);
+    const categoryInfo = practiceItemsData.practiceItems.find((item) => item.id === category);
     if (!categoryInfo) {
       return NextResponse.json(
         {
           error: 'Category not found',
           message: `Category ${category} not found in practice items`,
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -88,7 +86,7 @@ export async function GET(
     }
 
     // Optional small delay to help visual loading states
-    await new Promise(resolve => setTimeout(resolve, 150));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     const categoryResponse: CategoryInfo = {
       id: categoryInfo.id,
@@ -98,17 +96,17 @@ export async function GET(
       color: categoryInfo.color,
       bgColor: categoryInfo.bgColor,
       totalTests: categoryInfo.totalTests,
+      guides: practiceItemsData.guides,
     };
 
     return NextResponse.json({
       success: true,
       category: categoryResponse,
       tests: availableTests,
-      availableCount: availableTests.filter(test => test.available).length,
+      availableCount: availableTests.filter((test) => test.available).length,
       totalCount: availableTests.length,
       timestamp: new Date().toISOString(),
     });
-
   } catch (error) {
     console.error('Error fetching category tests:', error);
     return NextResponse.json(
@@ -116,7 +114,7 @@ export async function GET(
         error: 'Internal server error',
         message: 'Failed to fetch category tests',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

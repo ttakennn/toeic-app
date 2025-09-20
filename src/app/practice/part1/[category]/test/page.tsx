@@ -30,10 +30,12 @@ import {
   Cancel,
   Timer,
   Error as ErrorIcon,
+  Headphones,
 } from '@mui/icons-material';
 import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 import Link from 'next/link';
+import { GuideItem } from '@/app/types/core.interface';
 
 interface TestQuestion {
   id: number;
@@ -54,6 +56,10 @@ interface TestInfo {
   duration: string;
   category: string;
   description: string;
+  icon: string;
+  color: string;
+  bgColor: string;
+  guides: GuideItem;
 }
 
 interface TestData {
@@ -67,16 +73,6 @@ interface TestApiResponse {
   category: string;
   testId: number;
   timestamp: string;
-}
-
-interface CategoryInfo {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  color: string;
-  bgColor: string;
-  totalTests: number;
 }
 
 const getCategoryEmoji = (categoryId: string) => {
@@ -115,7 +111,7 @@ function TestContent() {
 
   // API States
   const [testData, setTestData] = useState<TestData | null>(null);
-  const [categoryData, setCategoryData] = useState<CategoryInfo | null>(null);
+  const [categoryData, setCategoryData] = useState<TestInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -125,7 +121,6 @@ function TestContent() {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showFinishDialog, setShowFinishDialog] = useState(false);
-  const [showStartDialog, setShowStartDialog] = useState(false);
   const [testStarted, setTestStarted] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
@@ -150,20 +145,8 @@ function TestContent() {
       audioLoadingRef.current = false;
     };
 
-    const handleVisibilityChange = () => {
-      if (document.hidden && audioElement && !audioLoadingRef.current) {
-        try {
-          audioElement.pause();
-          setIsPlaying(false);
-        } catch (error) {
-          console.warn('Error pausing on visibility change:', error);
-        }
-      }
-    };
-
     // Add event listeners
     window.addEventListener('beforeunload', handleBeforeUnload);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       // Cleanup audio
@@ -180,7 +163,6 @@ function TestContent() {
 
       // Remove event listeners
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [audioElement]);
 
@@ -245,28 +227,32 @@ function TestContent() {
         }
 
         // Fetch test data
-        const response = await fetch(`/api/part1/questions/${category}/${testId}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        const [testResponse, categoryResponse] = await Promise.all([
+          fetch(`/api/part1/questions/${category}/${testId}`),
+          fetch(`/api/part1/questions/${category}`),
+        ]);
+
+        if (!testResponse.ok) {
+          throw new Error(`HTTP error! status: ${testResponse.status}`);
         }
 
-        const apiData: TestApiResponse = await response.json();
-        if (!apiData.success) {
+        if (!categoryResponse.ok) {
+          throw new Error(`Lỗi tải thông tin category: ${categoryResponse.status}`);
+        }
+
+        const testData: TestApiResponse = await testResponse.json();
+        const categoryData = await categoryResponse.json();
+
+        if (!testData.success) {
           throw new Error('Failed to load test data');
         }
 
-        setTestData(apiData.data);
-
-        // Get category info (from previous API or hardcoded mapping)
-        const categoryInfo = getCategoryInfo(category);
-        setCategoryData(categoryInfo);
+        setTestData(testData.data);
+        setCategoryData(categoryData.category);
 
         // Set timer but don't start countdown yet
-        const timeInMinutes = parseInt(apiData.data.testInfo.duration.split(' ')[0]);
+        const timeInMinutes = parseInt(testData.data.testInfo.duration.split(' ')[0]);
         setTimeLeft(timeInMinutes * 60);
-
-        // Show start dialog
-        setShowStartDialog(true);
       } catch (error) {
         console.error('Error loading test data:', error);
         setError(error instanceof Error ? error.message : 'Failed to load test data');
@@ -279,48 +265,6 @@ function TestContent() {
       loadTestData();
     }
   }, [category, testId]);
-
-  const getCategoryInfo = (categoryId: string): CategoryInfo => {
-    const categoryMap: { [key: string]: CategoryInfo } = {
-      basic: {
-        id: 'basic',
-        title: 'Cụm từ tả người',
-        description: 'Học các cụm từ mô tả người và hoạt động của con người',
-        icon: '/images/categories/people-icon.svg',
-        color: '#4caf50',
-        bgColor: '#e8f5e8',
-        totalTests: 5,
-      },
-      advanced: {
-        id: 'advanced',
-        title: 'Cụm từ tả cảnh',
-        description: 'Các cụm từ mô tả cảnh quan và môi trường',
-        icon: '/images/categories/scene-icon.svg',
-        color: '#f44336',
-        bgColor: '#ffebee',
-        totalTests: 4,
-      },
-      simulation: {
-        id: 'simulation',
-        title: 'Cụm từ tả vật',
-        description: 'Mô tả các đồ vật và thiết bị',
-        icon: '/images/categories/object-icon.svg',
-        color: '#2196f3',
-        bgColor: '#e3f2fd',
-        totalTests: 4,
-      },
-      mixed: {
-        id: 'mixed',
-        title: 'Cụm từ tổng hợp',
-        description: 'Tương tác giữa người và môi trường',
-        icon: '/images/categories/mixed-icon.svg',
-        color: '#ff9800',
-        bgColor: '#fff3e0',
-        totalTests: 6,
-      },
-    };
-    return categoryMap[categoryId] || categoryMap.basic;
-  };
 
   const handlePlayAudio = useCallback(async () => {
     // Mark that user has interacted
@@ -533,7 +477,6 @@ function TestContent() {
 
     // Start the test
     setTestStarted(true);
-    setShowStartDialog(false);
 
     // Play first question audio immediately
     const currentQuestionData = testData?.questions.find((q) => q.id === 1);
@@ -657,122 +600,192 @@ function TestContent() {
     );
   }
 
+  // Pre-test screen
+  if (!testStarted) {
+    return (
+      <DashboardLayout>
+        <Box sx={{ maxWidth: { xs: '100%', md: 900 }, mx: 'auto', p: { xs: 0, sm: 3 } }}>
+          <Card>
+            <CardContent sx={{ p: 4 }}>
+              <Stack spacing={4} alignItems="center">
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography variant="h4" gutterBottom sx={{ color: categoryData?.color }}>
+                    {getCategoryEmoji(category)} {testData.testInfo.title}
+                  </Typography>
+                  <Typography variant="h6" color="text.secondary" gutterBottom>
+                    {categoryData.title}
+                  </Typography>
+                </Box>
+
+                <Grid container spacing={3} sx={{ textAlign: 'center' }}>
+                  <Grid size={{ xs: 6, sm: 6 }}>
+                    <Card variant="outlined">
+                      <CardContent>
+                        <Typography variant="h3" sx={{ color: categoryData?.color, fontWeight: 'bold' }}>
+                          {testData.testInfo.questions}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Câu hỏi
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid size={{ xs: 6, sm: 6 }}>
+                    <Card variant="outlined">
+                      <CardContent>
+                        <Typography variant="h3" sx={{ color: 'warning.main', fontWeight: 'bold' }}>
+                          {testData.testInfo.duration}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Thời gian
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid size={{ xs: 6, sm: 6 }}>
+                    <Card variant="outlined">
+                      <CardContent>
+                        <Chip
+                          label={testData.testInfo.difficulty}
+                          sx={{
+                            backgroundColor: getDifficultyColor(testData.testInfo.difficulty),
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '1.1rem',
+                            px: 2,
+                            py: 1,
+                          }}
+                        />
+                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                          Độ khó
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid size={{ xs: 6, sm: 6 }}>
+                    <Card variant="outlined">
+                      <CardContent>
+                        <Headphones
+                          sx={{
+                            fontSize: {
+                              xs: 30,
+                              sm: 26,
+                            },
+                            color: 'primary.main',
+                          }}
+                        />
+                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                          Chỉ nghe
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+
+                {/* Hướng dẫn làm bài */}
+                <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', p: 2, borderRadius: 2 }}>
+                  <Typography variant="body1" gutterBottom sx={{ fontWeight: 'medium' }}>
+                    {categoryData.guides.title}
+                  </Typography>
+
+                  <Stack component="ul" spacing={0.5} sx={{ pl: 2, mt: 1 }}>
+                    {categoryData.guides.description.map((item) => (
+                      <Typography
+                        key={item.key}
+                        component="li"
+                        variant="body2"
+                        dangerouslySetInnerHTML={{ __html: item.item }}
+                      />
+                    ))}
+                  </Stack>
+                </Box>
+
+                <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', fontStyle: 'italic' }}>
+                  {testData.testInfo.description}
+                </Typography>
+
+                <Button
+                  variant="contained"
+                  size="large"
+                  startIcon={<PlayArrow />}
+                  onClick={handleStartTest}
+                  sx={{
+                    backgroundColor: categoryData?.color,
+                    px: 4,
+                    py: 2,
+                    fontSize: '1.1rem',
+                    '&:hover': {
+                      backgroundColor: categoryData?.color + 'dd',
+                    },
+                  }}
+                >
+                  Bắt đầu làm bài
+                </Button>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Box>
+      </DashboardLayout>
+    );
+  }
+
   const currentQuestionData = testData.questions.find((q) => q.id === currentQuestion);
-  const progress = ((currentQuestion - 1) / testData.questions.length) * 100;
+  const progress = (currentQuestion / testData.questions.length) * 100;
   const answeredCount = Object.keys(answers).length;
 
   return (
     <DashboardLayout>
-      <Box>
-        {/* Timer */}
-        <Box
-          sx={{
-            position: 'fixed',
-            top: { xs: 10, md: 12 },
-            right: { xs: 10, md: 12 },
-            textAlign: 'right',
-            zIndex: 9999,
-            pointerEvents: 'none',
-          }}
-        >
-          <Typography
-            variant="h4"
-            sx={{
-              fontWeight: 'bold',
-              color: timeLeft < 300 ? '#f44336' : categoryData.color,
-              backgroundColor: 'white',
-              padding: { xs: 0.5, md: 0.5 },
-              borderRadius: 4,
-              fontSize: { xs: '1.5rem', md: '2rem' },
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Timer sx={{ mr: 1, fontSize: 'inherit' }} />
-            {formatTime(timeLeft)}
-          </Typography>
-        </Box>
-
+      <Box sx={{ maxWidth: 1400, mx: 'auto', p: { xs: 1, sm: 2 }, pb: { xs: 9, sm: 10 } }}>
         {/* Header với thông tin test */}
-        <Box sx={{ mb: { xs: 3, md: 4 }, p: { xs: 2, md: 3 }, backgroundColor: categoryData.bgColor, borderRadius: 2 }}>
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            alignItems={{ xs: 'flex-start', sm: 'center' }}
-            justifyContent="space-between"
-            sx={{ mb: 2 }}
-            spacing={{ xs: 2, sm: 0 }}
-          >
-            <Box>
-              <Stack sx={{ display: 'flex', alignItems: 'center' }} direction="row" spacing={1} flexWrap="wrap">
+        <Card sx={{ mb: 2, backgroundColor: categoryData?.bgColor + '30' }}>
+          <CardContent>
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
+              <Stack direction="row" spacing={2} alignItems="center">
                 <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: 600,
-                    color: categoryData.color,
-                    mb: 1,
-                    fontSize: { xs: '1rem', md: '1.5rem' },
-                  }}
+                  variant="h6"
+                  sx={{ color: categoryData?.color, fontWeight: 600, fontSize: { xs: '1rem', md: '1.25rem' } }}
                 >
                   {getCategoryEmoji(category)} {testData.testInfo.title}
                 </Typography>
                 <Chip
                   label={testData.testInfo.difficulty}
-                  size="small"
                   sx={{
-                    backgroundColor: getDifficultyColor(testData.testInfo.difficulty) + '20',
-                    color: getDifficultyColor(testData.testInfo.difficulty),
+                    backgroundColor: getDifficultyColor(testData.testInfo.difficulty),
+                    color: 'white',
                     fontWeight: 'medium',
-                    fontSize: { xs: '0.7rem', md: '0.75rem' },
-                  }}
-                />
-                <Chip
-                  label={`${testData.testInfo.questions} câu`}
-                  size="small"
-                  sx={{
-                    backgroundColor: categoryData.color + '20',
-                    color: categoryData.color,
-                    fontWeight: 'medium',
-                    fontSize: { xs: '0.7rem', md: '0.75rem' },
                   }}
                 />
               </Stack>
-            </Box>
-          </Stack>
-
-          {/* Progress bar */}
-          <Box sx={{ mb: 2 }}>
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              justifyContent="space-between"
-              sx={{ mb: 1 }}
-              spacing={{ xs: 0.5, sm: 0 }}
-            >
-              {/* <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
-                Câu {currentQuestion}/{testData.questions.length}
-              </Typography> */}
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' }, fontWeight: 'bold' }}
-              >
-                Đã trả lời: {answeredCount}/{testData.questions.length}
-              </Typography>
+              <Chip
+                icon={<Timer />}
+                label={formatTime(timeLeft)}
+                color={timeLeft <= 60 ? 'error' : timeLeft <= 180 ? 'warning' : 'primary'}
+                variant="filled"
+                sx={{ fontWeight: 'bold', fontSize: { xs: '0.8rem', md: '1rem' } }}
+              />
             </Stack>
-            <LinearProgress
-              variant="determinate"
-              value={progress}
-              sx={{
-                height: { xs: 6, md: 8 },
-                borderRadius: 4,
-                backgroundColor: '#f0f0f0',
-                '& .MuiLinearProgress-bar': {
-                  backgroundColor: categoryData.color,
-                },
-              }}
-            />
-          </Box>
-        </Box>
+
+            {/* Progress */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1 }}>
+              <LinearProgress
+                variant="determinate"
+                value={progress}
+                sx={{
+                  flex: 1,
+                  height: 8,
+                  borderRadius: 4,
+                  backgroundColor: '#f0f0f0',
+                  '& .MuiLinearProgress-bar': {
+                    backgroundColor: categoryData?.color,
+                  },
+                }}
+              />
+              <Typography variant="body2" color="text.secondary" sx={{ minWidth: 'fit-content' }}>
+                {currentQuestion}/{testData.questions.length}
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
 
         {/* Layout responsive - mobile: single column, desktop: two columns */}
         <Grid container spacing={{ xs: 2, md: 4 }}>
@@ -821,7 +834,7 @@ function TestContent() {
                     </Box>
 
                     {/* Audio Controls */}
-                    <Box sx={{ mt: 2, mb: { xs: 2, md: 4 } }}>
+                    <Box sx={{ mt: 2 }}>
                       <Stack direction="row" alignItems="center" spacing={{ xs: 1, md: 1.5 }}>
                         <IconButton
                           onClick={handlePlayAudio}
@@ -1112,123 +1125,6 @@ function TestContent() {
               }}
             >
               Xem kết quả
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        {/* Dialog bắt đầu làm bài */}
-        <Dialog
-          open={showStartDialog}
-          maxWidth="sm"
-          fullWidth
-          disableEscapeKeyDown
-          PaperProps={{
-            sx: {
-              m: { xs: 2, sm: 3 },
-              width: { xs: 'calc(100% - 32px)', sm: 'auto' },
-            },
-          }}
-          BackdropProps={{
-            sx: {
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            },
-          }}
-        >
-          <DialogTitle sx={{ textAlign: 'center', pb: 1, px: { xs: 2, sm: 3 } }}>
-            <Typography
-              component="div"
-              variant="h5"
-              sx={{
-                fontWeight: 600,
-                fontSize: { xs: '1.3rem', md: '1.5rem' },
-                color: categoryData?.color || '#1976d2',
-              }}
-            >
-              🚀 Sẵn sàng làm bài?
-            </Typography>
-          </DialogTitle>
-
-          <DialogContent sx={{ textAlign: 'center', px: { xs: 2, sm: 3 } }}>
-            <Typography
-              variant="body1"
-              sx={{
-                mb: 2,
-                fontSize: { xs: '0.9rem', md: '1rem' },
-              }}
-            >
-              Bạn sắp bắt đầu <strong>{testData?.testInfo.title}</strong>
-            </Typography>
-
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="center" spacing={2} sx={{ mb: 3 }}>
-              <Chip
-                label={`${testData?.testInfo.questions} câu hỏi`}
-                color="primary"
-                size="medium"
-                sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}
-              />
-              <Chip
-                label={testData?.testInfo.duration || '15 phút'}
-                color="secondary"
-                size="medium"
-                sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}
-              />
-              <Chip
-                label={testData?.testInfo.difficulty || 'Trung bình'}
-                sx={{
-                  backgroundColor: getDifficultyColor(testData?.testInfo.difficulty || '') + '20',
-                  color: getDifficultyColor(testData?.testInfo.difficulty || ''),
-                  fontSize: { xs: '0.8rem', md: '0.875rem' },
-                }}
-                size="medium"
-              />
-            </Stack>
-
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{
-                fontSize: { xs: '0.8rem', md: '0.875rem' },
-                mb: 2,
-              }}
-            >
-              📢 Sau khi bấm &ldquo;Bắt đầu&rdquo;, đồng hồ sẽ chạy và audio câu đầu tiên sẽ tự động phát.
-            </Typography>
-
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{
-                fontSize: { xs: '0.75rem', md: '0.8rem' },
-                fontStyle: 'italic',
-              }}
-            >
-              💡 Hãy chuẩn bị tai nghe và tìm một không gian yên tĩnh để làm bài tốt nhất.
-            </Typography>
-          </DialogContent>
-
-          <DialogActions
-            sx={{
-              justifyContent: 'center',
-              pb: 3,
-              px: { xs: 2, sm: 3 },
-            }}
-          >
-            <Button
-              variant="contained"
-              size="large"
-              onClick={handleStartTest}
-              sx={{
-                backgroundColor: categoryData?.color || '#1976d2',
-                minWidth: 200,
-                py: 1.5,
-                fontSize: { xs: '0.9rem', md: '1rem' },
-                fontWeight: 600,
-                '&:hover': {
-                  backgroundColor: (categoryData?.color || '#1976d2') + 'dd',
-                },
-              }}
-            >
-              🚀 Bắt đầu làm bài
             </Button>
           </DialogActions>
         </Dialog>

@@ -1,4 +1,30 @@
 {
+  "guides": {
+    "key": "guide",
+    "title": "Hướng dẫn làm bài",
+    "description": [
+      {
+        "key": "item1",
+        "item": "🎧 Nghe câu hỏi và 4 đáp án A, B, C, D chỉ được phát <strong>1 lần duy nhất</strong>"
+      },
+      {
+        "key": "item2",
+        "item": "✅ Chọn đáp án phù hợp nhất với câu hỏi"
+      },
+      {
+        "key": "item3",
+        "item": "🚩 Bạn có thể đánh dấu câu hỏi để xem lại sau"
+      },
+      {
+        "key": "item4",
+        "item": "⏰ Hết thời gian sẽ tự động nộp bài"
+      },
+      {
+        "key": "item5",
+        "item": "📝 <strong>Không có text hiển thị</strong> - hoàn toàn dựa vào nghe hiểu"
+      }
+    ]
+  },
   "practiceItems": [
     {
       "id": "basic",
