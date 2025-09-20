@@ -13,15 +13,34 @@
       "id": 1,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906209/toeic-part1/practice/tranh-ta-canh/test1/theres-a-deck-overlooking-a-lake_amajnl.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906203/toeic-part1/practice/tranh-ta-canh/test1/theres-a-deck-overlooking-a-lake_rcopns.mp3",
-      "options": [
-        "There are some passengers boarding a boat.",
-        "There's a deck overlooking a lake.",
-        "A motorboat is passing under bridge.",
-        "Some people are diving off a pier."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "There are some passengers boarding a boat.",
+          "vi": "Một vài hành khách đang lên tàu."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "There's a deck overlooking a lake.",
+          "vi": "Có một bến cảng nhìn ra cái hồ."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A motorboat is passing under bridge.",
+          "vi": "Một chiếc thuyền máy đang đi qua bên dưới cây cầu."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "Some people are diving off a pier.",
+          "vi": "Một vài người đang lặn xuống từ cầu tàu."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Có một bến cảng nhìn ra cái hồ. 'Overlooking a lake' mô tả chính xác vị trí của bến cảng.",
-      "transcript": "A. Một vài hành khách đang lên tàu.\nB. Có một bến cảng nhìn ra cái hồ.\nC. Một chiếc thuyền máy đang đi qua bên dưới cây cầu.\nD. Một vài người đang lặn xuống từ cầu tàu.",
       "theme": "Bến cảng",
       "vocabulary": ["overlooking", "lake", "deck"]
     },
@@ -29,15 +48,34 @@
       "id": 2,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906209/toeic-part1/practice/tranh-ta-canh/test1/theres-a-window-overlooking-a-garden_rlcttw.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906210/toeic-part1/practice/tranh-ta-canh/test1/theres-a-window-overlooking-a-garden_jzkesv.mp3",
-      "options": [
-        "There’s long grass behind a fence.",
-        "There’s a door open beneath a light.",
-        "There’s a pot with flowers by the door.",
-        "There’s a window overlooking a garden."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "There's long grass behind a fence.",
+          "vi": "Có một đám cỏ dài phía sau hàng rào."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "There's a door open beneath a light.",
+          "vi": "Có một cánh cửa mở dưới ánh đèn."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "There's a pot with flowers by the door.",
+          "vi": "Có một chậu hoa cạnh cửa."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "There's a window overlooking a garden.",
+          "vi": "Có một cửa sổ nhìn ra khu vườn."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Có một cửa sổ nhìn ra khu vườn. 'Overlooking a garden' mô tả chính xác vị trí của cửa sổ.",
-      "transcript": "A. Có một đám cỏ dài phía sau hàng rào.\nB. Có một cánh cửa mở dưới ánh đèn.\nC. Có một chậu hoa cạnh cửa.\nD. Có một cửa sổ nhìn ra khu vườn.",
       "theme": "Khu vườn",
       "vocabulary": ["overlooking", "garden", "window"]
     },
@@ -45,15 +83,34 @@
       "id": 3,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906490/toeic-part1/practice/tranh-ta-canh/test1/the-man-is-gesturing-towards-a-whiteboard_qhz8bd.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906491/toeic-part1/practice/tranh-ta-canh/test1/the-man-is-gesturing-towards-a-whiteboard_sp7zh7.mp3",
-      "options": [
-        "They are rearranging the tables in a room.",
-        "The man is gesturing towards a  whiteboard.",
-        "The man's briefcase has fallen onto the  floor.",
-        "One of the women is filling a vase."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "They are rearranging the tables in a room.",
+          "vi": "Họ đang sắp xếp lại các bàn trong một căn phòng."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "The man is gesturing towards a  whiteboard.",
+          "vi": "Người đàn ông đang ra hiệu về phía bảng trắng."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The man's briefcase has fallen onto the  floor.",
+          "vi": "Chiếc cặp của người đàn ông đã rơi xuống đất."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "One of the women is filling a vase.",
+          "vi": "Một trong những người phụ nữ đang làm đầy một chiếc bình."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Người đàn ông đang ra hiệu về phía bảng trắng. 'Gesturing towards a whiteboard' mô tả chính xác hành động này.",
-      "transcript": "A. Họ đang sắp xếp lại các bàn trong một căn phòng.\nB. Người đàn ông đang ra hiệu về phía bảng trắng.\nC. Chiếc cặp của người đàn ông đã rơi xuống đất.\nD. Một trong những người phụ nữ đang làm đầy một chiếc bình.",
       "theme": "Phòng họp",
       "vocabulary": ["gesturing", "whiteboard", "briefcase"]
     },
@@ -61,15 +118,34 @@
       "id": 4,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906592/toeic-part1/practice/tranh-ta-canh/test1/they-re-walking-toward-a-park_adilbz.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906594/toeic-part1/practice/tranh-ta-canh/test1/they-re-walking-toward-a-park_f8n3yh.mp3",
-      "options": [
-        "They're crossing a bridge.",
-        "They're standing under some trees.",
-        "They're taking off their coats.",
-        "They're walking toward a park."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "They're crossing a bridge.",
+          "vi": "Họ đang băng qua một cây cầu."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "They're standing under some trees.",
+          "vi": "Họ đang đứng dưới tán cây."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "They're taking off their coats.",
+          "vi": "Họ đang cởi áo khoác."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "They're walking toward a park.",
+          "vi": "Họ đang đi về phía công viên."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Họ đang đi về phía công viên. 'Walking toward a park' mô tả chính xác hành động này.",
-      "transcript": "A. Họ đang băng qua một cây cầu.\nB. Họ đang đứng dưới tán cây.\nC. Họ đang cởi áo khoác.\nD. Họ đang đi về phía công viên.",
       "theme": "Công viên",
       "vocabulary": ["walking", "toward", "park"]
     },
@@ -77,15 +153,34 @@
       "id": 5,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906857/toeic-part1/practice/tranh-ta-canh/test1/theyre-approaching-a-sign-in-a-parking-area_grmvvh.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757906858/toeic-part1/practice/tranh-ta-canh/test1/theyre-approaching-a-sign-in-a-parking-area_zbmnur.mp3",
-      "options": [
-        "They're carrying trays of food.",
-        "They're walking into a building.",
-        "They're approaching a sign in a parking area.",
-        "They're opening the doors of a vehicle."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "They're carrying trays of food.",
+          "vi": "Họ đang mang các đĩa thức ăn."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "They're walking into a building.",
+          "vi": "Họ đang đi vào một tòa nhà."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "They're approaching a sign in a parking area.",
+          "vi": "Họ đang đến gần một biển báo trong khu vực đậu xe."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "They're opening the doors of a vehicle.",
+          "vi": "Họ đang mở cánh cửa của một phương tiện."
+        }
       ],
       "correctAnswer": "C",
       "explanation": "Họ đang đến gần một biển báo trong khu vực đậu xe. 'Approaching a sign in a parking area' mô tả chính xác hành động này.",
-      "transcript": "A. Họ đang mang các đĩa thức ăn.\nB. Họ đang đi vào một tòa nhà.\nC. Họ đang đến gần một biển báo trong khu vực đậu xe.\nD. Họ đang mở cánh cửa của một phương tiện.",
       "theme": "Khu vực đậu xe",
       "vocabulary": ["approaching", "sign", "parking"]
     },
@@ -93,15 +188,34 @@
       "id": 6,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757906998/toeic-part1/practice/tranh-ta-canh/test1/theyre-walking-past-a-seating-area_d4g7cv.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907000/toeic-part1/practice/tranh-ta-canh/test1/theyre-walking-past-a-seating-area_mhqvzc.mp3",
-      "options": [
-        "She's holding a jacket.",
-        "She's packing items into a bag.",
-        "They're sweeping a walkway.",
-        "They're walking past a seating area."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "She's holding a jacket.",
+          "vi": "Cô bé đang giữ áo khoác."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "She's packing items into a bag.",
+          "vi": "Cô bé đang đóng các vật dụng vào một chiếc túi."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "They're sweeping a walkway.",
+          "vi": "Họ đang quét một đường đi."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "They're walking past a seating area.",
+          "vi": "Họ đang đi qua một khu vực chỗ ngồi."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Họ đang đi qua một khu vực chỗ ngồi. 'Walking past a seating area' mô tả chính xác hành động này.",
-      "transcript": "A. Cô bé đang giữ áo khoác.\nB. Cô bé đang đóng các vật dụng vào một chiếc túi.\nC. Họ đang quét một đường đi.\nD. Họ đang đi qua một khu vực chỗ ngồi.",
       "theme": "Khu vực chỗ ngồi",
       "vocabulary": ["walking", "past", "seating"]
     }

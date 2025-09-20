@@ -13,97 +13,253 @@
       "id": 1,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923076/toeic-part1/practice/tranh-tong-hop/test2/bags-of-merchandise-are-on-display_bsbbhb.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923077/toeic-part1/practice/tranh-tong-hop/test2/bags-of-merchandise-are-on-display_p7lqyk.mp3",
-      "options": [
-        "Bags of merchandise are on display.",
-        "A shopping cart is being filled.",
-        "The woman is putting on an apron.",
-        "The woman is handing a bag to a customer."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Bags of merchandise are on display.",
+          "vi": "Một túi đồ đang được trưng bày."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "A shopping cart is being filled.",
+          "vi": "Một xe chở hàng đang được chất đầy."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The woman is putting on an apron.",
+          "vi": "Người phụ nữ đang mặc một cái tạp dề vào."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "The woman is handing a bag to a customer.",
+          "vi": "Người phụ nữ đang đưa một cái túi cho 1 khách hàng."
+        }
       ],
       "correctAnswer": "A",
       "explanation": "Một túi đồ đang được trưng bày. 'Bags of merchandise are on display.' mô tả chính xác hành động này.",
-      "transcript": "A. Một túi đồ đang được trưng bày.\nB. Một xe chở hàng đang được chất đầy.\nC. Người phụ nữ đang mặc một cái tạp dề vào.\nD. Người phụ nữ đang đưa một cái túi cho 1 khách hàng.",
       "theme": "Tiệm tạp hoá",
-      "vocabulary": ["merchandise", "display", "shopping", "cart"]
+      "vocabulary": [
+        "merchandise",
+        "display",
+        "shopping",
+        "cart"
+      ]
     },
     {
       "id": 2,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923284/toeic-part1/practice/tranh-tong-hop/test2/one-of-the-people-is-standing-by-a-podium_ytzqxm.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923285/toeic-part1/practice/tranh-tong-hop/test2/one-of-the-people-is-standing-by-a-podium_zuvxax.mp3",
-      "options": [
-        "One of the people is picking up a laptop.",
-        "One of the people is standing by a podium.",
-        "One of the people is taking notes on paper.",
-        "One of the people is adjusting a microphone."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "One of the people is picking up a laptop.",
+          "vi": "Một trong số họ đang nhặt một máy tính xách tay."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "One of the people is standing by a podium.",
+          "vi": "Một trong số họ đang đứng trên bục."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "One of the people is taking notes on paper.",
+          "vi": "Một trong số họ đang ghi chép trên giấy."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "One of the people is adjusting a microphone.",
+          "vi": "Một trong số họ đang điều chỉnh micrô."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Một trong số họ đang đứng trên bục. 'Standing by a podium' mô tả chính xác hành động này.",
-      "transcript": "A. Một trong số họ đang nhặt một máy tính xách tay.\nB. Một trong số họ đang đứng trên bục.\nC. Một trong số họ đang ghi chép trên giấy.\nD. Một trong số họ đang điều chỉnh micrô.",
       "theme": "Văn phòng",
-      "vocabulary": ["people", "picking", "laptop", "podium", "taking", "notes", "adjusting", "microphone"]
+      "vocabulary": [
+        "people",
+        "picking",
+        "laptop",
+        "podium",
+        "taking",
+        "notes",
+        "adjusting",
+        "microphone"
+      ]
     },
     {
       "id": 3,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923419/toeic-part1/practice/tranh-tong-hop/test2/a-customer-is-standing-near-a-shopping-cart_yy6lgv.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923420/toeic-part1/practice/tranh-tong-hop/test2/a-customer-is-standing-near-a-shopping-cart_oq8gpn.mp3",
-      "options": [
-        "A customer is standing near a shopping cart.",
-        "Some bags have been left on the floor.",
-        "A shopping cart has been left in a parking area.",
-        "A customer is leaning into a freezer."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "A customer is standing near a shopping cart.",
+          "vi": "Một khách hàng đang đứng gần một xe chở hàng."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Some bags have been left on the floor.",
+          "vi": "Một số túi đã được để lại trên sàn nhà."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A shopping cart has been left in a parking area.",
+          "vi": "Một xe chở hàng đã được để lại trong khu vực đậu xe."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A customer is leaning into a freezer.",
+          "vi": "Một khách hàng đang nghiêng vào một tủ lạnh."
+        }
       ],
       "correctAnswer": "A",
       "explanation": "Một khách hàng đang đứng gần một xe chở hàng. 'Standing near a shopping cart' mô tả chính xác hành động này.",
-      "transcript": "A. Một khách hàng đang đứng gần một xe chở hàng.\nB. Một số túi đã được để lại trên sàn nhà.\nC. Một xe chở hàng đã được để lại trong khu vực đậu xe.\nD. Một khách hàng đang nghiêng vào một tủ lạnh.",
       "theme": "Siêu thị",
-      "vocabulary": ["customer", "standing", "shopping", "cart", "freezer"]
+      "vocabulary": [
+        "customer",
+        "standing",
+        "shopping",
+        "cart",
+        "freezer"
+      ]
     },
     {
       "id": 4,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923604/toeic-part1/practice/tranh-tong-hop/test2/a-server-is-taking-an-order_kz5ve5.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923604/toeic-part1/practice/tranh-tong-hop/test2/a-server-is-taking-an-order_mskjor.mp3",
-      "options": [
-        "Some light fixtures are being installed.",
-        "A display case is being wiped.",
-        "A server is distributing menus.",
-        "A server is taking an order."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Some light fixtures are being installed.",
+          "vi": "Một vài thiết bị chiếu sáng đang được lắp đặt."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "A display case is being wiped.",
+          "vi": "Một kệ trưng bày đang được lau."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A server is distributing menus.",
+          "vi": "Một người phục vụ đang phát thực đơn ra."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A server is taking an order.",
+          "vi": "Một người phục vụ đang nhận việc đặt món."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Một server đang nhận việc đặt món. 'Taking an order' mô tả chính xác hành động này.",
-      "transcript": "A. Một vài thiết bị chiếu sáng đang được lắp đặt.\nB. Một kệ trưng bày đang được lau.\nC. Một người phục vụ đang phát thực đơn ra.\nD. Một người phục vụ đang nhận việc đặt món.",
       "theme": "Nhà hàng",
-      "vocabulary": ["light", "fixtures", "display", "case", "server", "taking", "order"]
+      "vocabulary": [
+        "light",
+        "fixtures",
+        "display",
+        "case",
+        "server",
+        "taking",
+        "order"
+      ]
     },
     {
       "id": 5,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923748/toeic-part1/practice/tranh-tong-hop/test2/two-people-are-having-a-meal-together_aaxv0c.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923748/toeic-part1/practice/tranh-tong-hop/test2/two-people-are-having-a-meal-together_e90jdc.mp3",
-      "options": [
-        "Two people are standing around a buffet counter.",
-        "Two people are having a meal together.",
-        "A server is bringing dishes to a customer.",
-        "A server is pouring water into glasses."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Two people are standing around a buffet counter.",
+          "vi": "Hai người đang đứng quanh quầy buffet."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Two people are having a meal together.",
+          "vi": "Hai người đang ăn cùng nhau."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A server is bringing dishes to a customer.",
+          "vi": "Một người phục vụ đang bưng đồ ăn cho thực khách."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A server is pouring water into glasses.",
+          "vi": "Một người phục vụ đang đổ nước vào ly."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Hai người đang ăn cùng nhau. 'Having a meal together' mô tả chính xác hành động này.",
-      "transcript": "A. Hai người đang đứng quanh quầy buffet.\nB. Hai người đang ăn cùng nhau.\nC. Người phục vụ đang bưng đồ ăn cho thực khách.\nD. Người phục vụ đang đổ nước vào ly.",
       "theme": "Nhà hàng",
-      "vocabulary": ["people", "buffet", "counter", "server", "pouring", "water", "glasses"]
+      "vocabulary": [
+        "people",
+        "buffet",
+        "counter",
+        "server",
+        "pouring",
+        "water",
+        "glasses"
+      ]
     },
     {
       "id": 6,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757923910/toeic-part1/practice/tranh-tong-hop/test2/two-of-the-people-are-having-a-conversation_lf47sd.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757923911/toeic-part1/practice/tranh-tong-hop/test2/two-of-the-people-are-having-a-conversation_sm8evn.mp3",
-      "options": [
-        "Some workers are hanging art in a gallary.",
-        "Two of the people are having a conversation.",
-        "One of the men is rearranging cushions on a sofa.",
-        "One of the men is painting a picture."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Some workers are hanging art in a gallary.",
+          "vi": "Một số công nân đang treo tác phẩm nghệ thuật trong phòng trưng bày."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Two of the people are having a conversation.",
+          "vi": "Hai người đang trò chuyện."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "One of the men is rearranging cushions on a sofa.",
+          "vi": "Một trong những người đàn ông đang sắp xếp lại những chiếc đệm trên ghế sofa."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "One of the men is painting a picture.",
+          "vi": "Một trong những người đàn ông đang vẽ một bức tranh."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Hai người đang trò chuyện. 'Having a conversation' mô tả chính xác hành động này.",
-      "transcript": "A. Một số công nhân đang treo tác phẩm nghệ thuật trong phòng trưng bày.\nB. Hai người đang trò chuyện.\nC. Một trong những người đàn ông đang sắp xếp lại những chiếc đệm trên ghế sofa.\nD. Một trong những người đàn ông đang vẽ một bức tranh.",
       "theme": "Văn phòng",
-      "vocabulary": ["workers", "gallary", "art", "sofa", "painting"]
+      "vocabulary": [
+        "workers",
+        "gallary",
+        "art",
+        "sofa",
+        "painting"
+      ]
     }
   ]
 }

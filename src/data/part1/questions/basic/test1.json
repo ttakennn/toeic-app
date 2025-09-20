@@ -13,15 +13,34 @@
       "id": 1,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757832535/toeic-part1/practice/tranh-ta-nguoi/test1/She-is-holding-up-some-fruit_q94bhb.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757832535/toeic-part1/practice/tranh-ta-nguoi/test1/She-is-holding-up-some-fruit_qwvexw.mp3",
-      "options": [
-        "She is attaching price tags to some merchandise.",
-        "She is piling up some boxes.",
-        "She is holding up some fruit.",
-        "She is throwing away a plastic bag."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "She is attaching price tags to some merchandise.",
+          "vi": "Cô ấy đang gắn tag giá cho một số hàng hóa."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "She is piling up some boxes.",
+          "vi": "Cô ấy đang xếp các hộp lên nhau."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "She is holding up some fruit.",
+          "vi": "Cô ấy đang giữ một số trái cây."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "She is throwing away a plastic bag.",
+          "vi": "Cô ấy đang ném một túi nhựa."
+        }
       ],
       "correctAnswer": "C",
       "explanation": "Trong hình, người phụ nữ đang giữ một số trái cây. Cụm từ 'holding up some fruit' mô tả chính xác hành động này.",
-      "transcript": "A. Cô ấy đang gắn tag giá cho một số hàng hóa.\nB. Cô ấy đang xếp các hộp lên nhau.\nC. Cô ấy đang giữ một số trái cây.\nD. Cô ấy đang ném một túi nhựa.",
       "theme": "Hoạt động học tập",
       "vocabulary": ["holding", "fruit", "woman"]
     },
@@ -29,15 +48,34 @@
       "id": 2,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757840984/toeic-part1/practice/tranh-ta-nguoi/test1/The-man-is-seated-by-a-window_pjydtc.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757840987/toeic-part1/practice/tranh-ta-nguoi/test1/The-man-is-seated-by-a-window_ydijpb.mp3",
-      "options": [
-        "The man is switching off a lamp.",
-        "The man is opening some curtains.",
-        "The man is seated by a window.",
-        "The man is hanging some photographs on the wall."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "The man is switching off a lamp.",
+          "vi": "Người đàn ông đang tắt cái đèn bàn."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "The man is opening some curtains.",
+          "vi": "Người đàn ông đang mở vài tấm rèm."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The man is seated by a window.",
+          "vi": "Người đàn ông đang ngồi bên 1 cửa sổ."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "The man is hanging some photographs on the wall.",
+          "vi": "Người đàn ông đang treo vài bức ảnh lên tường."
+        }
       ],
       "correctAnswer": "C",
       "explanation": "Nhìn vào hình ta chỉ thấy người đàn ông đang ngồi kế 1 cửa sổ và không có hành động gì liên quan. Nên câu trả lời C là chính xác.",
-      "transcript": "A. Người đàn ông đang tắt cái đèn bàn.\nB. Người đàn ông đang mở vài tấm rèm.\nC. Người đàn ông đang ngồi bên 1 cửa sổ.\nD. The man is hanging some photographs on the  wall.",
       "theme": "Công việc nhà",
       "vocabulary": ["lamp", "curtains", "photographs"]
     },
@@ -45,15 +83,34 @@
       "id": 3,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757841313/toeic-part1/practice/tranh-ta-nguoi/test1/a-woman-is-opening-a-drawer_gih7ya.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757841314/toeic-part1/practice/tranh-ta-nguoi/test1/a-woman-is-opening-a-drawer_fiaau0.mp3",
-      "options": [
-        "A woman is holding a power tool.",
-        "A woman is opening a drawer.",
-        "A printer is being unplugged.",
-        "Office supplies are being put into a box."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "A woman is holding a power tool.",
+          "vi": "Một người phụ nữ đang cầm dụng cụ điện."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "A woman is opening a drawer.",
+          "vi": "Một người phụ nữ đang mở ngăn kéo."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A printer is being unplugged.",
+          "vi": "Máy in đang bị rút phích cắm."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "Office supplies are being put into a box.",
+          "vi": "Đồ dùng văn phòng đang được cho vào hộp."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Người phụ nữ đang mở ngăn kéo. 'Opening a drawer' mô tả chính xác hành động này.",
-      "transcript": "A. Một người phụ nữ đang cầm dụng cụ điện.\nB. Một người phụ nữ đang mở ngăn kéo.\nC. Máy in đang bị rút phích cắm.\nD. Đồ dùng văn phòng đang được cho vào hộp.",
       "theme": "Văn phòng",
       "vocabulary": ["drawer", "unplugged", "supplies"]
     },
@@ -61,15 +118,34 @@
       "id": 4,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757841673/toeic-part1/practice/tranh-ta-nguoi/test1/hes-looking-in-a-file-drawer_byiaod.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757841675/toeic-part1/practice/tranh-ta-nguoi/test1/hes-looking-in-a-file-drawer_ftrwmz.mp3",
-      "options": [
-        "He’s looking in a file drawer.",
-        "He’s printing some documents.",
-        "He’s stacking some folders.",
-        "He’s putting on his glasses."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "He’s looking in a file drawer.",
+          "vi": "Người đàn ông đang nhìn vào ngăn kéo."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "He’s printing some documents.",
+          "vi": "Người đàn ông đang in 1 số văn bản."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "He’s stacking some folders.",
+          "vi": "Người đàn ông đang chất đống 1 số bìa cứng."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "He’s putting on his glasses.",
+          "vi": "Người đàn ông đang đeo kính lên."
+        }
       ],
       "correctAnswer": "A",
       "explanation": "Người đàn ông đang nhìn vào ngăn kéo. 'Looking in a file drawer' mô tả chính xác hành động này.",
-      "transcript": "A. Ông ấy đang nhìn vào tủ tài liệu.\nB. Ông ấy đang in 1 số văn bản.\nC. Ông ấy đang chất đống 1 số bìa cứng.\nD. Ông ấy đang đeo kính lên.",
       "theme": "Văn phòng",
       "vocabulary": ["looking", "file drawer", "glasses"]
     },
@@ -77,15 +153,34 @@
       "id": 5,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757841847/toeic-part1/practice/tranh-ta-nguoi/test1/the-woman-is-taking-a-pen-from-a-drawer_fnhtdo.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757841847/toeic-part1/practice/tranh-ta-nguoi/test1/the-woman-is-taking-a-pen-from-a-drawer_hee28d.mp3",
-      "options": [
-        "The woman is picking up a test tube.",
-        "The woman is examining a patient.",
-        "The woman is looking out a window.",
-        "The woman is using a microscope."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "The woman is picking up a test tube.",
+          "vi": "Người phụ nữ đang lấy một ống nghiệm."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "The woman is examining a patient.",
+          "vi": "Người phụ nữ đang khám cho một bệnh nhân."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The woman is looking out a window.",
+          "vi": "Người phụ nữ đang nhìn ra cửa sổ."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "The woman is using a microscope.",
+          "vi": "Người phụ nữ đang sử dụng kính hiển vi."
+        }
       ],
       "correctAnswer": "D",
-      "explanation": "Người phụ nữ đang lấy một ống nghiệm. 'Picking up a test tube' mô tả chính xác hành động này.",
-      "transcript": "A. Người phụ nữ đang lấy một ống nghiệm.\nB. Người phụ nữ đang khám cho một bệnh nhân.\nC. Người phụ nữ đang nhìn ra cửa sổ.\nD. Người phụ nữ đang sử dụng kính hiển vi.",
+      "explanation": "Trong hình, người phụ nữ đang sử dụng kính hiển vi. 'Using a microscope' mô tả chính xác hành động này.",
       "theme": "Văn phòng",
       "vocabulary": ["picking up", "test tube", "microscope"]
     },
@@ -93,15 +188,34 @@
       "id": 6,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757842069/toeic-part1/practice/tranh-ta-nguoi/test1/shes-standing-on-a-stepladder_evny9s.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757842070/toeic-part1/practice/tranh-ta-nguoi/test1/shes-standing-on-a-stepladder_oejqzg.mp3",
-      "options": [
-        "She’s lifting a bag of groceries.",
-        "She’s talking on a mobile phone.",
-        "She’s standing on a stepladder.",
-        "She’s reaching for a light switch."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "She’s lifting a bag of groceries.",
+          "vi": "Cô ấy đang nâng một túi hàng tạp hóa."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "She’s talking on a mobile phone.",
+          "vi": "Cô ấy đang nói chuyện trên điện thoại di động."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "She’s standing on a stepladder.",
+          "vi": "Cô ấy đang đứng trên một bậc thang."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "She’s reaching for a light switch.",
+          "vi": "Cô ấy đang với lấy công tắc đèn."
+        }
       ],
       "correctAnswer": "C",
       "explanation": "Người phụ nữ đang đứng trên một bậc thang. 'Standing on a stepladder' là mô tả chính xác.",
-      "transcript": "A. Cô ấy đang nâng một túi hàng tạp hóa.\nB. Cô ấy đang nói chuyện trên điện thoại di động.\nC. Cô ấy đang đứng trên một bậc thang.\nD. Cô ấy đang với lấy công tắc đèn.",
       "theme": "Siêu thị",
       "vocabulary": ["standing", "stepladder", "light switch"]
     }

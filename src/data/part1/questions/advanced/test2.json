@@ -13,15 +13,34 @@
       "id": 1,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907403/toeic-part1/practice/tranh-ta-canh/test2/a-man-is-walking-behind-some-parked-cars_orsrja.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907404/toeic-part1/practice/tranh-ta-canh/test2/a-man-is-walking-behind-some-parked-cars_vadtnn.mp3",
-      "options": [
-        "A man is walking behind some parked cars.",
-        "A woman is cleaning snow off a walkway.",
-        "A man is maintaining a fence.",
-        "A woman is taking off a snow jacket."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "A man is walking behind some parked cars.",
+          "vi": "Một người đàn ông đang đi bộ phía sau một số xe ô tô đang đỗ."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "A woman is cleaning snow off a walkway.",
+          "vi": "Một người phụ nữ đang lau băng trên đường."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A man is maintaining a fence.",
+          "vi": "Một người đàn ông đang bảo trì một hàng rào."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A woman is taking off a snow jacket.",
+          "vi": "Một người phụ nữ đang bỏ áo khoác."
+        }
       ],
       "correctAnswer": "A",
       "explanation": "Đi bộ phía sau một số xe ô tô đang đỗ. 'Walking behind some parked cars' mô tả chính xác hành động này.",
-      "transcript": "A. Một người đàn ông đang đi bộ phía sau một số xe ô tô đang đỗ.\nB. Một người phụ nữ đang lau băng trên đường.\nC. Một người đàn ông đang bảo trì một hàng rào.\nD. Một người phụ nữ đang bỏ áo khoác.",
       "theme": "Ngoài trời",
       "vocabulary": ["walking", "parked", "cars"]
     },
@@ -29,15 +48,34 @@
       "id": 2,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907837/toeic-part1/practice/tranh-ta-canh/test2/some-bushes-are-being-planted_e8gu44.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907839/toeic-part1/practice/tranh-ta-canh/test2/some-bushes-are-being-planted_r6qm2b.mp3",
-      "options": [
-        "Men are washing some cars.",
-        "A building is being constructed.",
-        "The pavement is covered with leaves.",
-        "Some bushes are being planted."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Men are washing some cars.",
+          "vi": "Đàn ông đang rửa một số xe hơi."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "A building is being constructed.",
+          "vi": "Một tòa nhà đang được xây dựng."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The pavement is covered with leaves.",
+          "vi": "Vỉa hè được phủ lá."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "Some bushes are being planted.",
+          "vi": "Một số bụi cây đang được trồng."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Một số bụi cây đang được trồng. 'Some bushes are being planted' mô tả chính xác hành động này.",
-      "transcript": "A. Đàn ông đang rửa một số xe hơi. \nB. Một tòa nhà đang được xây dựng. \nC. Vỉa hè được phủ lá. \nD. Một số bụi cây đang được trồng. ",
       "theme": "Ngoài trời",
       "vocabulary": ["bushes", "planting"]
     },
@@ -45,15 +83,34 @@
       "id": 3,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907685/toeic-part1/practice/tranh-ta-canh/test2/some-soil-is-in-a-pile-on-the-ground_vi2qkt.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907685/toeic-part1/practice/tranh-ta-canh/test2/some-soil-is-in-a-pile-on-the-ground_j6ggmj.mp3",
-      "options": [
-        "Cones are blocking access to a road.",
-        "Some soil is in a pile on the ground.",
-        "Some bushes have been planted in front of a building.",
-        "A tree is lying in the roadway."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Cones are blocking access to a road.",
+          "vi": "Các cọc đang chặn đường vào."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Some soil is in a pile on the ground.",
+          "vi": "Một ít đất nằm thành đống trên mặt đất."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "Some bushes have been planted in front of a building.",
+          "vi": "Một số cây cối đã được trồng trước một tòa nhà."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A tree is lying in the roadway.",
+          "vi": "Một cây đang nằm trên đường."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Một ít đất nằm thành đống trên mặt đất. 'Some soil is in a pile on the ground' mô tả chính xác hành động này.",
-      "transcript": "A. Các cọc đang chặn đường vào.\nB. Một ít đất nằm thành đống trên mặt đất.\nC. Một số cây cối đã được trồng trước một tòa nhà.\nD. Một cây đang nằm trên đường.",
       "theme": "Ngoài trời",
       "vocabulary": ["cones", "soil", "pile", "ground"]
     },
@@ -61,15 +118,34 @@
       "id": 4,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757907966/toeic-part1/practice/tranh-ta-canh/test2/some-fruit-has-been-stacked-in-a-bin_vqcv3a.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757907967/toeic-part1/practice/tranh-ta-canh/test2/some-fruit-has-been-stacked-in-a-bin_bapacz.mp3",
-      "options": [
-        "Some flowers are being planted.",
-        "Some leaves have been raked into a pile.",
-        "Some stairs are being repaired.",
-        "Some fruit has been stacked in a bin."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Some flowers are being planted.",
+          "vi": "Một số hoa đang được trồng."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Some leaves have been raked into a pile.",
+          "vi": "Một số lá đã được đắp thành đống."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "Some stairs are being repaired.",
+          "vi": "Một số bậc thang đang được sửa chữa."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "Some fruit has been stacked in a bin.",
+          "vi": "Một số trái cây đã được xếp vào một thùng."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Một số trái cây đã được xếp vào một thùng. 'Some fruit has been stacked in a bin' mô tả chính xác hành động này.",
-      "transcript": "A. Một số hoa đang được trồng.\nB. Một số lá đã được đắp thành đống.\nC. Một số bậc thang đang được sửa chữa.\nD. Một số trái cây đã được xếp vào một thùng.",
       "theme": "Ngoài trời",
       "vocabulary": ["flowers", "leaves", "stairs", "fruit"]
     },
@@ -77,15 +153,34 @@
       "id": 5,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757908138/toeic-part1/practice/tranh-ta-canh/test2/a-garden-has-been-planted-outside-of-a-building_sujdpb.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757908138/toeic-part1/practice/tranh-ta-canh/test2/a-garden-has-been-planted-outside-of-a-building_fvyrq9.mp3",
-      "options": [
-        "A jacket has been placed on the ground.",
-        "A man is watering some flowers.",
-        "A garden has been planted outside of a building.",
-        "A man is putting some tools in a toolbox."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "A jacket has been placed on the ground.",
+          "vi": "Một chiếc áo khoác đã được đặt trên mặt đất."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "A man is watering some flowers.",
+          "vi": "Một người đàn ông đang tưới một số hoa."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A garden has been planted outside of a building.",
+          "vi": "Một khu vườn đã được trồng bên ngoài một tòa nhà."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A man is putting some tools in a toolbox.",
+          "vi": "Một người đàn ông đang đặt một số công cụ vào một chiếc hộp công cụ."
+        }
       ],
       "correctAnswer": "C",
       "explanation": "Một khu vườn đã được trồng bên ngoài một tòa nhà. 'A garden has been planted outside of a building' mô tả chính xác hành động này.",
-      "transcript": "A. Một chiếc áo khoác đã được đặt trên mặt đất.\nB. Một người đàn ông đang tưới một số hoa.\nC. Một khu vườn đã được trồng bên ngoài một tòa nhà.\nD. Một người đàn ông đang đặt một số công cụ vào một chiếc hộp công cụ.",
       "theme": "Ngoài trời",
       "vocabulary": ["jacket", "ground", "garden", "toolbox"]
     },
@@ -93,15 +188,34 @@
       "id": 6,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757908366/toeic-part1/practice/tranh-ta-canh/test2/some-people-are-seated-outdoors_jzcuqy.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757908365/toeic-part1/practice/tranh-ta-canh/test2/some-people-are-seated-outdoors_x8vxej.mp3",
-      "options": [
-        "Workers are exiting from the back of a van.",
-        "Some trees have fallen across a road.",
-        "A man is watering some potted plants.",
-        "Some people are seated outdoors."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Workers are exiting from the back of a van.",
+          "vi": "Những người nhân viên đang đi ra từ cửa sau của xe tải."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Some trees have fallen across a road.",
+          "vi": "Một số cây đã rơi xuống trên một con đường."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A man is watering some potted plants.",
+          "vi": "Một người đàn ông đang tưới một số cây cảnh trong chậu."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "Some people are seated outdoors.",
+          "vi": "Một số người đang ngồi ở ngoài trời."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Một số người đang ngồi ở ngoài trời. 'Some people are seated outdoors' mô tả chính xác hành động này.",
-      "transcript": "A. Những người nhân viên đang đi ra từ cửa sau của xe tải.\nB. Một số cây đã rơi xuống trên một con đường.\nC. Một người đàn ông đang tưới một số cây cảnh trong chậu.\nD. Một số người đang ngồi ở ngoài trời.",
       "theme": "Ngoài trời",
       "vocabulary": ["workers", "van", "trees", "potted plants"]
     }

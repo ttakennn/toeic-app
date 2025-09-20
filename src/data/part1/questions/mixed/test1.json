@@ -13,15 +13,34 @@
       "id": 1,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757922022/toeic-part1/practice/tranh-tong-hop/test1/the-women-are-wearing-longsleeved-shirts_nvmxmh.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757922025/toeic-part1/practice/tranh-tong-hop/test1/the-women-are-wearing-longsleeved-shirts_c4ycos.mp3",
-      "options": [
-        "Some chairs are being placed in a closet.",
-        "Some snacks are being baked in an oven.",
-        "The women are shaking hands.",
-        "The women are wearing longsleeved shirts."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Some chairs are being placed in a closet.",
+          "vi": "Một số ghế đang được đặt trong tủ quần áo."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Some snacks are being baked in an oven.",
+          "vi": "Một số món ăn nhẹ đang được nướng trong lò nướng."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The women are shaking hands.",
+          "vi": "Những người phụ nữ đang bắt tay."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "The women are wearing longsleeved shirts.",
+          "vi": "Những người phụ nữ mặc áo sơ mi dài tay."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Những người phụ nữ đang mặc áo sơ mi dài tay. 'Wearing longsleeved shirts' mô tả chính xác hành động này.",
-      "transcript": "A. Một số ghế đang được đặt trong tủ quần áo.\nB. Một số món ăn nhẹ đang được nướng trong lò nướng.\nC. Những người phụ nữ đang bắt tay.\nD. Những người phụ nữ mặc áo sơ mi dài tay.",
       "theme": "Trong nhà",
       "vocabulary": ["woman", "wearing", "longsleeved", "shirts"]
     },
@@ -29,15 +48,34 @@
       "id": 2,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757922204/toeic-part1/practice/tranh-tong-hop/test1/a-woman-is-writing-on-a-piece-of-paper_fchmj7.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757922205/toeic-part1/practice/tranh-tong-hop/test1/a-woman-is-writing-on-a-piece-of-paper_jp8eav.mp3",
-      "options": [
-        "They're shaking hands across a counter.",
-        "They're putting stamps on envelopes.",
-        "A man is organizing documents in a folder.",
-        "A woman is writing on a piece of paper."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "They're shaking hands across a counter.",
+          "vi": "Những người phụ nữ đang bắt tay."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "They're putting stamps on envelopes.",
+          "vi": "Những người phụ nữ đang đặt tem lên bức thư."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A man is organizing documents in a folder.",
+          "vi": "Một người đàn ông đang sắp xếp tài liệu trong thư mục."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A woman is writing on a piece of paper.",
+          "vi": "Một người phụ nữ đang viết trên một tờ giấy."
+        }
       ],
       "correctAnswer": "D",
       "explanation": "Một người phụ nữ đang viết trên một tờ giấy. 'Writing on a piece of paper' mô tả chính xác hành động này.",
-      "transcript": "A. Những người phụ nữ đang bắt tay.\nB. Những người phụ nữ đang đặt tem lên bức thư.\nC. Một người đàn ông đang sắp xếp tài liệu trong thư mục.\nD. Một người phụ nữ đang viết trên một tờ giấy.",
       "theme": "Văn phòng",
       "vocabulary": ["shaking", "hands", "putting", "stamps", "writing"]
     },
@@ -45,15 +83,34 @@
       "id": 3,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757922374/toeic-part1/practice/tranh-tong-hop/test1/the-audience-is-facing-a-screen_s1jzst.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757922376/toeic-part1/practice/tranh-tong-hop/test1/the-audience-is-facing-a-screen_hphbgw.mp3",
-      "options": [
-        "The presenter is closing a window.",
-        "The presenter is standing behind a podium.",
-        "The audience is facing a screen.",
-        "The audience is seated in a circle."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "The presenter is closing a window.",
+          "vi": "Người trình bày đang đóng cửa sổ."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "The presenter is standing behind a podium.",
+          "vi": "Người trình bày đang đứng sau một chiếc đệm."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The audience is facing a screen.",
+          "vi": "Khán giả đang đối diện với một màn hình."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "The audience is seated in a circle.",
+          "vi": "Khán giả đang ngồi trong một vòng tròn."
+        }
       ],
       "correctAnswer": "C",
       "explanation": "Khán giả đang đối diện với một màn hình. 'Facing a screen' mô tả chính xác hành động này.",
-      "transcript": "A. Người trình bày đang đóng cửa sổ.\nB. Người trình bày đang đứng sau một chiếc đệm.\nC. Khán giả đang đối diện với một màn hình.\nD. Khán giả đang ngồi trong một vòng tròn.",
       "theme": "Văn phòng",
       "vocabulary": ["presenter", "closing", "podium", "audience"]
     },
@@ -61,15 +118,34 @@
       "id": 4,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757922482/toeic-part1/practice/tranh-tong-hop/test1/some-people-are-facing-each-other_np0phq.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757922482/toeic-part1/practice/tranh-tong-hop/test1/some-people-are-facing-each-other_sigmyf.mp3",
-      "options": [
-        "Some people are sitting in a car.",
-        "Some people are facing each other.",
-        "A woman is opening her handbag.",
-        "A man is removing his jacket."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Some people are sitting in a car.",
+          "vi": "Một số người đang ngồi trong một chiếc xe hơi."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Some people are facing each other.",
+          "vi": "Một số người đang đối diện với nhau."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A woman is opening her handbag.",
+          "vi": "Một người phụ nữ đang mở túi xách của mình."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A man is removing his jacket.",
+          "vi": "Một người đàn ông đang bỏ áo khoác của mình."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Một số người đang đối diện với nhau. 'Facing each other' mô tả chính xác hành động này.",
-      "transcript": "A. Một số người đang ngồi trong một chiếc xe hơi.\nB. Một số người đang đối diện với nhau.\nC. Một người phụ nữ đang mở túi xách của mình.\nD. Một người đàn ông đang bỏ áo khoác của mình.",
       "theme": "Trong nhà",
       "vocabulary": ["woman", "opening", "handbag", "man"]
     },
@@ -77,15 +153,34 @@
       "id": 5,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757922677/toeic-part1/practice/tranh-tong-hop/test1/some-people-are-attending-a-presentation_z5u69w.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757922679/toeic-part1/practice/tranh-tong-hop/test1/some-people-are-attending-a-presentation_kvymld.mp3",
-      "options": [
-        "Some people are talking in small groups.",
-        "Some people are attending a presentation.",
-        "A woman is writing instructions on a whiteboard.",
-        "A woman is distributing a stack of pamphlets."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "Some people are talking in small groups.",
+          "vi": "Một số người đang nói chuyện trong nhóm nhỏ."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "Some people are attending a presentation.",
+          "vi": "Một số người đang tham gia một bài thuyết trình."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "A woman is writing instructions on a whiteboard.",
+          "vi": "Một người phụ nữ đang viết hướng dẫn trên một bảng trắng."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "A woman is distributing a stack of pamphlets.",
+          "vi": "Một người phụ nữ đang phân phát một chồng tờ rơi."
+        }
       ],
       "correctAnswer": "B",
       "explanation": "Một số người đang tham gia một bài thuyết trình. 'Attending a presentation' mô tả chính xác hành động này.",
-      "transcript": "A. Một số người đang nói chuyện trong nhóm nhỏ.\nB. Một số người đang tham gia một bài thuyết trình.\nC. Một người phụ nữ đang viết hướng dẫn trên một bảng trắng.\nD. Một người phụ nữ đang phân phát một chồng tờ rơi.",
       "theme": "Văn phòng",
       "vocabulary": ["instructions", "whiteboard", "distributing", "pamphlets"]
     },
@@ -93,15 +188,34 @@
       "id": 6,
       "imageUrl": "https://res.cloudinary.com/dwksn9rn6/image/upload/v1757922811/toeic-part1/practice/tranh-tong-hop/test1/the-man-is-handing-a-cup-to-the-woman_tbcdt4.jpg",
       "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1757922811/toeic-part1/practice/tranh-tong-hop/test1/the-man-is-handing-a-cup-to-the-woman_gg3ufd.mp3",
-      "options": [
-        "The woman is closing the curtains.",
-        "The woman is watering some plants.",
-        "The man is handing a cup to the woman.",
-        "The man is setting dishes on the counter."
+      "questions": [
+        {
+          "id": 1,
+          "question": "A",
+          "en": "The woman is closing the curtains.",
+          "vi": "Một người phụ nữ đang đóng cái rèm."
+        },
+        {
+          "id": 2,
+          "question": "B",
+          "en": "The woman is watering some plants.",
+          "vi": "Một người phụ nữ đang tưới cây."
+        },
+        {
+          "id": 3,
+          "question": "C",
+          "en": "The man is handing a cup to the woman.",
+          "vi": "Một người đàn ông đang đưa một cốc đến cho một người phụ nữ."
+        },
+        {
+          "id": 4,
+          "question": "D",
+          "en": "The man is setting dishes on the counter.",
+          "vi": "Một người đàn ông đang đặt bát lên bàn."
+        }
       ],
       "correctAnswer": "C",
       "explanation": "Một người đàn ông đang đưa một cốc đến cho một người phụ nữ. 'Handing a cup to the woman' mô tả chính xác hành động này.",
-      "transcript": "A. Một người phụ nữ đang đóng cái rèm.\nB. Một người phụ nữ đang tưới cây.\nC. Một người đàn ông đang đưa một cốc đến cho một người phụ nữ.\nD. Một người đàn ông đang đặt bát lên bàn.",
       "theme": "Trong nhà",
       "vocabulary": ["woman", "closing", "curtains", "man"]
     }

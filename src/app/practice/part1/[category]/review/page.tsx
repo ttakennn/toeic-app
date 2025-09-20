@@ -14,29 +14,36 @@ import {
   Alert,
   Paper,
   CircularProgress,
+  Slider,
 } from '@mui/material';
 import {
   PlayArrow,
   Pause,
-  VolumeUp,
   NavigateBefore,
   NavigateNext,
   CheckCircle,
   ArrowBack,
   Error as ErrorIcon,
+  Translate,
 } from '@mui/icons-material';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+interface QuestionTranslation {
+  id: number;
+  question: string;
+  en: string;
+  vi: string;
+}
+
 interface TestQuestion {
   id: number;
   imageUrl: string;
   audioUrl: string;
-  options: string[];
+  questions: QuestionTranslation[];
   correctAnswer: string;
   explanation: string;
-  transcript?: string;
   theme: string;
   vocabulary: string[];
 }
@@ -121,10 +128,46 @@ function ReviewContent() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
   const [showNavButtons, setShowNavButtons] = useState(true);
-  
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [showTranslation, setShowTranslation] = useState(false);
+
   // Scroll tracking refs
   const lastScrollY = useRef(0);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Attach audio listeners for time/duration updates when audio element changes
+  useEffect(() => {
+    if (!audioElement) return;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audioElement.currentTime || 0);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(audioElement.duration || 0);
+      setCurrentTime(audioElement.currentTime || 0);
+    };
+
+    const handleDurationChange = () => {
+      setDuration(audioElement.duration || 0);
+    };
+
+    audioElement.addEventListener('timeupdate', handleTimeUpdate);
+    audioElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audioElement.addEventListener('durationchange', handleDurationChange);
+
+    // Initialize duration if already available
+    if (!Number.isNaN(audioElement.duration) && audioElement.duration) {
+      setDuration(audioElement.duration);
+    }
+
+    return () => {
+      audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+      audioElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audioElement.removeEventListener('durationchange', handleDurationChange);
+    };
+  }, [audioElement]);
 
   // Navigation handler
   const handleBackToResults = () => {
@@ -227,22 +270,27 @@ function ReviewContent() {
     }
   }, [testData, initialQuestionId]);
 
+  // Reset translation state when changing question
+  useEffect(() => {
+    setShowTranslation(false);
+  }, [currentQuestion]);
+
   // Scroll detection for mobile nav buttons
   useEffect(() => {
     let isScrolling = false;
-    
+
     const handleScroll = () => {
       if (isScrolling) return;
       isScrolling = true;
-      
+
       requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
-        
+
         // Clear existing timeout
         if (scrollTimeout.current) {
           clearTimeout(scrollTimeout.current);
         }
-        
+
         // Only trigger if significant scroll difference
         const scrollDiff = Math.abs(currentScrollY - lastScrollY.current);
         if (scrollDiff > 5) {
@@ -254,22 +302,22 @@ function ReviewContent() {
             // Scrolling up - show buttons
             setShowNavButtons(true);
           }
-          
+
           lastScrollY.current = currentScrollY;
         }
-        
+
         // Auto show buttons after scroll stops
         scrollTimeout.current = setTimeout(() => {
           setShowNavButtons(true);
         }, 1500);
-        
+
         isScrolling = false;
       });
     };
 
     // Always add scroll listener (responsive check inside)
     const mediaQuery = window.matchMedia('(max-width: 768px)');
-    
+
     const updateScrollListener = () => {
       if (mediaQuery.matches) {
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -285,7 +333,7 @@ function ReviewContent() {
 
     // Initial setup
     updateScrollListener();
-    
+
     // Listen for viewport changes
     mediaQuery.addEventListener('change', updateScrollListener);
 
@@ -303,13 +351,15 @@ function ReviewContent() {
     if (audioElement) {
       audioElement.pause();
       setIsPlaying(false);
+      setCurrentTime(0);
+      setDuration(0);
     }
     if (testData && currentQuestion < testData.questions.length) {
       const nextQuestion = currentQuestion + 1;
       setCurrentQuestion(nextQuestion);
       // Update URL to reflect current question
       router.replace(`/practice/part1/${category}/review?testId=${testId}&questionId=${nextQuestion}`);
-      
+
       // Temporarily show nav buttons after navigation
       setShowNavButtons(true);
       if (scrollTimeout.current) {
@@ -330,13 +380,15 @@ function ReviewContent() {
     if (audioElement) {
       audioElement.pause();
       setIsPlaying(false);
+      setCurrentTime(0);
+      setDuration(0);
     }
     if (currentQuestion > 1) {
       const prevQuestion = currentQuestion - 1;
       setCurrentQuestion(prevQuestion);
       // Update URL to reflect current question
       router.replace(`/practice/part1/${category}/review?testId=${testId}&questionId=${prevQuestion}`);
-      
+
       // Temporarily show nav buttons after navigation
       setShowNavButtons(true);
       if (scrollTimeout.current) {
@@ -383,6 +435,23 @@ function ReviewContent() {
     }
   };
 
+  // Seek and skip controls
+  const handleSeek = (newTime: number) => {
+    if (audioElement && !Number.isNaN(newTime)) {
+      const clamped = Math.max(0, Math.min(duration || 0, newTime));
+      try {
+        audioElement.currentTime = clamped;
+        setCurrentTime(clamped);
+      } catch {}
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
   if (loading) {
     return (
       <DashboardLayout>
@@ -426,20 +495,33 @@ function ReviewContent() {
     <DashboardLayout>
       <Box>
         {/* Header */}
-        <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} sx={{ mb: { xs: 3, md: 4 } }} spacing={{ xs: 1.5, md: 0 }}>
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          alignItems={{ xs: 'flex-start', md: 'center' }}
+          sx={{ mb: { xs: 3, md: 4 } }}
+          spacing={{ xs: 1.5, md: 0 }}
+        >
           <Button
             startIcon={<ArrowBack />}
             onClick={handleBackToResults}
-            sx={{ mr: { xs: 0, md: 2 }, mb: { xs: 1, md: 0 }, color: categoryData.color, fontSize: { xs: '0.875rem', md: '1rem' } }}
+            sx={{
+              mr: { xs: 0, md: 2 },
+              mb: { xs: 1, md: 0 },
+              color: categoryData.color,
+              fontSize: { xs: '0.875rem', md: '1rem' },
+            }}
           >
             Về kết quả
           </Button>
 
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="h5" sx={{ fontWeight: 600, color: categoryData.color, mb: 1, fontSize: { xs: '1.125rem', md: '1.5rem' } }}>
-              {getCategoryEmoji(category)} Ôn tập - {testData.testInfo.title}
-            </Typography>
+          <Box sx={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Stack direction="row" spacing={1} flexWrap="wrap">
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 600, color: categoryData.color, mb: 1, fontSize: { xs: '1.125rem', md: '1.5rem' } }}
+              >
+                {getCategoryEmoji(category)} Ôn tập - {testData.testInfo.title}
+              </Typography>
               <Chip
                 label={testData.testInfo.difficulty}
                 size="small"
@@ -462,23 +544,26 @@ function ReviewContent() {
               />
             </Stack>
           </Box>
-
-          <Box sx={{ textAlign: { xs: 'left', md: 'right' } }}>
-            <Typography variant="h6" sx={{ color: categoryData.color, fontSize: { xs: '1rem', md: '1.25rem' }, mt: { xs: 0.5, md: 0 } }}>
-              Câu {currentQuestion}/{testData.questions.length}
-            </Typography>
-          </Box>
         </Stack>
 
-        <Grid container spacing={{ xs: 2, md: 4 }}>
+        <Grid container spacing={{ xs: 2, md: 2 }}>
           {/* Phần hình ảnh và audio */}
           <Grid size={{ xs: 12, md: 6 }}>
             <Card sx={{ height: '100%' }}>
               <CardContent>
-                <Typography variant="h6" gutterBottom sx={{ color: categoryData.color }}>
-                  📸 Hình ảnh & Audio
-                </Typography>
-
+                <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
+                  <Typography variant="h6" gutterBottom sx={{ color: categoryData.color }}>
+                    Câu {currentQuestion}
+                  </Typography>
+                  <Chip
+                    label={`Chủ đề: ${currentQuestionData?.theme}`}
+                    size="small"
+                    sx={{
+                      backgroundColor: categoryData.color + '20',
+                      color: categoryData.color,
+                    }}
+                  />
+                </Stack>
                 {/* Hình ảnh */}
                 <Box
                   sx={{
@@ -504,7 +589,6 @@ function ReviewContent() {
                     }}
                   />
                 </Box>
-
                 {/* Enhanced Audio Controls */}
                 <Box sx={{ textAlign: 'center' }}>
                   <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 2 }}>
@@ -512,7 +596,7 @@ function ReviewContent() {
                       size="small"
                       onClick={() => {
                         if (audioElement) {
-                          audioElement.currentTime = Math.max(0, audioElement.currentTime - 5);
+                          audioElement.currentTime = Math.max(0, audioElement.currentTime - 3);
                         }
                       }}
                       sx={{
@@ -524,29 +608,31 @@ function ReviewContent() {
                       }}
                       disabled={!audioElement}
                     >
-                      <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>-5s</Typography>
+                      <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>-3s</Typography>
                     </IconButton>
-
                     <IconButton
                       onClick={handlePlayAudio}
                       sx={{
                         backgroundColor: categoryData.color,
                         color: 'white',
-                        width: { xs: 56, md: 80 },
-                        height: { xs: 56, md: 80 },
+                        width: { xs: 30, md: 40 },
+                        height: { xs: 30, md: 40 },
                         '&:hover': {
                           backgroundColor: categoryData.color + 'dd',
                         },
                       }}
                     >
-                      {isPlaying ? <Pause sx={{ fontSize: { xs: 28, md: 40 } }} /> : <PlayArrow sx={{ fontSize: { xs: 28, md: 40 } }} />}
+                      {isPlaying ? (
+                        <Pause sx={{ fontSize: { xs: 24, md: 30 } }} />
+                      ) : (
+                        <PlayArrow sx={{ fontSize: { xs: 24, md: 30 } }} />
+                      )}
                     </IconButton>
-
                     <IconButton
                       size="small"
                       onClick={() => {
                         if (audioElement) {
-                          audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 5);
+                          audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 3);
                         }
                       }}
                       sx={{
@@ -558,18 +644,37 @@ function ReviewContent() {
                       }}
                       disabled={!audioElement}
                     >
-                      <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>+5s</Typography>
+                      <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>+3s</Typography>
                     </IconButton>
                   </Stack>
 
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
-                    <VolumeUp sx={{ mr: 0.5, verticalAlign: 'middle', fontSize: 16 }} />
-                    {isPlaying ? 'Đang phát...' : 'Click để nghe audio'}
-                  </Typography>
-                  
-                  <Typography variant="caption" color="text.secondary">
-                    💡 Sử dụng nút -5s/+5s để luyện nghe từng phần
-                  </Typography>
+                  {/* Audio Progress Slider */}
+                  <Box sx={{ mb: 2 }}>
+                    <Stack direction="row" alignItems="center" spacing={{ xs: 1, md: 1.5 }}>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ minWidth: { xs: 68, md: 80 }, textAlign: 'center' }}
+                      >
+                        {formatTime(Math.floor(currentTime || 0))} / {formatTime(Math.floor(duration || 0))}
+                      </Typography>
+
+                      <Slider
+                        value={Math.min(currentTime, duration || 0)}
+                        min={0}
+                        max={duration || 0}
+                        step={0.1}
+                        onChange={(_, val) => {
+                          if (typeof val === 'number') setCurrentTime(val);
+                        }}
+                        onChangeCommitted={(_, val) => {
+                          if (typeof val === 'number') handleSeek(val);
+                        }}
+                        disabled={!duration}
+                        sx={{ color: categoryData.color, flexGrow: 1, minWidth: 0 }}
+                      />
+                    </Stack>
+                  </Box>
                 </Box>
               </CardContent>
             </Card>
@@ -577,22 +682,33 @@ function ReviewContent() {
 
           {/* Phần đáp án và giải thích */}
           <Grid size={{ xs: 12, md: 6 }}>
-            <Stack spacing={3}>
+            <Stack spacing={2}>
               {/* Các lựa chọn */}
               <Card>
                 <CardContent>
-                  <Typography variant="h6" gutterBottom sx={{ color: categoryData.color }}>
-                    📝 Các lựa chọn
-                  </Typography>
+                  <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+                    <Typography variant="h6" sx={{ color: categoryData.color }}>
+                      📝 Các lựa chọn
+                    </Typography>
+                    <Button
+                      variant="text"
+                      size="small"
+                      startIcon={<Translate />}
+                      onClick={() => setShowTranslation((prev) => !prev)}
+                      sx={{ color: categoryData.color }}
+                    >
+                      {showTranslation ? 'Ẩn dịch' : 'Dịch'}
+                    </Button>
+                  </Stack>
 
                   <Stack spacing={{ xs: 1.5, md: 2 }}>
-                    {currentQuestionData?.options.map((option: string, index: number) => {
-                      const optionLetter = String.fromCharCode(65 + index);
+                    {currentQuestionData?.questions.map((question) => {
+                      const optionLetter = String.fromCharCode(65 + question.id);
                       const isCorrect = optionLetter === currentQuestionData.correctAnswer;
 
                       return (
                         <Paper
-                          key={option}
+                          key={question.id}
                           sx={{
                             p: { xs: 1.5, md: 2 },
                             border: isCorrect ? `2px solid #4caf50` : `1px solid #ddd`,
@@ -616,16 +732,31 @@ function ReviewContent() {
                             >
                               {optionLetter}
                             </Box>
-                            <Typography
-                              variant="body1"
-                              sx={{
-                                flex: 1,
-                                fontWeight: isCorrect ? 'medium' : 'normal',
-                                fontSize: { xs: '0.95rem', md: '1rem' }
-                              }}
-                            >
-                              {option}
-                            </Typography>
+                            <Box sx={{ flex: 1 }}>
+                              <Typography
+                                variant="body1"
+                                sx={{
+                                  fontWeight: isCorrect ? 'medium' : 'normal',
+                                  fontSize: { xs: '0.95rem', md: '1rem' },
+                                  mb: showTranslation && question.vi ? 1 : 0,
+                                }}
+                              >
+                                {question.en}
+                              </Typography>
+                              {showTranslation && question.vi && (
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  sx={{
+                                    fontStyle: 'italic',
+                                    fontSize: { xs: '0.85rem', md: '0.9rem' },
+                                    lineHeight: 1.4,
+                                  }}
+                                >
+                                  🇻🇳 {question.vi}
+                                </Typography>
+                              )}
+                            </Box>
                             {isCorrect && <CheckCircle sx={{ color: '#4caf50', fontSize: 24 }} />}
                           </Stack>
                         </Paper>
@@ -642,47 +773,12 @@ function ReviewContent() {
                     💡 Giải thích đáp án
                   </Typography>
 
-                  <Alert severity="success" sx={{ mb: 3 }}>
+                  <Alert severity="success" sx={{ mb: 1 }}>
                     <Typography variant="body1">
                       <strong>Đáp án đúng: {currentQuestionData?.correctAnswer}</strong>
                     </Typography>
+                    <Box>{currentQuestionData?.explanation}</Box>
                   </Alert>
-
-                  <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.6, fontSize: { xs: '0.95rem', md: '1rem' } }}>
-                    {currentQuestionData?.explanation}
-                  </Typography>
-
-                  {/* Vietnamese Transcript */}
-                  {currentQuestionData?.transcript && (
-                    <Box sx={{ mb: 3 }}>
-                      <Typography variant="subtitle1" sx={{ mb: 1, color: categoryData.color, fontWeight: 'bold' }}>
-                        📝 Transcript:
-                      </Typography>
-                      <Paper
-                        sx={{
-                          p: 2,
-                          backgroundColor: '#f8f9fa',
-                          border: `1px solid ${categoryData.color}20`,
-                          borderRadius: 2,
-                        }}
-                      >
-                        <Typography variant="body1" sx={{ lineHeight: 1.6, whiteSpace: 'pre-line', fontSize: { xs: '0.95rem', md: '1rem' } }}>
-                          {currentQuestionData.transcript}
-                        </Typography>
-                      </Paper>
-                    </Box>
-                  )}
-
-                  <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-                    <Chip
-                      label={`Chủ đề: ${currentQuestionData?.theme}`}
-                      size="small"
-                      sx={{
-                        backgroundColor: categoryData.color + '20',
-                        color: categoryData.color,
-                      }}
-                    />
-                  </Stack>
 
                   <Box>
                     <Typography variant="subtitle2" sx={{ mb: 1, color: categoryData.color }}>
@@ -707,9 +803,9 @@ function ReviewContent() {
               </Card>
 
               {/* Navigation - Desktop only */}
-              <Stack 
-                direction="row" 
-                spacing={2} 
+              <Stack
+                direction="row"
+                spacing={2}
                 justifyContent="space-between"
                 sx={{ display: { xs: 'none', md: 'flex' } }}
               >
@@ -757,7 +853,7 @@ function ReviewContent() {
             right: 0,
             backgroundColor: 'white',
             borderTop: '1px solid #e0e0e0',
-            p: 2,
+            p: 1,
             zIndex: 1000,
             transform: showNavButtons ? 'translateY(0)' : 'translateY(100%)',
             transition: 'transform 0.3s ease-in-out',
@@ -766,6 +862,7 @@ function ReviewContent() {
         >
           <Stack direction="row" spacing={2} justifyContent="space-between">
             <Button
+              size="small"
               variant="outlined"
               startIcon={<NavigateBefore />}
               onClick={handlePrevQuestion}
@@ -775,7 +872,7 @@ function ReviewContent() {
                 color: categoryData.color,
                 borderColor: categoryData.color,
                 fontSize: '0.9rem',
-                py: 1.25,
+                py: 1,
                 '&:disabled': {
                   opacity: 0.5,
                   borderColor: '#ccc',
@@ -788,6 +885,7 @@ function ReviewContent() {
 
             {currentQuestion === testData.questions.length ? (
               <Button
+                size="small"
                 variant="contained"
                 component={Link}
                 href="/practice/part1"
@@ -795,7 +893,7 @@ function ReviewContent() {
                   flex: 1,
                   backgroundColor: categoryData.color,
                   fontSize: '0.9rem',
-                  py: 1.25,
+                  py: 1,
                   '&:hover': {
                     backgroundColor: categoryData.color + 'dd',
                   },
@@ -805,6 +903,7 @@ function ReviewContent() {
               </Button>
             ) : (
               <Button
+                size="small"
                 variant="contained"
                 endIcon={<NavigateNext />}
                 onClick={handleNextQuestion}
@@ -812,7 +911,7 @@ function ReviewContent() {
                   flex: 1,
                   backgroundColor: categoryData.color,
                   fontSize: '0.9rem',
-                  py: 1.25,
+                  py: 1,
                   '&:hover': {
                     backgroundColor: categoryData.color + 'dd',
                   },
