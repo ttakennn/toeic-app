@@ -22,6 +22,7 @@ import {
   NavigateBefore,
   NavigateNext,
   CheckCircle,
+  Cancel,
   ArrowBack,
   Error as ErrorIcon,
   Translate,
@@ -131,6 +132,7 @@ function ReviewContent() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
 
   // Scroll tracking refs
   const lastScrollY = useRef(0);
@@ -253,6 +255,19 @@ function ReviewContent() {
 
     if (category && testId) {
       loadTestData();
+    }
+  }, [category, testId]);
+
+  // Load user answers from sessionStorage
+  useEffect(() => {
+    try {
+      const storedAnswers = sessionStorage.getItem(`test_answers_${category}_${testId}`);
+      if (storedAnswers) {
+        const parsedAnswers = JSON.parse(storedAnswers);
+        setUserAnswers(parsedAnswers);
+      }
+    } catch (error) {
+      console.error('Error loading user answers:', error);
     }
   }, [category, testId]);
 
@@ -703,16 +718,21 @@ function ReviewContent() {
 
                   <Stack spacing={{ xs: 1.5, md: 2 }}>
                     {currentQuestionData?.questions.map((question) => {
-                      const optionLetter = String.fromCharCode(65 + question.id);
+                      const optionLetter = String.fromCharCode(65 + question.id - 1);
                       const isCorrect = optionLetter === currentQuestionData.correctAnswer;
+                      const userAnswer = userAnswers[currentQuestionData.id];
+                      const isUserAnswer = optionLetter === userAnswer;
+                      const isUserAnswerWrong = isUserAnswer && !isCorrect;
 
                       return (
                         <Paper
                           key={question.id}
                           sx={{
                             p: { xs: 1.5, md: 2 },
-                            border: isCorrect ? `2px solid #4caf50` : `1px solid #ddd`,
-                            backgroundColor: isCorrect ? '#e8f5e9' : 'white',
+                            border: isCorrect ? `2px solid #4caf50` : 
+                                   isUserAnswerWrong ? `2px solid #f44336` : `1px solid #ddd`,
+                            backgroundColor: isCorrect ? '#e8f5e9' : 
+                                           isUserAnswerWrong ? '#ffebee' : 'white',
                             borderRadius: 2,
                           }}
                         >
@@ -722,8 +742,10 @@ function ReviewContent() {
                                 width: { xs: 28, md: 32 },
                                 height: { xs: 28, md: 32 },
                                 borderRadius: '50%',
-                                backgroundColor: isCorrect ? '#4caf50' : '#e0e0e0',
-                                color: isCorrect ? 'white' : 'black',
+                                backgroundColor: isCorrect ? '#4caf50' : 
+                                             isUserAnswerWrong ? '#f44336' : '#e0e0e0',
+                                color: isCorrect ? 'white' : 
+                                      isUserAnswerWrong ? 'white' : 'black',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -736,7 +758,7 @@ function ReviewContent() {
                               <Typography
                                 variant="body1"
                                 sx={{
-                                  fontWeight: isCorrect ? 'medium' : 'normal',
+                                  fontWeight: isCorrect || isUserAnswerWrong ? 'medium' : 'normal',
                                   fontSize: { xs: '0.95rem', md: '1rem' },
                                   mb: showTranslation && question.vi ? 1 : 0,
                                 }}
@@ -757,7 +779,10 @@ function ReviewContent() {
                                 </Typography>
                               )}
                             </Box>
-                            {isCorrect && <CheckCircle sx={{ color: '#4caf50', fontSize: 24 }} />}
+                            <Stack direction="row" spacing={1} alignItems="center">
+                              {isCorrect && <CheckCircle sx={{ color: '#4caf50', fontSize: 24 }} />}
+                              {isUserAnswerWrong && <Cancel sx={{ color: '#f44336', fontSize: 24 }} />}
+                            </Stack>
                           </Stack>
                         </Paper>
                       );
