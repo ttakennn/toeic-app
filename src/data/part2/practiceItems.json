@@ -1,4 +1,30 @@
 {
+  "guides": {
+    "key": "guide",
+    "title": "Hướng dẫn làm bài",
+    "description": [
+      {
+        "key": "item1",
+        "item": "🎧 Nghe câu hỏi và 3 đáp án A, B, C chỉ được phát <strong>1 lần duy nhất</strong>"
+      },
+      {
+        "key": "item2",
+        "item": "✅ Chọn đáp án phù hợp nhất với câu hỏi"
+      },
+      {
+        "key": "item3",
+        "item": "🚩 Bạn có thể đánh dấu câu hỏi để xem lại sau"
+      },
+      {
+        "key": "item4",
+        "item": "⏰ Hết thời gian sẽ tự động nộp bài"
+      },
+      {
+        "key": "item5",
+        "item": "📝 <strong>Không có text hiển thị</strong> - hoàn toàn dựa vào nghe hiểu"
+      }
+    ]
+  },
   "practiceItems": [
     {
       "id": "what",
@@ -10,7 +36,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - What cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
-        { "id": 2, "title": "TEST 2 - What nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - What nâng cao",
+          "difficulty": "Trung bình",
+          "questions": 10,
+          "duration": "6 phút"
+        }
       ]
     },
     {
@@ -36,7 +68,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - Where cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
-        { "id": 2, "title": "TEST 2 - Where nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - Where nâng cao",
+          "difficulty": "Trung bình",
+          "questions": 10,
+          "duration": "6 phút"
+        }
       ]
     },
     {
@@ -49,7 +87,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - When cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
-        { "id": 2, "title": "TEST 2 - When nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - When nâng cao",
+          "difficulty": "Trung bình",
+          "questions": 10,
+          "duration": "6 phút"
+        }
       ]
     },
     {
@@ -88,7 +132,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - Yes/No cơ bản", "difficulty": "Dễ", "questions": 10, "duration": "6 phút" },
-        { "id": 2, "title": "TEST 2 - Yes/No nâng cao", "difficulty": "Trung bình", "questions": 12, "duration": "7 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - Yes/No nâng cao",
+          "difficulty": "Trung bình",
+          "questions": 12,
+          "duration": "7 phút"
+        }
       ]
     },
     {
@@ -101,7 +151,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - Câu hỏi đuôi cơ bản", "difficulty": "Dễ", "questions": 6, "duration": "4 phút" },
-        { "id": 2, "title": "TEST 2 - Câu hỏi đuôi nâng cao", "difficulty": "Khó", "questions": 8, "duration": "5 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - Câu hỏi đuôi nâng cao",
+          "difficulty": "Khó",
+          "questions": 8,
+          "duration": "5 phút"
+        }
       ]
     },
     {
@@ -114,7 +170,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - Lựa chọn cơ bản", "difficulty": "Dễ", "questions": 6, "duration": "4 phút" },
-        { "id": 2, "title": "TEST 2 - Lựa chọn nâng cao", "difficulty": "Trung bình", "questions": 8, "duration": "5 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - Lựa chọn nâng cao",
+          "difficulty": "Trung bình",
+          "questions": 8,
+          "duration": "5 phút"
+        }
       ]
     },
     {
@@ -127,7 +189,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - Yêu cầu cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
-        { "id": 2, "title": "TEST 2 - Yêu cầu nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - Yêu cầu nâng cao",
+          "difficulty": "Trung bình",
+          "questions": 10,
+          "duration": "6 phút"
+        }
       ]
     },
     {
@@ -140,7 +208,13 @@
       "totalTests": 2,
       "tests": [
         { "id": 1, "title": "TEST 1 - Trần thuật cơ bản", "difficulty": "Dễ", "questions": 8, "duration": "5 phút" },
-        { "id": 2, "title": "TEST 2 - Trần thuật nâng cao", "difficulty": "Trung bình", "questions": 10, "duration": "6 phút" }
+        {
+          "id": 2,
+          "title": "TEST 2 - Trần thuật nâng cao",
+          "difficulty": "Trung bình",
+          "questions": 10,
+          "duration": "6 phút"
+        }
       ]
     },
     {
@@ -152,9 +226,21 @@
       "bgColor": "#fff3e0",
       "totalTests": 3,
       "tests": [
-        { "id": 1, "title": "TEST 1 - Tổng hợp cơ bản", "difficulty": "Trung bình", "questions": 15, "duration": "9 phút" },
+        {
+          "id": 1,
+          "title": "TEST 1 - Tổng hợp cơ bản",
+          "difficulty": "Trung bình",
+          "questions": 15,
+          "duration": "9 phút"
+        },
         { "id": 2, "title": "TEST 2 - Tổng hợp nâng cao", "difficulty": "Khó", "questions": 20, "duration": "12 phút" },
-        { "id": 3, "title": "TEST 3 - Thi thử thực tế", "difficulty": "Thực tế", "questions": 25, "duration": "15 phút" }
+        {
+          "id": 3,
+          "title": "TEST 3 - Thi thử thực tế",
+          "difficulty": "Thực tế",
+          "questions": 25,
+          "duration": "15 phút"
+        }
       ]
     }
   ]

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import practiceItemsData from '@/data/part2/practiceItems.json';
+import { GuideItem } from '@/app/types/core.interface';
 
 interface TestSummary {
   id: number;
@@ -21,6 +22,7 @@ interface CategoryWithTests {
   bgColor: string;
   totalTests: number;
   availableTests: number;
+  guides: GuideItem;
   tests: TestSummary[];
 }
 
@@ -62,6 +64,7 @@ export async function GET() {
         bgColor: categoryInfo.bgColor,
         totalTests: categoryInfo.totalTests,
         availableTests: availableCount,
+        guides: practiceItemsData.guides,
         tests,
       });
     }

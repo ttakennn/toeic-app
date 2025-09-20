@@ -12,6 +12,7 @@ import {
   Chip,
   LinearProgress,
   IconButton,
+  Slider,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -26,11 +27,9 @@ import {
 import {
   PlayArrow,
   Pause,
-  VolumeUp,
   NavigateBefore,
   NavigateNext,
   Flag,
-  CheckCircle,
   Timer,
   Error as ErrorIcon,
   Headphones,
@@ -38,6 +37,7 @@ import {
 import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 import Link from 'next/link';
+import { GuideItem } from '@/app/types/core.interface';
 
 interface TestQuestion {
   id: number;
@@ -96,6 +96,7 @@ interface CategoryInfo {
   color: string;
   bgColor: string;
   totalTests: number;
+  guides: GuideItem;
 }
 
 const getCategoryEmoji = (categoryId: string) => {
@@ -168,28 +169,11 @@ function Part2TestPageContent() {
   // Audio state
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioError, setAudioError] = useState<string | null>(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const currentQuestion = testData?.questions[currentQuestionIndex];
-
-  // Mobile bottom nav visibility on scroll
-  const [showMobileNav, setShowMobileNav] = useState(true);
-  const lastScrollY = useRef(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      if (currentY > lastScrollY.current) {
-        setShowMobileNav(true);
-      } else {
-        setShowMobileNav(false);
-      }
-      lastScrollY.current = currentY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Audio controls
   const togglePlayPause = useCallback(() => {
@@ -219,12 +203,47 @@ function Part2TestPageContent() {
     setIsPlaying(false);
   };
 
+  // Audio time and duration handlers
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime || 0);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration || 0);
+      setCurrentTime(audioRef.current.currentTime || 0);
+    }
+  };
+
+  const handleDurationChange = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration || 0);
+    }
+  };
+
+  // Seek functionality
+  const handleSeek = (newTime: number) => {
+    if (audioRef.current && !Number.isNaN(newTime)) {
+      const clamped = Math.max(0, Math.min(duration || 0, newTime));
+      try {
+        audioRef.current.currentTime = clamped;
+        setCurrentTime(clamped);
+      } catch (error) {
+        console.warn('Error seeking audio:', error);
+      }
+    }
+  };
+
   // Question navigation
   const goToQuestion = useCallback(
     (index: number) => {
       if (index >= 0 && index < (testData?.questions.length || 0)) {
         setCurrentQuestionIndex(index);
         setIsPlaying(false);
+        setCurrentTime(0);
+        setDuration(0);
       }
     },
     [testData],
@@ -301,8 +320,8 @@ function Part2TestPageContent() {
   // Format time
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
   // Fetch test data
@@ -435,7 +454,7 @@ function Part2TestPageContent() {
                 </Box>
 
                 <Grid container spacing={3} sx={{ textAlign: 'center' }}>
-                  <Grid size={{ xs: 12, sm: 6 }}>
+                  <Grid size={{ xs: 6, sm: 6 }}>
                     <Card variant="outlined">
                       <CardContent>
                         <Typography variant="h3" sx={{ color: categoryInfo?.color, fontWeight: 'bold' }}>
@@ -447,7 +466,7 @@ function Part2TestPageContent() {
                       </CardContent>
                     </Card>
                   </Grid>
-                  <Grid size={{ xs: 12, sm: 6 }}>
+                  <Grid size={{ xs: 6, sm: 6 }}>
                     <Card variant="outlined">
                       <CardContent>
                         <Typography variant="h3" sx={{ color: 'warning.main', fontWeight: 'bold' }}>
@@ -459,7 +478,7 @@ function Part2TestPageContent() {
                       </CardContent>
                     </Card>
                   </Grid>
-                  <Grid size={{ xs: 12, sm: 6 }}>
+                  <Grid size={{ xs: 6, sm: 6 }}>
                     <Card variant="outlined">
                       <CardContent>
                         <Chip
@@ -479,7 +498,7 @@ function Part2TestPageContent() {
                       </CardContent>
                     </Card>
                   </Grid>
-                  <Grid size={{ xs: 12, sm: 6 }}>
+                  <Grid size={{ xs: 6, sm: 6 }}>
                     <Card variant="outlined">
                       <CardContent>
                         <Headphones
@@ -499,28 +518,24 @@ function Part2TestPageContent() {
                   </Grid>
                 </Grid>
 
-                <Alert severity="info" sx={{ width: '100%' }}>
-                  <Typography variant="body1" gutterBottom sx={{ fontWeight: 'medium' }}>
-                    📋 Hướng dẫn làm bài:
-                  </Typography>
-                  <Stack component="ul" spacing={0.5} sx={{ pl: 2, mt: 1 }}>
-                    <Typography component="li" variant="body2">
-                      🎧 Nghe câu hỏi và 3 đáp án A, B, C chỉ được phát <strong>1 lần duy nhất</strong>
+                {categoryInfo && (
+                  <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', p: 2, borderRadius: 2 }}>
+                    <Typography variant="body1" gutterBottom sx={{ fontWeight: 'medium' }}>
+                      {categoryInfo.guides.title}
                     </Typography>
-                    <Typography component="li" variant="body2">
-                      ✅ Chọn đáp án phù hợp nhất với câu hỏi
-                    </Typography>
-                    <Typography component="li" variant="body2">
-                      🚩 Bạn có thể đánh dấu câu hỏi để xem lại sau
-                    </Typography>
-                    <Typography component="li" variant="body2">
-                      ⏰ Hết thời gian sẽ tự động nộp bài
-                    </Typography>
-                    <Typography component="li" variant="body2">
-                      📝 <strong>Không có text hiển thị</strong> - hoàn toàn dựa vào nghe hiểu
-                    </Typography>
-                  </Stack>
-                </Alert>
+
+                    <Stack component="ul" spacing={0.5} sx={{ pl: 2, mt: 1 }}>
+                      {categoryInfo.guides.description.map((item) => (
+                        <Typography
+                          key={item.key}
+                          component="li"
+                          variant="body2"
+                          dangerouslySetInnerHTML={{ __html: item.item }}
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+                )}
 
                 <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', fontStyle: 'italic' }}>
                   {testData.testInfo.description}
@@ -553,16 +568,12 @@ function Part2TestPageContent() {
 
   return (
     <DashboardLayout>
-      <Box sx={{ maxWidth: 1400, mx: 'auto', p: { xs: 1, sm: 2 }, pb: { xs: 9, sm: 10 } }}>
+      <Box sx={{ maxWidth: 1400, mx: 'auto', p: { xs: 0, sm: 2 } }}>
         {/* Header */}
-        <Card sx={{ mb: 3, backgroundColor: categoryInfo?.bgColor + '30' }}>
+        <Card sx={{ mb: { xs: 1, sm: 3 }, backgroundColor: categoryInfo?.bgColor + '30' }}>
           <CardContent>
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={2}
-              alignItems="center"
-              justifyContent="space-between"
-            >
+            <Stack direction={{ xs: 'row', sm: 'row' }} spacing={2} alignItems="center" justifyContent="space-between">
+              {/* Title */}
               <Stack direction="row" spacing={2} alignItems="center">
                 <Typography variant="h5" sx={{ color: categoryInfo?.color, fontWeight: 600 }}>
                   {getCategoryEmoji(category)} {testData.testInfo.title}
@@ -576,7 +587,7 @@ function Part2TestPageContent() {
                   }}
                 />
               </Stack>
-
+              {/* Timer */}
               <Stack direction="row" spacing={2} alignItems="center">
                 <Chip
                   icon={<Timer />}
@@ -585,30 +596,31 @@ function Part2TestPageContent() {
                   variant="filled"
                   sx={{ fontWeight: 'bold', fontSize: '1rem' }}
                 />
-                <Typography variant="body2" color="text.secondary">
-                  {currentQuestionIndex + 1}/{testData.questions.length}
-                </Typography>
               </Stack>
             </Stack>
-
             {/* Progress */}
-            <LinearProgress
-              variant="determinate"
-              value={((currentQuestionIndex + 1) / testData.questions.length) * 100}
-              sx={{
-                mt: 2,
-                height: 8,
-                borderRadius: 4,
-                backgroundColor: '#f0f0f0',
-                '& .MuiLinearProgress-bar': {
-                  backgroundColor: categoryInfo?.color,
-                },
-              }}
-            />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1 }}>
+              <LinearProgress
+                variant="determinate"
+                value={((currentQuestionIndex + 1) / testData.questions.length) * 100}
+                sx={{
+                  flex: 1,
+                  height: 8,
+                  borderRadius: 4,
+                  backgroundColor: '#f0f0f0',
+                  '& .MuiLinearProgress-bar': {
+                    backgroundColor: categoryInfo?.color,
+                  },
+                }}
+              />
+              <Typography variant="body2" color="text.secondary">
+                {currentQuestionIndex + 1}/{testData.questions.length}
+              </Typography>
+            </Box>
           </CardContent>
         </Card>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 1, sm: 2 }}>
           {/* Main Question Area */}
           <Grid size={{ xs: 12, lg: 8 }}>
             <Card>
@@ -617,10 +629,10 @@ function Part2TestPageContent() {
                   <>
                     {/* Question Header */}
                     <Stack
-                      direction={{ xs: 'column', sm: 'row' }}
-                      spacing={2}
-                      alignItems={{ xs: 'flex-start', sm: 'center' }}
-                      sx={{ mb: { xs: 3, sm: 4 } }}
+                      direction={{ xs: 'row', sm: 'row' }}
+                      spacing={1}
+                      alignItems={{ xs: 'center', sm: 'center' }}
+                      sx={{ mb: 1 }}
                     >
                       <Stack direction="row" spacing={2} alignItems="center">
                         <Typography variant="h6" sx={{ color: categoryInfo?.color }}>
@@ -645,21 +657,23 @@ function Part2TestPageContent() {
                     </Stack>
 
                     {/* Audio Player */}
-                    <Card variant="outlined" sx={{ mb: { xs: 3, sm: 4 }, backgroundColor: '#f8f9fa' }}>
+                    <Card variant="outlined" sx={{ mb: { xs: 0, sm: 1 }, backgroundColor: '#f8f9fa' }}>
                       <CardContent sx={{ textAlign: 'center', py: { xs: 3, sm: 4 } }}>
-                        <Headphones sx={{ fontSize: { xs: 50, sm: 60 }, color: 'primary.main', mb: 2 }} />
-                        <Typography variant="h6" gutterBottom>
-                          🎧 Nghe câu hỏi và đáp án
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                          Câu hỏi và 3 đáp án A, B, C sẽ được đọc liên tiếp
-                        </Typography>
-
-                        <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+                        <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{ mb: 1 }}>
+                          <Headphones sx={{ fontSize: { xs: 24, sm: 30 }, color: 'primary.main' }} />
+                          <Typography variant="h6" gutterBottom>
+                            Nghe câu hỏi và đáp án
+                          </Typography>
+                        </Stack>
+                        {/* Audio Controls with Slider */}
+                        <Stack direction="row" spacing={2} alignItems="center" sx={{ px: 2 }}>
+                          {/* responsive icon button */}
                           <IconButton
                             onClick={togglePlayPause}
                             size="large"
                             sx={{
+                              width: { xs: 30, sm: 40 },
+                              height: { xs: 30, sm: 40 },
                               backgroundColor: categoryInfo?.color,
                               color: 'white',
                               '&:hover': {
@@ -669,10 +683,37 @@ function Part2TestPageContent() {
                           >
                             {isPlaying ? <Pause /> : <PlayArrow />}
                           </IconButton>
-                          <VolumeUp sx={{ color: 'text.secondary' }} />
-                          <Typography variant="body2" color="text.secondary">
-                            {isPlaying ? 'Đang phát...' : 'Nhấn để phát'}
+                          <Typography variant="body2" color="text.secondary" sx={{ minWidth: 60, textAlign: 'center' }}>
+                            {formatTime(Math.floor(currentTime || 0))} / {formatTime(Math.floor(duration || 0))}
                           </Typography>
+
+                          <Slider
+                            value={Math.min(currentTime, duration || 0)}
+                            min={0}
+                            max={duration || 0}
+                            step={0.1}
+                            onChange={(_, val) => {
+                              if (typeof val === 'number') setCurrentTime(val);
+                            }}
+                            onChangeCommitted={(_, val) => {
+                              if (typeof val === 'number') handleSeek(val);
+                            }}
+                            disabled={!duration}
+                            sx={{
+                              color: categoryInfo?.color,
+                              flexGrow: 1,
+                              '& .MuiSlider-thumb': {
+                                width: 16,
+                                height: 16,
+                              },
+                              '& .MuiSlider-track': {
+                                height: 4,
+                              },
+                              '& .MuiSlider-rail': {
+                                height: 4,
+                              },
+                            }}
+                          />
                         </Stack>
 
                         {audioError && (
@@ -687,67 +728,11 @@ function Part2TestPageContent() {
                           src={currentQuestion.audioUrl}
                           onEnded={handleAudioEnded}
                           onError={handleAudioError}
+                          onTimeUpdate={handleTimeUpdate}
+                          onLoadedMetadata={handleLoadedMetadata}
+                          onDurationChange={handleDurationChange}
                           preload="metadata"
                         />
-                      </CardContent>
-                    </Card>
-
-                    {/* Answer Options */}
-                    <Card variant="outlined">
-                      <CardContent>
-                        <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-                          Chọn đáp án:
-                        </Typography>
-
-                        <FormControl component="fieldset" sx={{ width: '100%' }}>
-                          <RadioGroup
-                            value={selectedAnswers[currentQuestion.id] || ''}
-                            onChange={(e) => handleAnswerSelect(currentQuestion.id, e.target.value)}
-                          >
-                            <Stack spacing={2}>
-                              {['A', 'B', 'C'].map((option) => (
-                                <Card
-                                  key={option}
-                                  variant="outlined"
-                                  sx={{
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s',
-                                    border:
-                                      selectedAnswers[currentQuestion.id] === option
-                                        ? `2px solid ${categoryInfo?.color}`
-                                        : '1px solid #e0e0e0',
-                                    backgroundColor:
-                                      selectedAnswers[currentQuestion.id] === option
-                                        ? categoryInfo?.bgColor + '20'
-                                        : 'transparent',
-                                    '&:hover': {
-                                      backgroundColor: categoryInfo?.bgColor + '40',
-                                    },
-                                  }}
-                                  onClick={() => handleAnswerSelect(currentQuestion.id, option)}
-                                >
-                                  <CardContent sx={{ py: 2 }}>
-                                    <FormControlLabel
-                                      value={option}
-                                      control={<Radio sx={{ color: categoryInfo?.color }} />}
-                                      label={
-                                        <Box>
-                                          <Typography variant="h6" sx={{ color: categoryInfo?.color }}>
-                                            {option}
-                                          </Typography>
-                                          <Typography variant="body2" color="text.secondary">
-                                            Nghe trong audio
-                                          </Typography>
-                                        </Box>
-                                      }
-                                      sx={{ width: '100%', margin: 0 }}
-                                    />
-                                  </CardContent>
-                                </Card>
-                              ))}
-                            </Stack>
-                          </RadioGroup>
-                        </FormControl>
                       </CardContent>
                     </Card>
                   </>
@@ -757,188 +742,117 @@ function Part2TestPageContent() {
           </Grid>
 
           {/* Sidebar */}
-          <Grid size={{ xs: 12, lg: 4 }}>
-            <Stack spacing={3}>
+          <Grid size={{ xs: 12, lg: 4 }} spacing={{ xs: 1, sm: 2 }}>
+            <Stack spacing={2} direction={{xs: 'column-reverse', sm: 'column'}}>
               {/* Navigation */}
-              <Card sx={{ display: { xs: 'none', md: 'block' } }}>
+              <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     Điều hướng
                   </Typography>
+                  {/* hiện button nộp bài nếu là câu cuối */}
+
                   <Stack direction="row" spacing={1} justifyContent="space-between" sx={{ mb: 2 }}>
                     <Button
                       variant="outlined"
+                      fullWidth
                       startIcon={<NavigateBefore />}
                       onClick={goToPreviousQuestion}
                       disabled={currentQuestionIndex === 0}
                       size="small"
-                      sx={{ flex: 1 }}
                     >
                       Trước
                     </Button>
-                    <Button
-                      variant="outlined"
-                      endIcon={<NavigateNext />}
-                      onClick={goToNextQuestion}
-                      disabled={currentQuestionIndex === testData.questions.length - 1}
-                      size="small"
-                      sx={{ flex: 1 }}
-                    >
-                      Sau
-                    </Button>
+                    {currentQuestionIndex === testData.questions.length - 1 ? (
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        size="small"
+                        onClick={() => setShowSubmitDialog(true)}
+                        sx={{
+                          backgroundColor: 'success.main',
+                          '&:hover': {
+                            backgroundColor: 'success.dark',
+                          },
+                        }}
+                      >
+                        <Flag />
+                        Nộp bài
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<NavigateNext />}
+                        onClick={goToNextQuestion}
+                        disabled={currentQuestionIndex === testData.questions.length - 1}
+                        size="small"
+                      >
+                        Sau
+                      </Button>
+                    )}
                   </Stack>
                 </CardContent>
               </Card>
+              {/* Answer Options */}
+              {currentQuestion && (
+                <Card variant="outlined">
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+                      Chọn đáp án:
+                    </Typography>
 
-              {/* Question Grid */}
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    Danh sách câu hỏi
-                  </Typography>
-                  <Grid container spacing={1}>
-                    {testData.questions.map((question, index) => (
-                      <Grid size={{ xs: 3 }} key={question.id}>
-                        <Button
-                          variant={currentQuestionIndex === index ? 'contained' : 'outlined'}
-                          onClick={() => goToQuestion(index)}
-                          sx={{
-                            minWidth: 40,
-                            height: 40,
-                            position: 'relative',
-                            backgroundColor: currentQuestionIndex === index ? categoryInfo?.color : 'transparent',
-                            borderColor: selectedAnswers[question.id] ? categoryInfo?.color : '#e0e0e0',
-                            '&:hover': {
-                              backgroundColor:
-                                currentQuestionIndex === index
-                                  ? categoryInfo?.color + 'dd'
-                                  : categoryInfo?.bgColor + '40',
-                            },
-                          }}
-                        >
-                          {index + 1}
-                          {selectedAnswers[question.id] && (
-                            <CheckCircle
+                    <FormControl component="fieldset" sx={{ width: '100%' }}>
+                      <RadioGroup
+                        value={selectedAnswers[currentQuestion.id] || ''}
+                        onChange={(e) => handleAnswerSelect(currentQuestion.id, e.target.value)}
+                      >
+                        <Stack spacing={2} direction="row">
+                          {['A', 'B', 'C'].map((option) => (
+                            <Box
+                              key={option}
                               sx={{
-                                position: 'absolute',
-                                top: -4,
-                                right: -4,
-                                fontSize: 16,
-                                color: 'success.main',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                                width: '100%',
+                                borderRadius: 2,
+                                border:
+                                  selectedAnswers[currentQuestion.id] === option
+                                    ? `2px solid ${categoryInfo?.color}`
+                                    : '1px solid #e0e0e0',
+                                backgroundColor:
+                                  selectedAnswers[currentQuestion.id] === option
+                                    ? categoryInfo?.bgColor + '20'
+                                    : 'transparent',
+                                '&:hover': {
+                                  backgroundColor: categoryInfo?.bgColor + '40',
+                                },
                               }}
-                            />
-                          )}
-                          {flaggedQuestions.includes(question.id) && (
-                            <Flag
-                              sx={{
-                                position: 'absolute',
-                                top: -4,
-                                left: -4,
-                                fontSize: 16,
-                                color: 'warning.main',
-                              }}
-                            />
-                          )}
-                        </Button>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </CardContent>
-              </Card>
-
-              {/* Progress Summary */}
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    Tiến độ
-                  </Typography>
-                  <Stack spacing={2}>
-                    <Stack direction="row" justifyContent="space-between">
-                      <Typography variant="body2">Đã trả lời:</Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                        {Object.keys(selectedAnswers).length}/{testData.questions.length}
-                      </Typography>
-                    </Stack>
-                    <Stack direction="row" justifyContent="space-between">
-                      <Typography variant="body2">Đã đánh dấu:</Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                        {flaggedQuestions.length}
-                      </Typography>
-                    </Stack>
-                    <LinearProgress
-                      variant="determinate"
-                      value={(Object.keys(selectedAnswers).length / testData.questions.length) * 100}
-                      sx={{ height: 6, borderRadius: 3 }}
-                    />
-                  </Stack>
-                </CardContent>
-              </Card>
-
-              {/* Submit Button */}
-              <Card>
-                <CardContent>
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    size="large"
-                    onClick={() => setShowSubmitDialog(true)}
-                    sx={{
-                      backgroundColor: 'success.main',
-                      '&:hover': {
-                        backgroundColor: 'success.dark',
-                      },
-                    }}
-                  >
-                    Nộp bài
-                  </Button>
-                </CardContent>
-              </Card>
+                              onClick={() => handleAnswerSelect(currentQuestion.id, option)}
+                            >
+                              <FormControlLabel
+                                value={option}
+                                control={<Radio sx={{ color: categoryInfo?.color }} />}
+                                label={
+                                  <Box>
+                                    <Typography variant="h6" sx={{ color: categoryInfo?.color }}>
+                                      {option}
+                                    </Typography>
+                                  </Box>
+                                }
+                                sx={{ width: '100%', margin: 0 }}
+                              />
+                            </Box>
+                          ))}
+                        </Stack>
+                      </RadioGroup>
+                    </FormControl>
+                  </CardContent>
+                </Card>
+              )}
             </Stack>
           </Grid>
         </Grid>
-
-        {/* Mobile Bottom Navigation */}
-        <Box
-          sx={{
-            display: { xs: 'block', md: 'none' },
-            position: 'fixed',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            pointerEvents: showMobileNav ? 'auto' : 'none',
-            transform: showMobileNav ? 'translateY(0)' : 'translateY(120%)',
-            opacity: showMobileNav ? 1 : 0,
-            transition: 'transform 200ms ease, opacity 200ms ease',
-            zIndex: 1200,
-          }}
-        >
-          <Card elevation={6} sx={{ borderRadius: 3 }}>
-            <CardContent sx={{ p: 2 }}>
-              <Stack direction="row" spacing={1}>
-                <Button
-                  variant="outlined"
-                  startIcon={<NavigateBefore />}
-                  onClick={goToPreviousQuestion}
-                  disabled={currentQuestionIndex === 0}
-                  fullWidth
-                  size="large"
-                >
-                  Trước
-                </Button>
-                <Button
-                  variant="contained"
-                  endIcon={<NavigateNext />}
-                  onClick={goToNextQuestion}
-                  disabled={currentQuestionIndex === (testData?.questions.length || 1) - 1}
-                  fullWidth
-                  size="large"
-                >
-                  Sau
-                </Button>
-              </Stack>
-            </CardContent>
-          </Card>
-        </Box>
 
         {/* Submit Dialog */}
         <Dialog open={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>
