@@ -1074,6 +1074,11 @@ function TestContent() {
                 size="medium"
               />
             </Stack>
+            {Object.keys(answers).length < testData.questions.length && (
+              <Alert severity="warning" sx={{ mt: 2 }}>
+                Bạn chưa trả lời hết tất cả câu hỏi!
+              </Alert>
+            )}
             <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
               Kết quả sẽ được hiển thị sau khi xem lại đáp án
             </Typography>
@@ -1091,8 +1096,7 @@ function TestContent() {
             <Button
               variant="outlined"
               startIcon={<Cancel />}
-              component={Link}
-              href="/practice/part1"
+              onClick={() => setShowFinishDialog(false)}
               size="medium"
               sx={{
                 order: { xs: 2, sm: 1 },
@@ -1100,7 +1104,7 @@ function TestContent() {
                 fontSize: { xs: '0.8rem', md: '0.875rem' },
               }}
             >
-              Về trang chủ
+              Đóng
             </Button>
             <Button
               variant="contained"

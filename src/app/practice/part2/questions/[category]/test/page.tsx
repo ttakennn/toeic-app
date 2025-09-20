@@ -33,6 +33,8 @@ import {
   Timer,
   Error as ErrorIcon,
   Headphones,
+  CheckCircle,
+  Cancel,
 } from '@mui/icons-material';
 import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
@@ -165,70 +167,305 @@ function Part2TestPageContent() {
   const [isTestStarted, setIsTestStarted] = useState(false);
   const [isTestCompleted, setIsTestCompleted] = useState(false);
   const [showSubmitDialog, setShowSubmitDialog] = useState(false);
+  const [isTimeoutDialog, setIsTimeoutDialog] = useState(false);
+  const [timeoutCountdown, setTimeoutCountdown] = useState(3);
 
   // Audio state
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioError, setAudioError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+
+  // Use ref to track if we should auto play (to avoid loops) and user interaction
+  const shouldAutoPlayRef = useRef(false);
+  const hasUserInteractedRef = useRef(false);
+  const audioLoadingRef = useRef(false);
 
   const currentQuestion = testData?.questions[currentQuestionIndex];
 
+  // Cleanup audio when component unmounts or page navigation
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (audioElement && !audioLoadingRef.current) {
+        try {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+        } catch (error) {
+          console.warn('Error during cleanup:', error);
+        }
+      }
+      audioLoadingRef.current = false;
+    };
+
+    // Add event listeners
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      // Cleanup audio
+      if (audioElement && !audioLoadingRef.current) {
+        try {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+          setIsPlaying(false);
+        } catch (error) {
+          console.warn('Error during final cleanup:', error);
+        }
+      }
+      audioLoadingRef.current = false;
+
+      // Remove event listeners
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [audioElement]);
+
+  // Attach audio listeners for time/duration updates when audio element changes
+  useEffect(() => {
+    if (!audioElement) return;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audioElement.currentTime || 0);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(audioElement.duration || 0);
+      setCurrentTime(audioElement.currentTime || 0);
+    };
+
+    const handleDurationChange = () => {
+      setDuration(audioElement.duration || 0);
+    };
+
+    audioElement.addEventListener('timeupdate', handleTimeUpdate);
+    audioElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audioElement.addEventListener('durationchange', handleDurationChange);
+
+    // Ensure playback rate is applied to the current element
+    try {
+      audioElement.playbackRate = 1;
+    } catch {}
+
+    // Initialize duration if already available
+    if (!Number.isNaN(audioElement.duration) && audioElement.duration) {
+      setDuration(audioElement.duration);
+    }
+
+    return () => {
+      audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+      audioElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audioElement.removeEventListener('durationchange', handleDurationChange);
+    };
+  }, [audioElement]);
+
+  // Keep playback rate in sync when it changes
+  useEffect(() => {
+    if (audioElement) {
+      try {
+        audioElement.playbackRate = 1;
+      } catch {}
+    }
+  }, [audioElement]);
+
   // Audio controls
-  const togglePlayPause = useCallback(() => {
-    if (!audioRef.current || !currentQuestion) return;
+  const handlePlayAudio = useCallback(async () => {
+    // Mark that user has interacted
+    hasUserInteractedRef.current = true;
 
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      setAudioError(null);
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch((error) => {
-          setAudioError('Không thể phát audio. Vui lòng thử lại.');
-          console.error('Audio play error:', error);
+    const currentQuestionData = testData?.questions[currentQuestionIndex];
+    if (!currentQuestionData?.audioUrl || audioLoadingRef.current) return;
+
+    // Validate audio URL
+    if (!currentQuestionData.audioUrl || currentQuestionData.audioUrl.trim() === '') {
+      console.warn('Invalid audio URL for question:', currentQuestionData.id);
+      return;
+    }
+
+    try {
+      if (isPlaying && audioElement) {
+        audioElement.pause();
+        setIsPlaying(false);
+        return;
+      }
+
+      audioLoadingRef.current = true;
+
+      // Create new audio element if it doesn't exist or if question changed
+      if (!audioElement || audioElement.src !== currentQuestionData.audioUrl) {
+        // Clean up old audio first
+        if (audioElement) {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+        }
+
+        const newAudio = new Audio(currentQuestionData.audioUrl);
+
+        newAudio.addEventListener('ended', () => {
+          setIsPlaying(false);
+          audioLoadingRef.current = false;
         });
+
+        newAudio.addEventListener('error', (e) => {
+          const error = e.target as HTMLAudioElement;
+          console.error('Audio playback error:', {
+            error: error.error,
+            networkState: error.networkState,
+            readyState: error.readyState,
+            src: error.src,
+            message: error.error?.message || 'Unknown audio error',
+          });
+          setIsPlaying(false);
+          audioLoadingRef.current = false;
+        });
+
+        newAudio.addEventListener('loadstart', () => {
+          audioLoadingRef.current = true;
+        });
+
+        newAudio.addEventListener('canplay', () => {
+          audioLoadingRef.current = false;
+        });
+
+        setAudioElement(newAudio);
+
+        try {
+          await newAudio.play();
+          setIsPlaying(true);
+        } catch (error: unknown) {
+          if ((error as Error).name !== 'AbortError') {
+            console.error('Failed to play audio:', {
+              error: error,
+              message: (error as Error).message,
+              name: (error as Error).name,
+              audioUrl: currentQuestionData.audioUrl,
+            });
+          }
+          setIsPlaying(false);
+        }
+      } else {
+        try {
+          await audioElement.play();
+          setIsPlaying(true);
+        } catch (error: unknown) {
+          if ((error as Error).name !== 'AbortError') {
+            console.error('Failed to play existing audio:', {
+              error: error,
+              message: (error as Error).message,
+              name: (error as Error).name,
+              audioUrl: audioElement.src,
+            });
+          }
+          setIsPlaying(false);
+        }
+      }
+    } finally {
+      audioLoadingRef.current = false;
     }
-  }, [isPlaying, currentQuestion]);
+  }, [testData, currentQuestionIndex, isPlaying, audioElement]);
 
-  const handleAudioEnded = () => {
-    setIsPlaying(false);
-  };
+  // Auto play audio when test data is loaded or question changes (only after user interaction)
+  useEffect(() => {
+    if (testData && shouldAutoPlayRef.current && hasUserInteractedRef.current && !audioLoadingRef.current) {
+      const currentQuestionData = testData.questions[currentQuestionIndex];
+      if (currentQuestionData?.audioUrl) {
+        // Validate audio URL
+        if (!currentQuestionData.audioUrl || currentQuestionData.audioUrl.trim() === '') {
+          console.warn('Invalid audio URL for question:', currentQuestionData.id);
+          shouldAutoPlayRef.current = false;
+          return;
+        }
 
-  const handleAudioError = () => {
-    setAudioError('Lỗi tải audio. Vui lòng kiểm tra kết nối mạng.');
-    setIsPlaying(false);
-  };
+        // Auto play audio after a short delay to ensure UI is ready
+        const autoPlayTimer = setTimeout(async () => {
+          try {
+            audioLoadingRef.current = true;
 
-  // Audio time and duration handlers
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime || 0);
+            // Stop current audio if playing
+            if (audioElement) {
+              audioElement.pause();
+              audioElement.currentTime = 0;
+              setIsPlaying(false);
+            }
+
+            console.log(
+              'Creating audio element for question:',
+              currentQuestionData.id,
+              'URL:',
+              currentQuestionData.audioUrl,
+            );
+
+            // Create new audio element for auto play
+            const newAudio = new Audio(currentQuestionData.audioUrl);
+
+            newAudio.addEventListener('ended', () => {
+              setIsPlaying(false);
+              audioLoadingRef.current = false;
+            });
+
+            newAudio.addEventListener('error', (e) => {
+              const error = e.target as HTMLAudioElement;
+              console.error('Audio playback error:', {
+                error: error.error,
+                networkState: error.networkState,
+                readyState: error.readyState,
+                src: error.src,
+                message: error.error?.message || 'Unknown audio error',
+              });
+              setIsPlaying(false);
+              audioLoadingRef.current = false;
+
+              // Reset the auto-play flag so it doesn't keep trying
+              shouldAutoPlayRef.current = false;
+            });
+
+            newAudio.addEventListener('loadstart', () => {
+              audioLoadingRef.current = true;
+            });
+
+            newAudio.addEventListener('canplay', () => {
+              audioLoadingRef.current = false;
+            });
+
+            newAudio.addEventListener('loadeddata', () => {
+              console.log('Audio loaded successfully for question:', currentQuestionData.id);
+            });
+
+            setAudioElement(newAudio);
+
+            // Wait a bit for the audio to load before playing
+            await new Promise((resolve) => setTimeout(resolve, 100));
+
+            try {
+              await newAudio.play();
+              setIsPlaying(true);
+            } catch (error: unknown) {
+              if ((error as Error).name !== 'AbortError') {
+                console.error('Failed to auto-play audio:', {
+                  error: error,
+                  message: (error as Error).message,
+                  name: (error as Error).name,
+                  audioUrl: currentQuestionData.audioUrl,
+                });
+              }
+              setIsPlaying(false);
+            }
+          } finally {
+            audioLoadingRef.current = false;
+            // Reset the flag after auto playing
+            shouldAutoPlayRef.current = false;
+          }
+        }, 300);
+
+        return () => clearTimeout(autoPlayTimer);
+      }
     }
-  };
-
-  const handleLoadedMetadata = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration || 0);
-      setCurrentTime(audioRef.current.currentTime || 0);
-    }
-  };
-
-  const handleDurationChange = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration || 0);
-    }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- audioElement is intentionally excluded to prevent double play
+  }, [testData, currentQuestionIndex, isTestStarted]);
 
   // Seek functionality
   const handleSeek = (newTime: number) => {
-    if (audioRef.current && !Number.isNaN(newTime)) {
+    if (audioElement && !Number.isNaN(newTime)) {
       const clamped = Math.max(0, Math.min(duration || 0, newTime));
       try {
-        audioRef.current.currentTime = clamped;
+        audioElement.currentTime = clamped;
         setCurrentTime(clamped);
       } catch (error) {
         console.warn('Error seeking audio:', error);
@@ -240,13 +477,28 @@ function Part2TestPageContent() {
   const goToQuestion = useCallback(
     (index: number) => {
       if (index >= 0 && index < (testData?.questions.length || 0)) {
+        // Mark that user has interacted
+        hasUserInteractedRef.current = true;
+
+        // Safely stop current audio when changing questions
+        if (audioElement && !audioLoadingRef.current) {
+          try {
+            audioElement.pause();
+            audioElement.currentTime = 0;
+            setIsPlaying(false);
+            setCurrentTime(0);
+            setDuration(0);
+          } catch (error) {
+            console.warn('Error pausing audio:', error);
+          }
+        }
+
         setCurrentQuestionIndex(index);
-        setIsPlaying(false);
-        setCurrentTime(0);
-        setDuration(0);
+        // Mark that we should auto play the next question
+        shouldAutoPlayRef.current = true;
       }
     },
-    [testData],
+    [testData, audioElement],
   );
 
   const goToPreviousQuestion = () => {
@@ -259,6 +511,9 @@ function Part2TestPageContent() {
 
   // Answer handling
   const handleAnswerSelect = (questionId: number, answer: string) => {
+    // Mark that user has interacted
+    hasUserInteractedRef.current = true;
+
     setSelectedAnswers((prev) => ({
       ...prev,
       [questionId]: answer,
@@ -276,6 +531,7 @@ function Part2TestPageContent() {
   const handleSubmitTest = useCallback(() => {
     setIsTestCompleted(true);
     setShowSubmitDialog(false);
+    setIsTimeoutDialog(false);
 
     // Calculate results
     let correctCount = 0;
@@ -368,6 +624,8 @@ function Part2TestPageContent() {
         // Convert duration to seconds
         const durationMatch = testData.data.testInfo.duration.match(/(\d+)\s*phút/);
         if (durationMatch) {
+          // Hardcode 5 seconds for testing timeout dialog
+          // setTimeLeft(5);
           setTimeLeft(parseInt(durationMatch[1]) * 60);
         }
       } catch (error) {
@@ -389,7 +647,8 @@ function Part2TestPageContent() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           setIsTestCompleted(true);
-          handleSubmitTest();
+          setIsTimeoutDialog(true);
+          setShowSubmitDialog(true);
           return 0;
         }
         return prev - 1;
@@ -397,7 +656,27 @@ function Part2TestPageContent() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isTestStarted, isTestCompleted, timeLeft, handleSubmitTest]);
+  }, [isTestStarted, isTestCompleted, timeLeft]);
+
+  // Countdown effect for timeout dialog
+  useEffect(() => {
+    if (!showSubmitDialog || !isTimeoutDialog) return;
+
+    // Reset countdown when dialog opens
+    setTimeoutCountdown(3);
+
+    const countdownTimer = setInterval(() => {
+      setTimeoutCountdown((prev) => {
+        if (prev <= 1) {
+          handleSubmitTest();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(countdownTimer);
+  }, [showSubmitDialog, isTimeoutDialog, handleSubmitTest]);
 
   if (loading) {
     return (
@@ -545,7 +824,81 @@ function Part2TestPageContent() {
                   variant="contained"
                   size="large"
                   startIcon={<PlayArrow />}
-                  onClick={() => setIsTestStarted(true)}
+                  onClick={async () => {
+                    // Mark that user has interacted
+                    hasUserInteractedRef.current = true;
+
+                    // Start the test
+                    setIsTestStarted(true);
+
+                    // Play first question audio immediately
+                    const firstQuestion = testData?.questions[0];
+                    if (firstQuestion?.audioUrl && !audioLoadingRef.current) {
+                      try {
+                        audioLoadingRef.current = true;
+
+                        // Stop any existing audio
+                        if (audioElement) {
+                          try {
+                            audioElement.pause();
+                            audioElement.currentTime = 0;
+                            setIsPlaying(false);
+                            setCurrentTime(0);
+                            setDuration(0);
+                          } catch (error) {
+                            console.warn('Error cleaning up existing audio:', error);
+                          }
+                        }
+
+                        // Create and play audio for first question
+                        const newAudio = new Audio(firstQuestion.audioUrl);
+
+                        newAudio.addEventListener('ended', () => {
+                          setIsPlaying(false);
+                          audioLoadingRef.current = false;
+                        });
+
+                        newAudio.addEventListener('error', (e) => {
+                          console.error('Audio playback error:', e);
+                          setIsPlaying(false);
+                          audioLoadingRef.current = false;
+                        });
+
+                        newAudio.addEventListener('loadstart', () => {
+                          audioLoadingRef.current = true;
+                        });
+
+                        newAudio.addEventListener('canplay', () => {
+                          audioLoadingRef.current = false;
+                        });
+
+                        // Apply current playback rate
+                        try {
+                          newAudio.playbackRate = 1;
+                        } catch {}
+
+                        setAudioElement(newAudio);
+
+                        try {
+                          await newAudio.play();
+                          setIsPlaying(true);
+                          console.log('Auto-play started successfully');
+                        } catch (error: unknown) {
+                          if ((error as Error).name !== 'AbortError') {
+                            console.error('Failed to play audio on start:', {
+                              error: error,
+                              message: (error as Error).message,
+                              name: (error as Error).name,
+                              audioUrl: firstQuestion.audioUrl,
+                            });
+                          }
+                          setIsPlaying(false);
+                        }
+                      } finally {
+                        audioLoadingRef.current = false;
+                      }
+                    }
+                  }}
                   sx={{
                     backgroundColor: categoryInfo?.color,
                     px: 4,
@@ -669,7 +1022,7 @@ function Part2TestPageContent() {
                         <Stack direction="row" spacing={2} alignItems="center" sx={{ px: 2 }}>
                           {/* responsive icon button */}
                           <IconButton
-                            onClick={togglePlayPause}
+                            onClick={handlePlayAudio}
                             size="large"
                             sx={{
                               width: { xs: 30, sm: 40 },
@@ -715,24 +1068,6 @@ function Part2TestPageContent() {
                             }}
                           />
                         </Stack>
-
-                        {audioError && (
-                          <Alert severity="error" sx={{ mt: 2 }}>
-                            {audioError}
-                          </Alert>
-                        )}
-
-                        {/* Hidden audio element */}
-                        <audio
-                          ref={audioRef}
-                          src={currentQuestion.audioUrl}
-                          onEnded={handleAudioEnded}
-                          onError={handleAudioError}
-                          onTimeUpdate={handleTimeUpdate}
-                          onLoadedMetadata={handleLoadedMetadata}
-                          onDurationChange={handleDurationChange}
-                          preload="metadata"
-                        />
                       </CardContent>
                     </Card>
                   </>
@@ -743,7 +1078,7 @@ function Part2TestPageContent() {
 
           {/* Sidebar */}
           <Grid size={{ xs: 12, lg: 4 }} spacing={{ xs: 1, sm: 2 }}>
-            <Stack spacing={2} direction={{xs: 'column-reverse', sm: 'column'}}>
+            <Stack spacing={2} direction={{ xs: 'column-reverse', sm: 'column' }}>
               {/* Navigation */}
               <Card>
                 <CardContent>
@@ -768,7 +1103,10 @@ function Part2TestPageContent() {
                         variant="contained"
                         fullWidth
                         size="small"
-                        onClick={() => setShowSubmitDialog(true)}
+                        onClick={() => {
+                          setIsTimeoutDialog(false);
+                          setShowSubmitDialog(true);
+                        }}
                         sx={{
                           backgroundColor: 'success.main',
                           '&:hover': {
@@ -854,29 +1192,138 @@ function Part2TestPageContent() {
           </Grid>
         </Grid>
 
-        {/* Submit Dialog */}
-        <Dialog open={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>
-          <DialogTitle>Xác nhận nộp bài</DialogTitle>
-          <DialogContent>
-            <Typography variant="body1" gutterBottom>
-              Bạn có chắc chắn muốn nộp bài không?
+        {/* Dialog kết thúc test */}
+        <Dialog
+          open={showSubmitDialog}
+          maxWidth="sm"
+          fullWidth
+          disableEscapeKeyDown={isTimeoutDialog}
+          onClose={isTimeoutDialog ? () => {} : () => setShowSubmitDialog(false)}
+          PaperProps={{
+            sx: {
+              m: { xs: 2, sm: 3 },
+              width: { xs: 'calc(100% - 32px)', sm: 'auto' },
+            },
+          }}
+        >
+          <DialogTitle sx={{ textAlign: 'center', pb: 1, px: { xs: 2, sm: 3 } }}>
+            {isTimeoutDialog ? (
+              <Timer sx={{ fontSize: { xs: 50, md: 60 }, color: '#f44336', mb: 2 }} />
+            ) : (
+              <CheckCircle sx={{ fontSize: { xs: 50, md: 60 }, color: '#4caf50', mb: 2 }} />
+            )}
+            <Typography
+              component="div"
+              variant="h5"
+              sx={{
+                fontWeight: 600,
+                fontSize: { xs: '1.3rem', md: '1.5rem' },
+                color: isTimeoutDialog ? '#f44336' : 'inherit',
+              }}
+            >
+              {isTimeoutDialog ? 'Hết thời gian!' : 'Hoàn thành bài test!'}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              • Đã trả lời: {Object.keys(selectedAnswers).length}/{testData.questions.length} câu
+          </DialogTitle>
+
+          <DialogContent sx={{ textAlign: 'center', px: { xs: 2, sm: 3 } }}>
+            <Typography
+              variant="body1"
+              sx={{
+                mb: 2,
+                fontSize: { xs: '0.9rem', md: '1rem' },
+              }}
+            >
+              {isTimeoutDialog ? (
+                <>
+                  Thời gian làm bài đã kết thúc cho <strong>{testData.testInfo.title}</strong>
+                </>
+              ) : (
+                <>
+                  Bạn đã hoàn thành <strong>{testData.testInfo.title}</strong>
+                </>
+              )}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              • Thời gian còn lại: {formatTime(timeLeft)}
-            </Typography>
-            {Object.keys(selectedAnswers).length < testData.questions.length && (
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="center" spacing={2} sx={{ mb: 2 }}>
+              <Chip
+                label={`${Object.keys(selectedAnswers).length}/${testData.questions.length} câu`}
+                color="primary"
+                size="medium"
+              />
+              <Chip
+                label={
+                  isTimeoutDialog
+                    ? formatTime(parseInt(testData.testInfo.duration.split(' ')[0]) * 60)
+                    : formatTime(Math.max(0, parseInt(testData.testInfo.duration.split(' ')[0]) * 60 - timeLeft))
+                }
+                color="secondary"
+                size="medium"
+              />
+            </Stack>
+            {!isTimeoutDialog && Object.keys(selectedAnswers).length < testData.questions.length && (
               <Alert severity="warning" sx={{ mt: 2 }}>
                 Bạn chưa trả lời hết tất cả câu hỏi!
               </Alert>
             )}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' }, fontWeight: 600 }}
+            >
+              {isTimeoutDialog ? (
+                <>Tự động chuyển đến trang kết quả sau {timeoutCountdown} giây...</>
+              ) : (
+                <>Kết quả sẽ được hiển thị sau khi xem lại đáp án</>
+              )}
+            </Typography>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setShowSubmitDialog(false)}>Hủy</Button>
-            <Button onClick={handleSubmitTest} variant="contained" color="success">
-              Nộp bài
+
+          <DialogActions
+            sx={{
+              justifyContent: 'center',
+              pb: 3,
+              px: { xs: 2, sm: 3 },
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: { xs: 1, sm: 2 },
+            }}
+          >
+            {!isTimeoutDialog && (
+              <Button
+                variant="outlined"
+                startIcon={<Cancel />}
+                onClick={() => setShowSubmitDialog(false)}
+                size="medium"
+                sx={{
+                  order: { xs: 2, sm: 1 },
+                  width: { xs: '100%', sm: 'auto' },
+                  fontSize: { xs: '0.8rem', md: '0.875rem' },
+                }}
+              >
+                Đóng
+              </Button>
+            )}
+            <Button
+              variant="contained"
+              startIcon={<CheckCircle />}
+              size="medium"
+              onClick={() => {
+                // Lưu answers vào sessionStorage
+                sessionStorage.setItem(`test_answers_${category}_${testId}`, JSON.stringify(selectedAnswers));
+                sessionStorage.setItem(
+                  `test_time_spent_${category}_${testId}`,
+                  Math.max(0, parseInt(testData.testInfo.duration.split(' ')[0]) * 60 - timeLeft).toString(),
+                );
+
+                // Chuyển hướng đến results page
+                window.location.href = `/practice/part2/questions/${category}/results?testId=${testId}`;
+              }}
+              sx={{
+                backgroundColor: categoryInfo?.color,
+                order: { xs: 1, sm: 2 },
+                width: { xs: '100%', sm: 'auto' },
+                fontSize: { xs: '0.8rem', md: '0.875rem' },
+              }}
+            >
+              {isTimeoutDialog ? 'Xem kết quả ngay' : 'Xem kết quả'}
             </Button>
           </DialogActions>
         </Dialog>

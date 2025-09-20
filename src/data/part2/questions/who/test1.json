@@ -36,7 +36,7 @@
     },
     {
       "id": 2,
-      "audioUrl": "https://example.com/part2/who/test1/q2-complete.mp3",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1758026487/toeic-part2/who/who-is-doing-the-product-demonstration-this-afternoon_mzmnaq.mp3",
       "question": {
         "en": "Who will handle the customer complaints?",
         "vi": "Ai sẽ xử lý khiếu nại của khách hàng?"
@@ -61,7 +61,7 @@
     },
     {
       "id": 3,
-      "audioUrl": "https://example.com/part2/who/test1/q3-complete.mp3",
+      "audioUrl": "https://res.cloudinary.com/dwksn9rn6/video/upload/v1758026487/toeic-part2/who/who-is-doing-the-product-demonstration-this-afternoon_mzmnaq.mp3",
       "question": {
         "en": "Who is responsible for the project?",
         "vi": "Ai chịu trách nhiệm cho dự án?"
