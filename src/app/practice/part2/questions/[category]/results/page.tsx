@@ -230,6 +230,7 @@ function Part2ResultsPageContent() {
         >
           <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
             <Stack spacing={3}>
+              {/* Score Summary */}
               <Stack
                 direction={{ xs: 'row', sm: 'row' }}
                 spacing={2}
@@ -266,7 +267,7 @@ function Part2ResultsPageContent() {
                   </Avatar>
                 </Stack>
               </Stack>
-
+              {/* Result Summary */}
               <Grid container spacing={3}>
                 <Grid size={{ xs: 6, sm: 3 }}>
                   <Card>
@@ -321,6 +322,47 @@ function Part2ResultsPageContent() {
                   </Card>
                 </Grid>
               </Grid>
+              {/* Performance Analysis */}
+              <Stack spacing={2}>
+                <Box>
+                  <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
+                    <Typography variant="body2">Độ chính xác</Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+                      {results.score}%
+                    </Typography>
+                  </Stack>
+                  <LinearProgress
+                    variant="determinate"
+                    value={results.score}
+                    sx={{
+                      height: 8,
+                      borderRadius: 4,
+                      '& .MuiLinearProgress-bar': {
+                        backgroundColor: getScoreColor(results.score),
+                      },
+                    }}
+                  />
+                </Box>
+                {results.score >= 80 ? (
+                  <Alert severity="success" sx={{ mt: 2 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+                      🎉 Xuất sắc! Bạn đã nắm vững dạng câu hỏi này.
+                    </Typography>
+                  </Alert>
+                ) : results.score >= 60 ? (
+                  <Alert severity="warning" sx={{ mt: 2 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+                      👍 Khá tốt! Hãy luyện tập thêm để cải thiện.
+                    </Typography>
+                  </Alert>
+                ) : (
+                  <Alert severity="error" sx={{ mt: 2 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+                      💪 Cần cải thiện! Hãy xem lại và luyện tập nhiều hơn.
+                    </Typography>
+                  </Alert>
+                )}
+              </Stack>
             </Stack>
           </CardContent>
         </Card>
@@ -387,7 +429,7 @@ function Part2ResultsPageContent() {
 
                           {/* Question Content */}
                           <Box>
-                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 2 }}>
+                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                               <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
                                 <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                   <strong>Câu trả lời của bạn:</strong>
@@ -428,7 +470,7 @@ function Part2ResultsPageContent() {
           {/* Action Buttons - Takes less space */}
           <Grid size={{ xs: 12, lg: 4 }}>
             {/* Action Buttons */}
-            <Card sx={{ height: 'fit-content', position: 'sticky', top: 20, mb: 1 }}>
+            <Card sx={{ height: 'fit-content', mb: 1 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <Assignment /> Hành động
@@ -470,102 +512,6 @@ function Part2ResultsPageContent() {
                   >
                     Làm lại
                   </Button>
-                </Stack>
-              </CardContent>
-            </Card>
-            {/* Performance Analysis */}
-            <Card sx={{ height: 'fit-content', mb: 1 }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <TrendingUp /> Phân tích kết quả
-                </Typography>
-
-                <Stack spacing={2}>
-                  <Box>
-                    <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-                      <Typography variant="body2">Độ chính xác</Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                        {results.score}%
-                      </Typography>
-                    </Stack>
-                    <LinearProgress
-                      variant="determinate"
-                      value={results.score}
-                      sx={{
-                        height: 8,
-                        borderRadius: 4,
-                        '& .MuiLinearProgress-bar': {
-                          backgroundColor: getScoreColor(results.score),
-                        },
-                      }}
-                    />
-                  </Box>
-
-                  {results.score >= 80 ? (
-                    <Alert severity="success" sx={{ mt: 2 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                        🎉 Xuất sắc! Bạn đã nắm vững dạng câu hỏi này.
-                      </Typography>
-                    </Alert>
-                  ) : results.score >= 60 ? (
-                    <Alert severity="warning" sx={{ mt: 2 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                        👍 Khá tốt! Hãy luyện tập thêm để cải thiện.
-                      </Typography>
-                    </Alert>
-                  ) : (
-                    <Alert severity="error" sx={{ mt: 2 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                        💪 Cần cải thiện! Hãy xem lại và luyện tập nhiều hơn.
-                      </Typography>
-                    </Alert>
-                  )}
-                </Stack>
-              </CardContent>
-            </Card>
-            {/* Statistics by theme */}
-            <Card sx={{ height: 'fit-content', mb: 1 }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Assignment /> Thống kê theo chủ đề
-                </Typography>
-
-                <Stack spacing={2}>
-                  {(() => {
-                    const themeStats = results.questionResults.reduce((acc, result) => {
-                      const theme = result.question.theme;
-                      if (!acc[theme]) {
-                        acc[theme] = { correct: 0, total: 0 };
-                      }
-                      acc[theme].total++;
-                      if (result.isCorrect) {
-                        acc[theme].correct++;
-                      }
-                      return acc;
-                    }, {} as Record<string, { correct: number; total: number }>);
-
-                    return Object.entries(themeStats).map(([theme, stats]) => (
-                      <Box key={theme}>
-                        <Stack direction="row" justifyContent="space-between" sx={{ mb: 0.5 }}>
-                          <Typography variant="body2" sx={{ fontSize: '13px' }}>
-                            {theme}
-                          </Typography>
-                          <Typography variant="body2" sx={{ fontSize: '13px', fontWeight: 'medium' }}>
-                            {stats.correct}/{stats.total}
-                          </Typography>
-                        </Stack>
-                        <LinearProgress
-                          variant="determinate"
-                          value={(stats.correct / stats.total) * 100}
-                          sx={{
-                            height: 6,
-                            borderRadius: 3,
-                            backgroundColor: '#f0f0f0',
-                          }}
-                        />
-                      </Box>
-                    ));
-                  })()}
                 </Stack>
               </CardContent>
             </Card>

@@ -30,7 +30,7 @@
       },
       "correctAnswer": "B",
       "explanation": "Câu hỏi 'Who's doing the product demonstration this afternoon?' yêu cầu thông tin về người.\nCâu trả lời B 'I'm leaving for New York at lunchtime.' cung cấp thông tin về người.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["product", "demonstration", "afternoon", "New York", "lunchtime"]
     },
@@ -55,7 +55,7 @@
       },
       "correctAnswer": "B",
       "explanation": "Câu hỏi 'Who will handle the customer complaints?' yêu cầu thông tin về người.\nCâu trả lời B 'Sarah from customer service.' cung cấp thông tin về người sẽ xử lý.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["handle", "customer", "complaints", "service"]
     },
@@ -80,7 +80,7 @@
       },
       "correctAnswer": "B",
       "explanation": "Câu hỏi 'Who is responsible for the project?' yêu cầu thông tin về người.\nCâu trả lời B 'Mr. Johnson is leading it.' cung cấp thông tin về người chịu trách nhiệm.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["responsible", "project", "leading"]
     },
@@ -105,7 +105,7 @@
       },
       "correctAnswer": "A",
       "explanation": "Câu hỏi 'Who called the meeting?' yêu cầu thông tin về người.\nCâu trả lời A 'The manager did.' cung cấp thông tin về người triệu tập cuộc họp.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["called", "meeting", "manager"]
     },
@@ -130,7 +130,7 @@
       },
       "correctAnswer": "C",
       "explanation": "Câu hỏi 'Who is joining us for lunch?' yêu cầu thông tin về người.\nCâu trả lời C 'Lisa and Tom will come.' cung cấp thông tin về những người tham gia.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["joining", "lunch", "come"]
     },
@@ -155,7 +155,7 @@
       },
       "correctAnswer": "B",
       "explanation": "Câu hỏi 'Who designed this website?' yêu cầu thông tin về người.\nCâu trả lời B 'Our IT team did.' cung cấp thông tin về người thiết kế.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["designed", "website", "team"]
     },
@@ -180,7 +180,7 @@
       },
       "correctAnswer": "A",
       "explanation": "Câu hỏi 'Who should I contact about this issue?' yêu cầu thông tin về người hoặc bộ phận.\nCâu trả lời A 'Call the help desk.' cung cấp thông tin về bộ phận cần liên hệ.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["contact", "issue", "help desk"]
     },
@@ -205,7 +205,7 @@
       },
       "correctAnswer": "C",
       "explanation": "Câu hỏi 'Who will be presenting at the conference?' yêu cầu thông tin về người.\nCâu trả lời C 'Dr. Smith will speak.' cung cấp thông tin về người thuyết trình.",
-      "theme": "Thông tin về người",
+      "theme": "Câu hỏi who",
       "difficulty": "Dễ",
       "vocabulary": ["presenting", "conference", "speak"]
     }
