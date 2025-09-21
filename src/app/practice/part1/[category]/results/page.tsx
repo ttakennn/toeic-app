@@ -26,22 +26,10 @@ import {
   Star,
   Timer,
   QuestionAnswer,
-  Help,
 } from '@mui/icons-material';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-
-interface TestQuestion {
-  id: number;
-  imageUrl: string;
-  audioUrl: string;
-  options: string[];
-  correctAnswer: string;
-  explanation: string;
-  theme: string;
-  vocabulary: string[];
-}
 
 interface TestInfo {
   id: number;
@@ -51,19 +39,6 @@ interface TestInfo {
   duration: string;
   category: string;
   description: string;
-}
-
-interface TestData {
-  testInfo: TestInfo;
-  questions: TestQuestion[];
-}
-
-interface TestApiResponse {
-  success: boolean;
-  data: TestData;
-  category: string;
-  testId: number;
-  timestamp: string;
 }
 
 interface CategoryInfo {
@@ -123,60 +98,10 @@ function ResultsContent() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Legacy support for backward compatibility
-  const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
-  const [timeSpent, setTimeSpent] = useState<number>(0);
-
   // Navigation handler
   const handleQuestionClick = (questionId: number) => {
-    // Save current results to sessionStorage for review page
-    sessionStorage.setItem(`test_answers_${category}_${testId}`, JSON.stringify(userAnswers));
-    sessionStorage.setItem(`test_time_spent_${category}_${testId}`, timeSpent.toString());
-
-    // Navigate to review page with specific question
+    // Navigate to review page with specific question - no need to save legacy keys anymore
     router.push(`/practice/part1/${category}/review?testId=${testId}&questionId=${questionId}`);
-  };
-
-  const getCategoryInfo = (categoryId: string): CategoryInfo => {
-    const categoryMap: { [key: string]: CategoryInfo } = {
-      basic: {
-        id: 'basic',
-        title: 'Cụm từ tả người',
-        description: 'Học các cụm từ mô tả người và hoạt động của con người',
-        icon: '/images/categories/people-icon.svg',
-        color: '#4caf50',
-        bgColor: '#e8f5e8',
-        totalTests: 5,
-      },
-      advanced: {
-        id: 'advanced',
-        title: 'Cụm từ tả cảnh',
-        description: 'Các cụm từ mô tả cảnh quan và môi trường',
-        icon: '/images/categories/scene-icon.svg',
-        color: '#f44336',
-        bgColor: '#ffebee',
-        totalTests: 4,
-      },
-      simulation: {
-        id: 'simulation',
-        title: 'Cụm từ tả vật',
-        description: 'Mô tả các đồ vật và thiết bị',
-        icon: '/images/categories/object-icon.svg',
-        color: '#2196f3',
-        bgColor: '#e3f2fd',
-        totalTests: 4,
-      },
-      mixed: {
-        id: 'mixed',
-        title: 'Cụm từ tổng hợp',
-        description: 'Tương tác giữa người và môi trường',
-        icon: '/images/categories/mixed-icon.svg',
-        color: '#ff9800',
-        bgColor: '#fff3e0',
-        totalTests: 6,
-      },
-    };
-    return categoryMap[categoryId] || categoryMap.basic;
   };
 
   // Load results from sessionStorage
@@ -192,83 +117,15 @@ function ResultsContent() {
           throw new Error(`Invalid category: ${category}`);
         }
 
-        // Try to load from new structure first
+        // Load from sessionStorage
         const resultsKey = `part1_test_results_${category}_${testId}`;
         const storedResults = sessionStorage.getItem(resultsKey);
 
         if (storedResults) {
-          // New structure - read directly from sessionStorage
           const parsedResults = JSON.parse(storedResults);
           setResults(parsedResults);
-
-          // Set legacy states for backward compatibility
-          const answersMap: { [key: number]: string } = {};
-          parsedResults.questionResults?.forEach((result: QuestionResult) => {
-            answersMap[result.questionId] = result.userAnswer;
-          });
-          setUserAnswers(answersMap);
-          setTimeSpent(parsedResults.timeSpent || 0);
         } else {
-          // Fallback to old structure - load test data from API and calculate
-          const response = await fetch(`/api/part1/questions/${category}/${testId}`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const apiData: TestApiResponse = await response.json();
-          if (!apiData.success) {
-            throw new Error('Failed to load test data');
-          }
-
-          // Load user answers from sessionStorage (old structure)
-          const answersKey = `test_answers_${category}_${testId}`;
-          const timeKey = `test_time_spent_${category}_${testId}`;
-
-          const savedAnswers = sessionStorage.getItem(answersKey);
-          const savedTime = sessionStorage.getItem(timeKey);
-
-          if (savedAnswers) {
-            const answers = JSON.parse(savedAnswers);
-            setUserAnswers(answers);
-
-            // Calculate score
-            let correct = 0;
-            apiData.data.questions.forEach((question) => {
-              if (answers[question.id] === question.correctAnswer) {
-                correct++;
-              }
-            });
-            const calculatedScore = Math.round((correct / apiData.data.questions.length) * 100);
-
-            // Create results structure from legacy data
-            const questionResults = apiData.data.questions.map((question) => ({
-              questionId: question.id,
-              userAnswer: answers[question.id] || 'Không trả lời',
-              correctAnswer: question.correctAnswer,
-              isCorrect: answers[question.id] === question.correctAnswer,
-              uniqueKey: `legacy_part1_${category}_${testId}_q${question.id}`,
-            }));
-
-            const legacyResults = {
-              testInfo: apiData.data.testInfo,
-              categoryInfo: getCategoryInfo(category),
-              questionResults,
-              score: calculatedScore,
-              correctCount: correct,
-              totalQuestions: apiData.data.questions.length,
-              timeSpent: savedTime ? parseInt(savedTime) : 0,
-              submittedAt: new Date().toISOString(),
-              uniqueKey: `legacy_part1_${category}_${testId}`,
-            };
-
-            setResults(legacyResults);
-          } else {
-            throw new Error('Không tìm thấy dữ liệu bài test. Vui lòng làm lại bài test.');
-          }
-
-          if (savedTime) {
-            setTimeSpent(parseInt(savedTime));
-          }
+          throw new Error('Không tìm thấy dữ liệu bài test. Vui lòng làm lại bài test.');
         }
       } catch (error) {
         console.error('Error loading results:', error);
@@ -339,7 +196,7 @@ function ResultsContent() {
 
   return (
     <DashboardLayout>
-      <Box sx={{ maxWidth: 1200, mx: 'auto', p: { xs: 0, md: 3 } }}>
+      <Box sx={{ maxWidth: 1400, mx: 'auto', p: { xs: 0, md: 3 } }}>
         {/* Header với kết quả tổng quan */}
         <Card
           sx={{

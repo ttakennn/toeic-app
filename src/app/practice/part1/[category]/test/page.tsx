@@ -1133,7 +1133,7 @@ function TestContent() {
                 const score = Math.round((correctCount / testData.questions.length) * 100);
                 const timeSpent = Math.max(0, parseInt(testData.testInfo.duration.split(' ')[0]) * 60 - timeLeft);
 
-                // Store questionResults in sessionStorage with comprehensive structure
+                // Store results in sessionStorage with comprehensive structure
                 const resultsData = {
                   testInfo: testData.testInfo,
                   categoryInfo: categoryData,
@@ -1148,15 +1148,8 @@ function TestContent() {
 
                 console.log('Storing Part 1 results to sessionStorage:', resultsData);
                 
-                // Store in sessionStorage
+                // Store in sessionStorage using single key like Part 2
                 sessionStorage.setItem(`part1_test_results_${category}_${testId}`, JSON.stringify(resultsData));
-                
-                // Store simplified questionResults for future reference
-                sessionStorage.setItem(`questionResults_${category}_${testId}`, JSON.stringify(questionResults));
-                
-                // Keep backward compatibility for review page
-                sessionStorage.setItem(`test_answers_${category}_${testId}`, JSON.stringify(answers));
-                sessionStorage.setItem(`test_time_spent_${category}_${testId}`, timeSpent.toString());
 
                 // Chuyển hướng đến results page
                 window.location.href = `/practice/part1/${category}/results?testId=${testId}`;

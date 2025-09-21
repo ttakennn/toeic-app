@@ -23,9 +23,10 @@ import {
   NavigateNext,
   CheckCircle,
   Cancel,
-  ArrowBack,
   Error as ErrorIcon,
   Translate,
+  QuestionAnswer,
+  ViewComfy,
 } from '@mui/icons-material';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useParams, useRouter } from 'next/navigation';
@@ -62,6 +63,10 @@ interface TestInfo {
 interface TestData {
   testInfo: TestInfo;
   questions: TestQuestion[];
+  correctCount: number;
+  totalQuestions: number;
+  score: number;
+  timeSpent: number;
 }
 
 interface TestApiResponse {
@@ -133,6 +138,7 @@ function ReviewContent() {
   const [duration, setDuration] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
+  const [results, setResults] = useState<TestData | null>(null);
 
   // Scroll tracking refs
   const lastScrollY = useRef(0);
@@ -261,10 +267,28 @@ function ReviewContent() {
   // Load user answers from sessionStorage
   useEffect(() => {
     try {
-      const storedAnswers = sessionStorage.getItem(`test_answers_${category}_${testId}`);
-      if (storedAnswers) {
-        const parsedAnswers = JSON.parse(storedAnswers);
-        setUserAnswers(parsedAnswers);
+      // Try to load from new structure first
+      const resultsKey = `part1_test_results_${category}_${testId}`;
+      const storedResults = sessionStorage.getItem(resultsKey);
+
+      if (storedResults) {
+        const parsedResults = JSON.parse(storedResults);
+        // Extract user answers from questionResults
+        const answersMap: { [key: number]: string } = {};
+        parsedResults.questionResults?.forEach((result: { questionId: number; userAnswer: string }) => {
+          if (result.userAnswer && result.userAnswer !== 'Không trả lời') {
+            answersMap[result.questionId] = result.userAnswer;
+          }
+        });
+        setUserAnswers(answersMap);
+        setResults(parsedResults);
+      } else {
+        // Fallback to old structure
+        const storedAnswers = sessionStorage.getItem(`test_answers_${category}_${testId}`);
+        if (storedAnswers) {
+          const parsedAnswers = JSON.parse(storedAnswers);
+          setUserAnswers(parsedAnswers);
+        }
       }
     } catch (error) {
       console.error('Error loading user answers:', error);
@@ -480,7 +504,7 @@ function ReviewContent() {
     );
   }
 
-  if (error || !testData || !categoryData) {
+  if (error || !testData || !categoryData || !results) {
     return (
       <DashboardLayout>
         <Box sx={{ textAlign: 'center', py: 8 }}>
@@ -508,59 +532,72 @@ function ReviewContent() {
 
   return (
     <DashboardLayout>
-      <Box>
+      <Box sx={{ maxWidth: 1400, mx: 'auto', p: { xs: 0, sm: 2 } }}>
         {/* Header */}
+        <Card sx={{ mb: { xs: 1, sm: 3 }, backgroundColor: categoryData.bgColor + '30' }}>
+          <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+            <Stack direction={{ xs: 'row', sm: 'row' }} spacing={2} alignItems="center" justifyContent="space-between">
+              <Stack>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: categoryData.color,
+                    fontWeight: 600,
+                    fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                  }}
+                >
+                  {getCategoryEmoji(category)} Xem lại bài làm
+                </Typography>
+                <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
+                  {testData.testInfo.title}
+                </Typography>
+              </Stack>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Chip
+                  label={`${results.correctCount}/${results.totalQuestions} đúng`}
+                  color={results.score >= 80 ? 'success' : results.score >= 60 ? 'warning' : 'error'}
+                  variant="filled"
+                />
+              </Stack>
+            </Stack>
+          </CardContent>
+        </Card>
+        {/* Navigation */}
         <Stack
-          direction={{ xs: 'column', md: 'row' }}
-          alignItems={{ xs: 'flex-start', md: 'center' }}
-          sx={{ mb: { xs: 3, md: 4 } }}
-          spacing={{ xs: 1.5, md: 0 }}
+          spacing={1}
+          direction="row"
+          alignItems="center"
+          justifyContent="flex-end"
+          sx={{ mb: 2, display: { xs: 'none', md: 'flex' } }}
         >
           <Button
-            startIcon={<ArrowBack />}
+            size="small"
+            variant="contained"
+            startIcon={<ViewComfy />}
             onClick={handleBackToResults}
-            sx={{
-              mr: { xs: 0, md: 2 },
-              mb: { xs: 1, md: 0 },
-              color: categoryData.color,
-              fontSize: { xs: '0.875rem', md: '1rem' },
-            }}
+            sx={{ mb: 2, backgroundColor: categoryData.color }}
           >
-            Về kết quả
+            Xem kết quả
           </Button>
-
-          <Box sx={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Stack direction="row" spacing={1} flexWrap="wrap">
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: 600, color: categoryData.color, mb: 1, fontSize: { xs: '1.125rem', md: '1.5rem' } }}
-              >
-                {getCategoryEmoji(category)} Ôn tập - {testData.testInfo.title}
-              </Typography>
-              <Chip
-                label={testData.testInfo.difficulty}
-                size="small"
-                sx={{
-                  backgroundColor: getDifficultyColor(testData.testInfo.difficulty) + '20',
-                  color: getDifficultyColor(testData.testInfo.difficulty),
-                  fontWeight: 'medium',
-                  fontSize: { xs: '0.7rem', md: '0.75rem' },
-                }}
-              />
-              <Chip
-                label={`${testData.testInfo.questions} câu`}
-                size="small"
-                sx={{
-                  backgroundColor: categoryData.color + '20',
-                  color: categoryData.color,
-                  fontWeight: 'medium',
-                  fontSize: { xs: '0.7rem', md: '0.75rem' },
-                }}
-              />
-            </Stack>
-          </Box>
+          <Button
+            variant="outlined"
+            startIcon={<NavigateBefore />}
+            onClick={handlePrevQuestion}
+            disabled={currentQuestion === 1}
+            size="small"
+          >
+            Trước
+          </Button>
+          <Button
+            variant="outlined"
+            endIcon={<NavigateNext />}
+            onClick={handleNextQuestion}
+            disabled={currentQuestion === testData.questions.length}
+            size="small"
+          >
+            Sau
+          </Button>
         </Stack>
-
         <Grid container spacing={{ xs: 2, md: 2 }}>
           {/* Phần hình ảnh và audio */}
           <Grid size={{ xs: 12, md: 6 }}>
@@ -576,6 +613,14 @@ function ReviewContent() {
                     sx={{
                       backgroundColor: categoryData.color + '20',
                       color: categoryData.color,
+                    }}
+                  />
+                  <Chip
+                    label={testData.testInfo.difficulty}
+                    size="small"
+                    sx={{
+                      backgroundColor: getDifficultyColor(testData.testInfo.difficulty) + '20',
+                      color: getDifficultyColor(testData.testInfo.difficulty),
                     }}
                   />
                 </Stack>
@@ -604,9 +649,56 @@ function ReviewContent() {
                     }}
                   />
                 </Box>
-                {/* Enhanced Audio Controls */}
-                <Box sx={{ textAlign: 'center' }}>
-                  <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 2 }}>
+                {/* Audio Progress Slider */}
+                <Box
+                  sx={{
+                    backgroundColor: '#f8f9fa',
+                    p: { xs: 1, md: 1.5 },
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: categoryData.color,
+                  }}
+                >
+                  <Stack direction="row" alignItems="center" spacing={{ xs: 1, md: 1 }}>
+                    <IconButton
+                      onClick={handlePlayAudio}
+                      sx={{
+                        backgroundColor: categoryData.color,
+                        color: 'white',
+                        width: { xs: 24, md: 30 },
+                        height: { xs: 24, md: 30 },
+                        '&:hover': {
+                          backgroundColor: categoryData.color + 'dd',
+                        },
+                      }}
+                    >
+                      {isPlaying ? (
+                        <Pause sx={{ fontSize: { xs: 24, md: 30 } }} />
+                      ) : (
+                        <PlayArrow sx={{ fontSize: { xs: 24, md: 30 } }} />
+                      )}
+                    </IconButton>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ minWidth: { xs: 68, md: 80 }, textAlign: 'center' }}
+                    >
+                      {formatTime(Math.floor(currentTime || 0))} / {formatTime(Math.floor(duration || 0))}
+                    </Typography>
+                    <Slider
+                      value={Math.min(currentTime, duration || 0)}
+                      min={0}
+                      max={duration || 0}
+                      step={0.1}
+                      onChange={(_, val) => {
+                        if (typeof val === 'number') setCurrentTime(val);
+                      }}
+                      onChangeCommitted={(_, val) => {
+                        if (typeof val === 'number') handleSeek(val);
+                      }}
+                      disabled={!duration}
+                      sx={{ color: categoryData.color, flexGrow: 1, minWidth: 0 }}
+                    />
                     <IconButton
                       size="small"
                       onClick={() => {
@@ -624,24 +716,6 @@ function ReviewContent() {
                       disabled={!audioElement}
                     >
                       <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>-3s</Typography>
-                    </IconButton>
-                    <IconButton
-                      onClick={handlePlayAudio}
-                      sx={{
-                        backgroundColor: categoryData.color,
-                        color: 'white',
-                        width: { xs: 30, md: 40 },
-                        height: { xs: 30, md: 40 },
-                        '&:hover': {
-                          backgroundColor: categoryData.color + 'dd',
-                        },
-                      }}
-                    >
-                      {isPlaying ? (
-                        <Pause sx={{ fontSize: { xs: 24, md: 30 } }} />
-                      ) : (
-                        <PlayArrow sx={{ fontSize: { xs: 24, md: 30 } }} />
-                      )}
                     </IconButton>
                     <IconButton
                       size="small"
@@ -662,34 +736,6 @@ function ReviewContent() {
                       <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>+3s</Typography>
                     </IconButton>
                   </Stack>
-
-                  {/* Audio Progress Slider */}
-                  <Box sx={{ mb: 2 }}>
-                    <Stack direction="row" alignItems="center" spacing={{ xs: 1, md: 1.5 }}>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ minWidth: { xs: 68, md: 80 }, textAlign: 'center' }}
-                      >
-                        {formatTime(Math.floor(currentTime || 0))} / {formatTime(Math.floor(duration || 0))}
-                      </Typography>
-
-                      <Slider
-                        value={Math.min(currentTime, duration || 0)}
-                        min={0}
-                        max={duration || 0}
-                        step={0.1}
-                        onChange={(_, val) => {
-                          if (typeof val === 'number') setCurrentTime(val);
-                        }}
-                        onChangeCommitted={(_, val) => {
-                          if (typeof val === 'number') handleSeek(val);
-                        }}
-                        disabled={!duration}
-                        sx={{ color: categoryData.color, flexGrow: 1, minWidth: 0 }}
-                      />
-                    </Stack>
-                  </Box>
                 </Box>
               </CardContent>
             </Card>
@@ -702,8 +748,11 @@ function ReviewContent() {
               <Card>
                 <CardContent>
                   <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
-                    <Typography variant="h6" sx={{ color: categoryData.color }}>
-                      📝 Các lựa chọn
+                    <Typography
+                      variant="h6"
+                      sx={{ color: categoryData.color, display: 'flex', alignItems: 'center', gap: 1, mb: 0 }}
+                    >
+                      <QuestionAnswer /> Nội dung câu hỏi
                     </Typography>
                     <Button
                       variant="text"
@@ -729,10 +778,12 @@ function ReviewContent() {
                           key={question.id}
                           sx={{
                             p: { xs: 1.5, md: 2 },
-                            border: isCorrect ? `2px solid #4caf50` : 
-                                   isUserAnswerWrong ? `2px solid #f44336` : `1px solid #ddd`,
-                            backgroundColor: isCorrect ? '#e8f5e9' : 
-                                           isUserAnswerWrong ? '#ffebee' : 'white',
+                            border: isCorrect
+                              ? `2px solid #4caf50`
+                              : isUserAnswerWrong
+                              ? `2px solid #f44336`
+                              : `1px solid #ddd`,
+                            backgroundColor: isCorrect ? '#e8f5e9' : isUserAnswerWrong ? '#ffebee' : 'white',
                             borderRadius: 2,
                           }}
                         >
@@ -742,10 +793,8 @@ function ReviewContent() {
                                 width: { xs: 28, md: 32 },
                                 height: { xs: 28, md: 32 },
                                 borderRadius: '50%',
-                                backgroundColor: isCorrect ? '#4caf50' : 
-                                             isUserAnswerWrong ? '#f44336' : '#e0e0e0',
-                                color: isCorrect ? 'white' : 
-                                      isUserAnswerWrong ? 'white' : 'black',
+                                backgroundColor: isCorrect ? '#4caf50' : isUserAnswerWrong ? '#f44336' : '#e0e0e0',
+                                color: isCorrect ? 'white' : isUserAnswerWrong ? 'white' : 'black',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -826,44 +875,6 @@ function ReviewContent() {
                   </Box>
                 </CardContent>
               </Card>
-
-              {/* Navigation - Desktop only */}
-              <Stack
-                direction="row"
-                spacing={2}
-                justifyContent="space-between"
-                sx={{ display: { xs: 'none', md: 'flex' } }}
-              >
-                <Button
-                  variant="outlined"
-                  startIcon={<NavigateBefore />}
-                  onClick={handlePrevQuestion}
-                  disabled={currentQuestion === 1}
-                  sx={{ color: categoryData.color, borderColor: categoryData.color }}
-                >
-                  Câu trước
-                </Button>
-
-                {currentQuestion === testData.questions.length ? (
-                  <Button
-                    variant="contained"
-                    component={Link}
-                    href="/practice/part1"
-                    sx={{ backgroundColor: categoryData.color }}
-                  >
-                    Hoàn thành
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    endIcon={<NavigateNext />}
-                    onClick={handleNextQuestion}
-                    sx={{ backgroundColor: categoryData.color }}
-                  >
-                    Câu tiếp
-                  </Button>
-                )}
-              </Stack>
             </Stack>
           </Grid>
         </Grid>
@@ -888,6 +899,23 @@ function ReviewContent() {
           <Stack direction="row" spacing={2} justifyContent="space-between">
             <Button
               size="small"
+              variant="contained"
+              startIcon={<ViewComfy />}
+              onClick={handleBackToResults}
+              disabled={currentQuestion === 1}
+              sx={{
+                flex: 1,
+                backgroundColor: categoryData.color,
+                fontSize: '0.9rem',
+                '&:hover': {
+                  backgroundColor: categoryData.color + 'dd',
+                },
+              }}
+            >
+              Xem kết quả
+            </Button>
+            <Button
+              size="small"
               variant="outlined"
               startIcon={<NavigateBefore />}
               onClick={handlePrevQuestion}
@@ -897,7 +925,6 @@ function ReviewContent() {
                 color: categoryData.color,
                 borderColor: categoryData.color,
                 fontSize: '0.9rem',
-                py: 1,
                 '&:disabled': {
                   opacity: 0.5,
                   borderColor: '#ccc',
@@ -918,7 +945,6 @@ function ReviewContent() {
                   flex: 1,
                   backgroundColor: categoryData.color,
                   fontSize: '0.9rem',
-                  py: 1,
                   '&:hover': {
                     backgroundColor: categoryData.color + 'dd',
                   },
@@ -936,7 +962,6 @@ function ReviewContent() {
                   flex: 1,
                   backgroundColor: categoryData.color,
                   fontSize: '0.9rem',
-                  py: 1,
                   '&:hover': {
                     backgroundColor: categoryData.color + 'dd',
                   },
