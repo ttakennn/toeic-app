@@ -172,7 +172,7 @@ function Part2ResultsPageContent() {
       }
 
       const resultsKey = `part2_test_results_${category}_${testId}`;
-      const storedResults = localStorage.getItem(resultsKey);
+      const storedResults = sessionStorage.getItem(resultsKey);
 
       if (!storedResults) {
         setError('Không tìm thấy kết quả bài test. Vui lòng làm lại bài test.');

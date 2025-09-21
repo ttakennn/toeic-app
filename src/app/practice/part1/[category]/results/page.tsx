@@ -11,9 +11,6 @@ import {
   Stack,
   Chip,
   LinearProgress,
-  List,
-  ListItem,
-  ListItemButton,
   Divider,
   Alert,
   CircularProgress,
@@ -34,7 +31,6 @@ import {
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import isEmpty from 'lodash/isEmpty';
 
 interface TestQuestion {
   id: number;
@@ -80,6 +76,26 @@ interface CategoryInfo {
   totalTests: number;
 }
 
+interface QuestionResult {
+  questionId: number;
+  userAnswer: string;
+  correctAnswer: string;
+  isCorrect: boolean;
+  uniqueKey: string;
+}
+
+interface TestResults {
+  testInfo: TestInfo;
+  categoryInfo: CategoryInfo;
+  questionResults: QuestionResult[];
+  score: number;
+  correctCount: number;
+  totalQuestions: number;
+  timeSpent: number;
+  submittedAt: string;
+  uniqueKey: string;
+}
+
 const getCategoryEmoji = (categoryId: string) => {
   switch (categoryId) {
     case 'basic':
@@ -102,16 +118,14 @@ function ResultsContent() {
   const category = params.category as string;
   const testId = parseInt(searchParams.get('testId') || '1');
 
-  // API States
-  const [testData, setTestData] = useState<TestData | null>(null);
-  const [categoryData, setCategoryData] = useState<CategoryInfo | null>(null);
+  // Results States
+  const [results, setResults] = useState<TestResults | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Results States
+  // Legacy support for backward compatibility
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
   const [timeSpent, setTimeSpent] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
 
   // Navigation handler
   const handleQuestionClick = (questionId: number) => {
@@ -165,7 +179,7 @@ function ResultsContent() {
     return categoryMap[categoryId] || categoryMap.basic;
   };
 
-  // Load test data and results
+  // Load results from sessionStorage
   useEffect(() => {
     const loadResults = async () => {
       try {
@@ -178,43 +192,83 @@ function ResultsContent() {
           throw new Error(`Invalid category: ${category}`);
         }
 
-        // Fetch test data
-        const response = await fetch(`/api/part1/questions/${category}/${testId}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        // Try to load from new structure first
+        const resultsKey = `part1_test_results_${category}_${testId}`;
+        const storedResults = sessionStorage.getItem(resultsKey);
 
-        const apiData: TestApiResponse = await response.json();
-        if (!apiData.success) {
-          throw new Error('Failed to load test data');
-        }
+        if (storedResults) {
+          // New structure - read directly from sessionStorage
+          const parsedResults = JSON.parse(storedResults);
+          setResults(parsedResults);
 
-        setTestData(apiData.data);
-        setCategoryData(getCategoryInfo(category));
-
-        // Load user answers from sessionStorage
-        const answersKey = `test_answers_${category}_${testId}`;
-        const timeKey = `test_time_spent_${category}_${testId}`;
-
-        const savedAnswers = sessionStorage.getItem(answersKey);
-        const savedTime = sessionStorage.getItem(timeKey);
-
-        if (savedAnswers) {
-          const answers = JSON.parse(savedAnswers);
-          setUserAnswers(answers);
-
-          // Calculate score
-          let correct = 0;
-          apiData.data.questions.forEach((question) => {
-            if (answers[question.id] === question.correctAnswer) {
-              correct++;
-            }
+          // Set legacy states for backward compatibility
+          const answersMap: { [key: number]: string } = {};
+          parsedResults.questionResults?.forEach((result: QuestionResult) => {
+            answersMap[result.questionId] = result.userAnswer;
           });
-          setScore(Math.round((correct / apiData.data.questions.length) * 100));
-        }
+          setUserAnswers(answersMap);
+          setTimeSpent(parsedResults.timeSpent || 0);
+        } else {
+          // Fallback to old structure - load test data from API and calculate
+          const response = await fetch(`/api/part1/questions/${category}/${testId}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
 
-        if (savedTime) {
-          setTimeSpent(parseInt(savedTime));
+          const apiData: TestApiResponse = await response.json();
+          if (!apiData.success) {
+            throw new Error('Failed to load test data');
+          }
+
+          // Load user answers from sessionStorage (old structure)
+          const answersKey = `test_answers_${category}_${testId}`;
+          const timeKey = `test_time_spent_${category}_${testId}`;
+
+          const savedAnswers = sessionStorage.getItem(answersKey);
+          const savedTime = sessionStorage.getItem(timeKey);
+
+          if (savedAnswers) {
+            const answers = JSON.parse(savedAnswers);
+            setUserAnswers(answers);
+
+            // Calculate score
+            let correct = 0;
+            apiData.data.questions.forEach((question) => {
+              if (answers[question.id] === question.correctAnswer) {
+                correct++;
+              }
+            });
+            const calculatedScore = Math.round((correct / apiData.data.questions.length) * 100);
+
+            // Create results structure from legacy data
+            const questionResults = apiData.data.questions.map((question) => ({
+              questionId: question.id,
+              userAnswer: answers[question.id] || 'Không trả lời',
+              correctAnswer: question.correctAnswer,
+              isCorrect: answers[question.id] === question.correctAnswer,
+              uniqueKey: `legacy_part1_${category}_${testId}_q${question.id}`,
+            }));
+
+            const legacyResults = {
+              testInfo: apiData.data.testInfo,
+              categoryInfo: getCategoryInfo(category),
+              questionResults,
+              score: calculatedScore,
+              correctCount: correct,
+              totalQuestions: apiData.data.questions.length,
+              timeSpent: savedTime ? parseInt(savedTime) : 0,
+              submittedAt: new Date().toISOString(),
+              uniqueKey: `legacy_part1_${category}_${testId}`,
+            };
+
+            setResults(legacyResults);
+          } else {
+            throw new Error('Không tìm thấy dữ liệu bài test. Vui lòng làm lại bài test.');
+          }
+
+          if (savedTime) {
+            setTimeSpent(parseInt(savedTime));
+          }
         }
       } catch (error) {
         console.error('Error loading results:', error);
@@ -256,7 +310,7 @@ function ResultsContent() {
     );
   }
 
-  if (error || !testData || !categoryData) {
+  if (error || !results) {
     return (
       <DashboardLayout>
         <Box sx={{ textAlign: 'center', py: 8 }}>
@@ -280,12 +334,8 @@ function ResultsContent() {
     );
   }
 
-  const correctCount = Object.keys(userAnswers).reduce((count, questionId) => {
-    const question = testData.questions.find((q) => q.id === parseInt(questionId));
-    return count + (question && userAnswers[parseInt(questionId)] === question.correctAnswer ? 1 : 0);
-  }, 0);
-
-  const scoreMessage = getScoreMessage(score);
+  const correctCount = results.correctCount || 0;
+  const scoreMessage = getScoreMessage(results.score || 0);
 
   return (
     <DashboardLayout>
@@ -294,7 +344,9 @@ function ResultsContent() {
         <Card
           sx={{
             mb: 2,
-            background: `linear-gradient(135deg, ${categoryData.color}20 0%, ${categoryData.color}10 100%)`,
+            background: `linear-gradient(135deg, ${results.categoryInfo?.color || '#1976d2'}20 0%, ${
+              results.categoryInfo?.color || '#1976d2'
+            }10 100%)`,
           }}
         >
           <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
@@ -311,7 +363,7 @@ function ResultsContent() {
                     {getCategoryEmoji(category)} Kết quả bài test
                   </Typography>
                   <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
-                    {testData.testInfo.title}
+                    {results.testInfo?.title || 'Test Part 1'}
                   </Typography>
                 </Box>
               </Stack>
@@ -320,13 +372,13 @@ function ResultsContent() {
                   sx={{
                     width: { xs: 60, sm: 80 },
                     height: { xs: 60, sm: 80 },
-                    backgroundColor: categoryData.color,
+                    backgroundColor: results.categoryInfo?.color || '#1976d2',
                     fontSize: { xs: '1.5rem', sm: '2rem' },
                     fontWeight: 'bold',
                     alignSelf: { xs: 'center', sm: 'auto' },
                   }}
                 >
-                  {score}%
+                  {results.score || 0}%
                 </Avatar>
               </Stack>
             </Stack>
@@ -350,7 +402,7 @@ function ResultsContent() {
                   <CardContent sx={{ textAlign: 'center', py: 2 }}>
                     <Cancel sx={{ fontSize: 30, color: 'error.main', mb: 1 }} />
                     <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'error.main' }}>
-                      {testData.questions.length - correctCount}
+                      {(results.totalQuestions || 0) - correctCount}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       Sai
@@ -363,7 +415,7 @@ function ResultsContent() {
                   <CardContent sx={{ textAlign: 'center', py: 2 }}>
                     <Timer sx={{ fontSize: 30, color: 'primary.main', mb: 1 }} />
                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                      {formatTime(timeSpent)}
+                      {formatTime(results.timeSpent || 0)}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       Thời gian
@@ -374,9 +426,12 @@ function ResultsContent() {
               <Grid size={{ xs: 6, sm: 3 }}>
                 <Card>
                   <CardContent sx={{ textAlign: 'center', py: 2 }}>
-                    <Star sx={{ fontSize: 30, color: categoryData.color, mb: 1 }} />
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: categoryData.color }}>
-                      {score}%
+                    <Star sx={{ fontSize: 30, color: results.categoryInfo?.color || '#1976d2', mb: 1 }} />
+                    <Typography
+                      variant="h6"
+                      sx={{ fontWeight: 'bold', color: results.categoryInfo?.color || '#1976d2' }}
+                    >
+                      {results.score || 0}%
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       Điểm số
@@ -392,13 +447,13 @@ function ResultsContent() {
               </Typography>
               <LinearProgress
                 variant="determinate"
-                value={score}
+                value={results.score || 0}
                 sx={{
                   height: { xs: 10, md: 12 },
                   borderRadius: 6,
                   backgroundColor: 'rgba(255,255,255,0.9)',
                   '& .MuiLinearProgress-bar': {
-                    backgroundColor: categoryData.color,
+                    backgroundColor: results.categoryInfo?.color || '#1976d2',
                     borderRadius: 6,
                   },
                 }}
@@ -411,89 +466,81 @@ function ResultsContent() {
           {/* Chi tiết từng câu hỏi */}
           <Grid size={{ xs: 12, md: 8 }} order={{ xs: 1, md: 1 }}>
             <Card>
-              <CardContent>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography
                   variant="h6"
-                  sx={{ color: categoryData.color, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 1 }}
+                  gutterBottom
+                  sx={{
+                    color: results.categoryInfo.color,
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
                 >
                   <QuestionAnswer /> Chi tiết từng câu hỏi
                 </Typography>
-
-                <List>
-                  {testData.questions.map((question, index) => {
-                    const userAnswer = userAnswers[question.id];
-                    const isCorrect = userAnswer === question.correctAnswer;
-
-                    return (
-                      <Box key={question.id}>
-                        <ListItem sx={{ p: 0, display: 'block' }}>
-                          <ListItemButton
-                            sx={{
-                              borderRadius: 2,
-                              py: { xs: 2, md: 1.5 },
-                              px: { xs: 2, md: 2 },
-                              display: 'block',
-                            }}
-                            onClick={() => handleQuestionClick(question.id)}
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontStyle: 'italic' }}>
+                  💡 Click vào bất kỳ câu hỏi nào để xem chi tiết và review
+                </Typography>
+                <Stack spacing={2}>
+                  {results.questionResults?.map((result: QuestionResult) => (
+                    <Card
+                      key={result.questionId}
+                      variant="outlined"
+                      sx={{
+                        border: result.isCorrect ? '2px solid #4caf50' : '2px solid #f44336',
+                        backgroundColor: result.isCorrect ? '#f8fff8' : '#fff8f8',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: 3,
+                          backgroundColor: result.isCorrect ? '#f0fff0' : '#fff0f0',
+                        },
+                      }}
+                      onClick={() => handleQuestionClick(result.questionId)}
+                    >
+                      <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                        <Stack spacing={{ xs: 2, sm: 3 }}>
+                          {/* Question Header */}
+                          <Stack
+                            direction={{ xs: 'column', sm: 'row' }}
+                            spacing={2}
+                            alignItems={{ xs: 'flex-start', sm: 'center' }}
+                            justifyContent="space-between"
                           >
-                            <Stack direction="row" alignItems="center">
-                              <Stack>
-                                {isEmpty(userAnswer) && (
-                                  <Box sx={{ mr: 1 }}>
-                                    <Help sx={{ color: '#ffc107', fontSize: { xs: 20, md: 24 } }} />
-                                  </Box>
-                                )}
-                                {/* nếu user trả lời sai thì hiển thị dấu x */}
-                                {!isEmpty(userAnswer) && !isCorrect && (
-                                  <Box sx={{ mr: 1 }}>
-                                    <Cancel sx={{ color: '#f44336', fontSize: { xs: 20, md: 24 } }} />
-                                  </Box>
-                                )}
-                                {/* nếu user trả lời đúng thì hiển thị dấu check */}
-                                {!isEmpty(userAnswer) && isCorrect && (
-                                  <Box sx={{ mr: 1 }}>
-                                    <CheckCircle sx={{ color: '#4caf50', fontSize: { xs: 20, md: 24 } }} />
-                                  </Box>
-                                )}
-                              </Stack>
-                              {/* chỉnh lại màu gray light, color cho phù hợp */}
-                              <Stack direction="row" spacing={2} alignItems="center">
-                                <Chip
-                                  label={`Câu ${question.id}: ${question.theme}`}
-                                  sx={{ backgroundColor: 'gray.light', color: 'black' }}
-                                />
-                              </Stack>
+                            <Stack direction="row" spacing={2} alignItems="center">
+                              <Chip
+                                label={`Câu ${result.questionId}`}
+                                sx={{ backgroundColor: results.categoryInfo?.color || '#1976d2', color: 'white' }}
+                              />
+                              <Chip label={results.categoryInfo.title} variant="outlined" size="small" />
                             </Stack>
+                          </Stack>
 
-                            {/* User's Answer */}
-                            <Stack direction={{ xs: 'row', sm: 'row' }} spacing={2} sx={{ mt: 2 }}>
+                          {/* Question Content */}
+                          <Box>
+                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                               <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
                                 <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                   <strong>Câu trả lời của bạn:</strong>
                                 </Typography>
-                                {userAnswer ? (
-                                  <Chip
-                                    label={userAnswer}
-                                    size="small"
-                                    sx={{
-                                      backgroundColor: isCorrect ? 'success.main' : 'error.main',
-                                      color: 'white',
-                                    }}
-                                  />
-                                ) : (
-                                  <Chip
-                                    label="Chưa trả lời"
-                                    size="small"
-                                    sx={{ backgroundColor: 'error.main', color: 'white' }}
-                                  />
-                                )}
+                                <Chip
+                                  label={result.userAnswer}
+                                  size="small"
+                                  sx={{
+                                    backgroundColor: result.isCorrect ? 'success.main' : 'error.main',
+                                    color: 'white',
+                                  }}
+                                />
                               </Stack>
                               <Stack direction="row" alignItems="center" spacing={1} sx={{ flex: 1 }}>
                                 <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                   <strong>Đáp án đúng:</strong>
                                 </Typography>
                                 <Chip
-                                  label={question.correctAnswer}
+                                  label={result.correctAnswer}
                                   size="small"
                                   sx={{
                                     backgroundColor: 'success.main',
@@ -502,13 +549,12 @@ function ResultsContent() {
                                 />
                               </Stack>
                             </Stack>
-                          </ListItemButton>
-                        </ListItem>
-                        {index < testData.questions.length - 1 && <Divider />}
-                      </Box>
-                    );
-                  })}
-                </List>
+                          </Box>
+                        </Stack>
+                      </CardContent>
+                    </Card>
+                  )) || []}
+                </Stack>
               </CardContent>
             </Card>
           </Grid>
@@ -519,7 +565,11 @@ function ResultsContent() {
               {/* Thống kê */}
               <Card>
                 <CardContent>
-                  <Typography variant="h6" gutterBottom sx={{ color: categoryData.color, fontWeight: 600 }}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    sx={{ color: results.categoryInfo?.color || '#1976d2', fontWeight: 600 }}
+                  >
                     📊 Thống kê
                   </Typography>
 
@@ -528,12 +578,14 @@ function ResultsContent() {
                       <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
                         <Typography variant="body2">Câu đúng</Typography>
                         <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#4caf50' }}>
-                          {correctCount}/{testData.questions.length}
+                          {results.correctCount || 0}/{results.totalQuestions || 0}
                         </Typography>
                       </Stack>
                       <LinearProgress
                         variant="determinate"
-                        value={(correctCount / testData.questions.length) * 100}
+                        value={
+                          results.totalQuestions ? ((results.correctCount || 0) / results.totalQuestions) * 100 : 0
+                        }
                         sx={{
                           height: { xs: 8, md: 10 },
                           backgroundColor: '#e0e0e0',
@@ -546,12 +598,16 @@ function ResultsContent() {
                       <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
                         <Typography variant="body2">Câu sai</Typography>
                         <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#f44336' }}>
-                          {testData.questions.length - correctCount}/{testData.questions.length}
+                          {(results.totalQuestions || 0) - (results.correctCount || 0)}/{results.totalQuestions || 0}
                         </Typography>
                       </Stack>
                       <LinearProgress
                         variant="determinate"
-                        value={((testData.questions.length - correctCount) / testData.questions.length) * 100}
+                        value={
+                          results.totalQuestions
+                            ? ((results.totalQuestions - (results.correctCount || 0)) / results.totalQuestions) * 100
+                            : 0
+                        }
                         sx={{
                           height: { xs: 8, md: 10 },
                           backgroundColor: '#e0e0e0',
@@ -570,7 +626,7 @@ function ResultsContent() {
                         variant="body2"
                         sx={{ fontWeight: 'bold', color: scoreMessage.color, fontSize: { xs: '0.95rem', md: '1rem' } }}
                       >
-                        {score}%
+                        {results.score || 0}%
                       </Typography>
                     </Stack>
 
@@ -579,7 +635,7 @@ function ResultsContent() {
                         Thời gian:
                       </Typography>
                       <Typography variant="body2" sx={{ fontWeight: 'bold', fontSize: { xs: '0.95rem', md: '1rem' } }}>
-                        {formatTime(timeSpent)}
+                        {formatTime(results.timeSpent || 0)}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -589,7 +645,11 @@ function ResultsContent() {
               {/* Hành động */}
               <Card>
                 <CardContent>
-                  <Typography variant="h6" gutterBottom sx={{ color: categoryData.color, fontWeight: 600 }}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    sx={{ color: results.categoryInfo?.color || '#1976d2', fontWeight: 600 }}
+                  >
                     🎯 Tiếp theo
                   </Typography>
 
@@ -601,7 +661,7 @@ function ResultsContent() {
                       component={Link}
                       href={`/practice/part1/${category}/test?testId=${testId}`}
                       sx={{
-                        backgroundColor: categoryData.color,
+                        backgroundColor: results.categoryInfo?.color || '#1976d2',
                         fontSize: { xs: '0.95rem', md: '1rem' },
                         py: { xs: 1, md: 1.25 },
                       }}
@@ -616,8 +676,8 @@ function ResultsContent() {
                       component={Link}
                       href="/practice/part1"
                       sx={{
-                        borderColor: categoryData.color,
-                        color: categoryData.color,
+                        borderColor: results.categoryInfo?.color || '#1976d2',
+                        color: results.categoryInfo?.color || '#1976d2',
                         fontSize: { xs: '0.95rem', md: '1rem' },
                         py: { xs: 1, md: 1.25 },
                       }}

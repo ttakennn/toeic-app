@@ -580,7 +580,7 @@ function Part2TestPageContent() {
     };
 
     console.log('Storing results:', results);
-    localStorage.setItem(`part2_test_results_${category}_${testId}`, JSON.stringify(results));
+    sessionStorage.setItem(`part2_test_results_${category}_${testId}`, JSON.stringify(results));
 
     // Redirect to results page
     window.location.href = `/practice/part2/questions/${category}/results?testId=${testId}`;

@@ -1111,12 +1111,52 @@ function TestContent() {
               startIcon={<CheckCircle />}
               size="medium"
               onClick={() => {
-                // Lưu answers vào sessionStorage
+                // Generate unique key for this test session
+                const uniqueKey = `part1_${category}_${testId}_${Date.now()}`;
+
+                // Calculate results with new structure
+                let correctCount = 0;
+                const questionResults = testData.questions.map((question) => {
+                  const userAnswer = answers[question.id];
+                  const isCorrect = userAnswer === question.correctAnswer;
+                  if (isCorrect) correctCount++;
+
+                  return {
+                    questionId: question.id,
+                    userAnswer: userAnswer || 'Không trả lời',
+                    correctAnswer: question.correctAnswer,
+                    isCorrect,
+                    uniqueKey: `${uniqueKey}_q${question.id}`,
+                  };
+                });
+
+                const score = Math.round((correctCount / testData.questions.length) * 100);
+                const timeSpent = Math.max(0, parseInt(testData.testInfo.duration.split(' ')[0]) * 60 - timeLeft);
+
+                // Store questionResults in sessionStorage with comprehensive structure
+                const resultsData = {
+                  testInfo: testData.testInfo,
+                  categoryInfo: categoryData,
+                  questionResults,
+                  score,
+                  correctCount,
+                  totalQuestions: testData.questions.length,
+                  timeSpent,
+                  submittedAt: new Date().toISOString(),
+                  uniqueKey,
+                };
+
+                console.log('Storing Part 1 results to sessionStorage:', resultsData);
+                
+                // Store in sessionStorage
+                sessionStorage.setItem(`part1_test_results_${category}_${testId}`, JSON.stringify(resultsData));
+                
+                // Store simplified questionResults for future reference
+                sessionStorage.setItem(`questionResults_${category}_${testId}`, JSON.stringify(questionResults));
+                
+                // Keep backward compatibility for review page
                 sessionStorage.setItem(`test_answers_${category}_${testId}`, JSON.stringify(answers));
-                sessionStorage.setItem(
-                  `test_time_spent_${category}_${testId}`,
-                  Math.max(0, parseInt(testData.testInfo.duration.split(' ')[0]) * 60 - timeLeft).toString(),
-                );
+                sessionStorage.setItem(`test_time_spent_${category}_${testId}`, timeSpent.toString());
 
                 // Chuyển hướng đến results page
                 window.location.href = `/practice/part1/${category}/results?testId=${testId}`;
