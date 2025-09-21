@@ -1,4 +1,11 @@
 {
+  "header": {
+    "title": "Part 1 - Mô tả hình ảnh",
+    "description": "Part 1 bao gồm 6 câu hỏi. Bạn sẽ nghe 4 câu mô tả ngắn về một bức ảnh trong sách thi và chọn câu mô tả chính xác nhất. Đây là phần khởi động quan trọng để bắt đầu bài thi TOEIC.",
+    "partType": "Nghe mô tả",
+    "totalTests": 6,
+    "totalPoints": 30
+  },
   "guides": {
     "key": "guide",
     "title": "Hướng dẫn làm bài",

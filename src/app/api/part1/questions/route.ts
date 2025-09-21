@@ -76,6 +76,7 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       categories,
+      header: practiceItemsData.header,
       totalCategories: categories.length,
       totalTests,
       totalAvailable,

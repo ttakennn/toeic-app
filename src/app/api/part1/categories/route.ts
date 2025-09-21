@@ -31,9 +31,9 @@ const typedPhrasesData = phrasesData as PhrasesDataType;
 export async function GET() {
   try {
     // Optional small delay to help visual loading states
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
-    const categories = Object.keys(typedPhrasesData).map(key => {
+    const categories = Object.keys(typedPhrasesData).map((key) => {
       const category = typedPhrasesData[key];
 
       return {
@@ -62,9 +62,7 @@ export async function GET() {
         error: 'Internal server error',
         message: 'Failed to fetch Part 1 phrase categories',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
-
-
