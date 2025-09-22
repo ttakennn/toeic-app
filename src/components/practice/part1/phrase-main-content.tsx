@@ -1,15 +1,25 @@
-import { Box, Typography, Paper } from '@mui/material';
-import { Translate } from '@mui/icons-material';
+import { Box, Typography, Paper, IconButton, Chip } from '@mui/material';
+import { BookmarkBorder, Bookmark, Translate } from '@mui/icons-material';
 import { PhrasesCategory } from '@/types/phrases.interface';
+import { Part1Util } from '@/utils/part1.util';
 
 interface PhraseMainContentProps {
   categoryData: PhrasesCategory;
   currentIndex: number;
   showTranslation: boolean;
+  isBookmarked: boolean;
+  toggleBookmark: () => void;
   toggleTranslation: () => void;
 }
 
-function PhraseMainContent({ categoryData, currentIndex, showTranslation, toggleTranslation }: PhraseMainContentProps) {
+function PhraseMainContent({
+  categoryData,
+  currentIndex,
+  showTranslation,
+  isBookmarked,
+  toggleBookmark,
+  toggleTranslation,
+}: PhraseMainContentProps) {
   const currentPhrase = categoryData.data[currentIndex];
   return (
     <>
@@ -109,25 +119,60 @@ function PhraseMainContent({ categoryData, currentIndex, showTranslation, toggle
                 {showTranslation ? <Translate color="primary" /> : <Translate color="secondary" />}
               </Typography>
             </Box>
-            {showTranslation && (
-              <Box>
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    color: 'secondary.main',
-                    fontWeight: 500,
-                    fontStyle: 'italic',
-                    textAlign: 'center',
-                    fontSize: { xs: '1rem', sm: '1rem' },
-                  }}
-                >
-                  {currentPhrase.vietnamese}
-                </Typography>
-              </Box>
-            )}
+            <Box sx={{ minHeight: { xs: 28, sm: 28 } }}>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  color: 'secondary.main',
+                  fontWeight: 500,
+                  fontStyle: 'italic',
+                  textAlign: 'center',
+                  fontSize: { xs: '1rem', sm: '1rem' },
+                  visibility: showTranslation ? 'visible' : 'hidden',
+                }}
+              >
+                {currentPhrase.vietnamese}
+              </Typography>
+            </Box>
           </Box>
         </Box>
         {/* Decorative elements */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: { xs: 8, sm: 12 },
+            left: { xs: 8, sm: 12 },
+            zIndex: 3,
+            color: 'primary.main',
+            fontWeight: 500,
+            fontSize: { xs: '0.875rem', sm: '1rem' },
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: 'center',
+              gap: { xs: 0, sm: 1 },
+            }}
+          >
+            <Box>
+              {currentIndex + 1} / {categoryData.data.length}
+            </Box>
+            <Box>
+              <IconButton
+                onClick={toggleBookmark}
+                aria-label="bookmark"
+                sx={{ color: isBookmarked ? '#f57c00' : 'text.secondary' }}
+              >
+                {isBookmarked ? <Bookmark /> : <BookmarkBorder />}
+              </IconButton>
+            </Box>
+          </Box>
+        </Box>
         <Box
           sx={{
             position: 'absolute',
@@ -140,6 +185,38 @@ function PhraseMainContent({ categoryData, currentIndex, showTranslation, toggle
             zIndex: 1,
           }}
         />
+        <Box
+          sx={{
+            position: 'absolute',
+            top: { xs: 8, sm: 12 },
+            right: { xs: 8, sm: 12 },
+            zIndex: 3,
+            color: 'primary.main',
+            fontWeight: 500,
+            fontSize: { xs: '0.875rem', sm: '1rem' },
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: { xs: 'flex-end', sm: 'center' },
+            gap: { xs: 0.5, sm: 1 },
+          }}
+        >
+          <Chip
+            label={`${Math.round(((currentIndex + 1) / categoryData.data.length) * 100)}%`}
+            size="small"
+            color="success"
+            variant="filled"
+            sx={{ fontWeight: 'medium' }}
+          />
+          <Chip
+            label={currentPhrase.difficulty}
+            size="small"
+            sx={{
+              backgroundColor: `${Part1Util.getDifficultyColor(currentPhrase.difficulty)}20`,
+              color: Part1Util.getDifficultyColor(currentPhrase.difficulty),
+              fontWeight: 'medium',
+            }}
+          />
+        </Box>
         <Box
           sx={{
             position: 'absolute',

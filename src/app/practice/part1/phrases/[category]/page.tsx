@@ -183,24 +183,26 @@ export default function PhraseCategoryPage() {
         <Box sx={{ mb: 4 }}>
           <PhraseTitle title={categoryData.title} description={categoryData.description} handleBack={handleBack} />
           {/* Progress Info */}
-          <PhraseProgress
+          {/* <PhraseProgress
             currentIndex={currentIndex}
             categoryData={categoryData}
             isBookmarked={isBookmarked}
             toggleBookmark={toggleBookmark}
             showBar={false}
-          />
+          /> */}
         </Box>
 
         {/* Main Content Card */}
         <Card sx={{ mb: 4, overflow: 'visible', position: 'relative' }}>
           <TopProgress currentIndex={currentIndex} lengthData={categoryData.data.length} />
-          <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+          <CardContent sx={{ p: { xs: 2, sm: 2 } }}>
             {/* Image Section */}
             <PhraseMainContent
               categoryData={categoryData}
               currentIndex={currentIndex}
               showTranslation={showTranslation}
+              isBookmarked={isBookmarked}
+              toggleBookmark={toggleBookmark}
               toggleTranslation={toggleTranslation}
             />
 
