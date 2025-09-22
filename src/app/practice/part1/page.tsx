@@ -1,30 +1,22 @@
 'use client';
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Button,
-  Divider,
-  CardActions,
-  Chip,
-  Stack,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-} from '@mui/material';
-import { Category, TrendingUp, Quiz } from '@mui/icons-material';
-import Link from 'next/link';
+import { Box, Grid, Divider } from '@mui/material';
+import { Category, TrendingUp } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
-import { Part1PhraseCategory, Part1PracticeCategory } from '@/app/types/part1.interface';
+import { Part1PhraseCategory as IPart1PhraseCategory } from '@/types/part1.interface';
 import { getPart1PhraseCategories, getPart1PracticeQuestions } from '@/actions/part1';
-import { Part1Util } from '@/app/utils/part1.util';
-import HeaderSectionPart from '@/app/UI/header-section-part';
-import { HeaderSectionPart as IHeaderSectionPart } from '@/app/types/header-section-part.interface';
+import PracticeHeader from '@/UI/practice-header';
+import practiceItemsData from '@/data/part1/questions/practiceItems.json';
+import PracticeError from '@/UI/practice-error';
+import PracticeTitle from '@/UI/practice-title';
+import PracticeItemSkeleton from '@/components/practice/part1/practice-item-skeleton';
+import PracticeLoadingError from '@/UI/practice-loading-error';
+import PracticeAction from '@/UI/practice-action';
+import PracticeCategory from '@/UI/practice-category';
+import { PracticeCategory as IPracticeCategory } from '@/types/core.interface';
+import PhraseCategorySkeleton from '@/components/practice/part1/phrase-category-skeleton';
+import Part1PhraseCategory from '@/components/practice/part1/phrase-category';
 
 export default function Part1Page() {
   // State để quản lý đề TEST được chọn cho mỗi practice item
@@ -35,16 +27,15 @@ export default function Part1Page() {
     mixed: 1,
   });
 
-  // State để quản lý phrase categories
-  const [phraseCategories, setPhraseCategories] = useState<Part1PhraseCategory[]>([]);
-  const [categoriesLoading, setCategoriesLoading] = useState(true);
-  const [categoriesError, setCategoriesError] = useState<string | null>(null);
-  const [header, setHeader] = useState<IHeaderSectionPart | null>(null);
-
-  // State để quản lý practice categories
-  const [practiceCategories, setPracticeCategories] = useState<Part1PracticeCategory[]>([]);
+  // State để quản lý luyện tập (practice categories)
+  const [practiceCategories, setPracticeCategories] = useState<IPracticeCategory[]>([]);
   const [practiceLoading, setPracticeLoading] = useState(true);
   const [practiceError, setPracticeError] = useState<string | null>(null);
+
+  // State để quản lý cụm từ thường gặp (phrase categories)
+  const [phraseCategories, setPhraseCategories] = useState<IPart1PhraseCategory[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState<string | null>(null);
 
   const handlePracticeTestChange = (practiceId: string, testNumber: number) => {
     setSelectedPracticeTests((prev) => ({
@@ -82,7 +73,6 @@ export default function Part1Page() {
 
         const data = await getPart1PracticeQuestions();
         setPracticeCategories(data.categories);
-        setHeader(data.header);
 
         // Initialize selected tests with first available test for each category
         const initialSelected: { [key: string]: number } = {};
@@ -124,611 +114,51 @@ export default function Part1Page() {
   return (
     <DashboardLayout>
       <Box>
-        {/* Header Section */}
-        {header && <HeaderSectionPart {...header} />}
-
+        <PracticeHeader {...practiceItemsData.header} />
         {/* Section 1: Luyện tập */}
         <Box sx={{ mb: 6 }}>
-          <Typography
-            variant="h5"
-            component="h2"
-            gutterBottom
-            sx={{
-              mb: 3,
-              color: 'primary.main',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-            }}
-          >
-            <TrendingUp />
-            Luyện tập
-          </Typography>
-
-          {practiceError && (
-            <Box
-              sx={{
-                p: 3,
-                backgroundColor: '#ffebee',
-                borderRadius: 2,
-                mb: 3,
-                textAlign: 'center',
-              }}
-            >
-              <Typography color="error" variant="h6" gutterBottom>
-                ⚠️ Lỗi tải dữ liệu luyện tập
-              </Typography>
-              <Typography color="error" variant="body2">
-                {practiceError}
-              </Typography>
-              <Button variant="outlined" color="error" sx={{ mt: 2 }} onClick={() => window.location.reload()}>
-                Thử lại
-              </Button>
-            </Box>
-          )}
-
+          <PracticeTitle title="Luyện tập" icon={<TrendingUp />} />
+          <PracticeError error={practiceError} />
           <Grid container spacing={3}>
-            {practiceLoading
-              ? // Loading skeleton for practice items
-                Array.from({ length: 4 }).map((_, index) => (
-                  <Grid size={{ xs: 12, md: 6 }} key={`practice-skeleton-${index}`}>
-                    <Card sx={{ height: 400, display: 'flex', flexDirection: 'column' }}>
-                      <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                          <Box
-                            sx={{
-                              width: 40,
-                              height: 40,
-                              backgroundColor: '#f0f0f0',
-                              borderRadius: 1,
-                              mr: 2,
-                            }}
-                          />
-                          <Box
-                            sx={{
-                              height: 24,
-                              width: '60%',
-                              backgroundColor: '#f0f0f0',
-                              borderRadius: 1,
-                              mr: 'auto',
-                            }}
-                          />
-                          <Box
-                            sx={{
-                              width: 60,
-                              height: 20,
-                              backgroundColor: '#f0f0f0',
-                              borderRadius: 1,
-                            }}
-                          />
-                        </Box>
-                        <Box
-                          sx={{
-                            height: 40,
-                            backgroundColor: '#f0f0f0',
-                            borderRadius: 1,
-                            mb: 3,
-                          }}
-                        />
-                        <Box
-                          sx={{
-                            height: 80,
-                            backgroundColor: '#f0f0f0',
-                            borderRadius: 1,
-                            mb: 3,
-                          }}
-                        />
-                        <Box
-                          sx={{
-                            height: 120,
-                            backgroundColor: '#f0f0f0',
-                            borderRadius: 1,
-                          }}
-                        />
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))
-              : practiceCategories.map((item, index) => (
-                  <Grid size={{ xs: 12, md: 6 }} key={index}>
-                    <Card
-                      sx={{
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        transition: 'all 0.3s ease-in-out',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        '&:hover': {
-                          transform: 'translateY(-4px)',
-                          boxShadow: 4,
-                          '& .practice-icon': {
-                            transform: 'scale(1.1)',
-                          },
-                        },
-                        border: `2px solid ${item.color}40`,
-                        backgroundColor: item.bgColor + '20',
-                      }}
-                    >
-                      <CardContent sx={{ flexGrow: 1, pb: 1 }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                          <Box
-                            className="practice-icon"
-                            sx={{
-                              mr: 2,
-                              transition: 'transform 0.3s ease-in-out',
-                            }}
-                          >
-                            <Box
-                              component="img"
-                              src={item.icon}
-                              alt={item.title}
-                              sx={{
-                                width: 40,
-                                height: 40,
-                                objectFit: 'contain',
-                              }}
-                            />
-                          </Box>
-                          <Typography
-                            variant="h6"
-                            component="h3"
-                            sx={{
-                              fontWeight: 600,
-                              color: item.color,
-                              flex: 1,
-                            }}
-                          >
-                            {item.title}
-                          </Typography>
-                          <Chip
-                            label={`${item.totalTests} TEST`}
-                            size="small"
-                            sx={{
-                              backgroundColor: item.color + '20',
-                              color: item.color,
-                              fontWeight: 'medium',
-                            }}
-                          />
-                        </Box>
-
-                        <Typography color="text.secondary" sx={{ mb: 3, lineHeight: 1.5, fontSize: '14px' }}>
-                          {item.description}
-                        </Typography>
-
-                        {/* Test Selector */}
-                        <Box sx={{ mb: 3 }}>
-                          <FormControl fullWidth size="small" variant="outlined">
-                            <InputLabel
-                              sx={{
-                                color: item.color,
-                                '&.Mui-focused': { color: item.color },
-                              }}
-                            >
-                              Chọn đề TEST
-                            </InputLabel>
-                            <Select
-                              value={selectedPracticeTests[item.id]}
-                              onChange={(e) => handlePracticeTestChange(item.id, e.target.value as number)}
-                              label="Chọn đề TEST"
-                              sx={{
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: item.color + '40',
-                                },
-                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: item.color + '60',
-                                },
-                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: item.color,
-                                },
-                                '& .MuiSelect-select': {
-                                  color: item.color,
-                                  fontWeight: 'medium',
-                                },
-                              }}
-                            >
-                              {item.tests.map((test) => (
-                                <MenuItem key={test.id} value={test.id}>
-                                  <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                                    <Quiz sx={{ mr: 1, fontSize: 18, color: item.color }} />
-                                    <Box sx={{ flex: 1 }}>
-                                      <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                                        {test.title}
-                                      </Typography>
-                                      <Stack direction="row" spacing={1} sx={{ mt: 0.5 }}>
-                                        <Chip
-                                          label={test.difficulty}
-                                          size="small"
-                                          sx={{
-                                            height: 16,
-                                            fontSize: '10px',
-                                            backgroundColor: Part1Util.getDifficultyColor(test.difficulty) + '20',
-                                            color: Part1Util.getDifficultyColor(test.difficulty),
-                                          }}
-                                        />
-                                        <Chip
-                                          label={`${test.questions} câu`}
-                                          size="small"
-                                          sx={{
-                                            height: 16,
-                                            fontSize: '10px',
-                                            backgroundColor: item.color + '20',
-                                            color: item.color,
-                                          }}
-                                        />
-                                        <Chip
-                                          label={test.duration}
-                                          size="small"
-                                          sx={{
-                                            height: 16,
-                                            fontSize: '10px',
-                                            backgroundColor: '#e0e0e0',
-                                            color: '#666',
-                                          }}
-                                        />
-                                      </Stack>
-                                    </Box>
-                                  </Box>
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-
-                          {/* Selected Test Info */}
-                          <Box sx={{ mt: 2, p: 2, backgroundColor: item.bgColor, borderRadius: 2 }}>
-                            <Typography variant="body2" sx={{ fontWeight: 'medium', color: item.color, mb: 1 }}>
-                              📋 {item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.title}
-                            </Typography>
-                            <Stack direction="row" spacing={1}>
-                              <Chip
-                                label={
-                                  item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.difficulty
-                                }
-                                size="small"
-                                sx={{
-                                  backgroundColor:
-                                    Part1Util.getDifficultyColor(
-                                      item.tests.find((test) => test.id === selectedPracticeTests[item.id])
-                                        ?.difficulty || 'Dễ',
-                                    ) + '20',
-                                  color: Part1Util.getDifficultyColor(
-                                    item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.difficulty ||
-                                      'Dễ',
-                                  ),
-                                  fontWeight: 'medium',
-                                }}
-                              />
-                              <Chip
-                                label={`${
-                                  item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.questions
-                                } câu hỏi`}
-                                size="small"
-                                sx={{
-                                  backgroundColor: item.color + '20',
-                                  color: item.color,
-                                  fontWeight: 'medium',
-                                }}
-                              />
-                              <Chip
-                                label={item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.duration}
-                                size="small"
-                                variant="outlined"
-                                sx={{
-                                  borderColor: item.color,
-                                  color: item.color,
-                                  fontWeight: 'medium',
-                                }}
-                              />
-                            </Stack>
-                          </Box>
-                        </Box>
-                      </CardContent>
-
-                      <CardActions sx={{ p: 2, pt: 0 }}>
-                        <Button
-                          variant="contained"
-                          fullWidth
-                          size="large"
-                          onClick={() => handleStartTest(item.id, selectedPracticeTests[item.id] || 1)}
-                          disabled={!item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.available}
-                          sx={{
-                            backgroundColor: item.color,
-                            fontWeight: 'medium',
-                            '&:hover': {
-                              backgroundColor: `${item.color}dd`,
-                            },
-                            '&.Mui-disabled': {
-                              backgroundColor: '#e0e0e0',
-                              color: '#999',
-                            },
-                          }}
-                        >
-                          {item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.available
-                            ? `🚀 Bắt đầu ${
-                                item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.title
-                              }`
-                            : '⚠️ Chưa có sẵn'}
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                ))}
+            {practiceLoading ? (
+              <PracticeItemSkeleton />
+            ) : (
+              practiceCategories.map((item, index) => (
+                <Grid size={{ xs: 12, md: 6 }} key={index}>
+                  <PracticeCategory
+                    item={item}
+                    selectedPracticeTests={selectedPracticeTests}
+                    handlePracticeTestChange={handlePracticeTestChange}
+                    handleStartTest={handleStartTest}
+                  />
+                </Grid>
+              ))
+            )}
           </Grid>
-
-          {!practiceLoading && practiceCategories.length === 0 && !practiceError && (
-            <Box
-              sx={{
-                p: 4,
-                textAlign: 'center',
-                backgroundColor: '#f5f5f5',
-                borderRadius: 2,
-              }}
-            >
-              <Typography variant="h6" color="text.secondary" gutterBottom>
-                📋 Chưa có bài luyện tập nào
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Hệ thống đang được cập nhật. Vui lòng quay lại sau.
-              </Typography>
-            </Box>
-          )}
+          {!practiceLoading && practiceCategories.length === 0 && !practiceError && <PracticeLoadingError />}
         </Box>
-
         <Divider sx={{ my: 5, borderColor: 'primary.main', borderWidth: 1 }} />
-
         {/* Section 2: Cụm từ thường gặp */}
         <Box>
-          <Typography
-            variant="h5"
-            component="h2"
-            gutterBottom
-            sx={{
-              mb: 3,
-              color: 'primary.main',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-            }}
-          >
-            <Category />
-            Cụm từ thường gặp
-          </Typography>
-
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
-            Nắm vững các cụm từ quan trọng để mô tả hình ảnh chính xác trong Part 1. Mỗi danh mục được thiết kế để bạn
-            học từ vựng theo chủ đề một cách có hệ thống.
-          </Typography>
-
-          {categoriesError && (
-            <Box
-              sx={{
-                p: 3,
-                backgroundColor: '#ffebee',
-                borderRadius: 2,
-                mb: 3,
-                textAlign: 'center',
-              }}
-            >
-              <Typography color="error" variant="h6" gutterBottom>
-                ⚠️ Lỗi tải dữ liệu
-              </Typography>
-              <Typography color="error" variant="body2">
-                {categoriesError}
-              </Typography>
-            </Box>
-          )}
-
+          <PracticeTitle
+            icon={<Category />}
+            title={practiceItemsData.category.title}
+            content={practiceItemsData.category.description}
+          />
+          <PracticeError error={categoriesError} isReload={false} />
           <Grid container spacing={3}>
-            {categoriesLoading
-              ? // Loading skeleton
-                Array.from({ length: 4 }).map((_, index) => (
-                  <Grid size={{ xs: 12, sm: 6, md: 3 }} key={`skeleton-${index}`}>
-                    <Card sx={{ height: 320, display: 'flex', flexDirection: 'column' }}>
-                      <CardContent sx={{ flexGrow: 1, textAlign: 'center', pt: 3 }}>
-                        <Box
-                          sx={{
-                            width: 80,
-                            height: 80,
-                            backgroundColor: '#f0f0f0',
-                            borderRadius: 1,
-                            mx: 'auto',
-                            mb: 2,
-                          }}
-                        />
-                        <Box
-                          sx={{
-                            height: 24,
-                            backgroundColor: '#f0f0f0',
-                            borderRadius: 1,
-                            mb: 1,
-                          }}
-                        />
-                        <Box
-                          sx={{
-                            height: 40,
-                            backgroundColor: '#f0f0f0',
-                            borderRadius: 1,
-                            mb: 2,
-                          }}
-                        />
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))
-              : phraseCategories.map((category, index) => (
-                  <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
-                    <Card
-                      sx={{
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        transition: 'all 0.3s ease-in-out',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        '&:hover': {
-                          transform: 'translateY(-4px)',
-                          boxShadow: 4,
-                          '& .category-icon': {
-                            transform: 'scale(1.1)',
-                          },
-                        },
-                        border: `2px solid ${category.bgColor}`,
-                        backgroundColor: category.bgColor + '40',
-                      }}
-                    >
-                      {/* Progress indicator */}
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          height: 4,
-                          backgroundColor: '#f0f0f0',
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            height: '100%',
-                            width: `${category.progress}%`,
-                            backgroundColor: category.color,
-                            transition: 'width 0.3s ease-in-out',
-                          }}
-                        />
-                      </Box>
-
-                      <CardContent sx={{ flexGrow: 1, textAlign: 'center', pt: 3 }}>
-                        <Box
-                          className="category-icon"
-                          sx={{
-                            mb: 2,
-                            transition: 'transform 0.3s ease-in-out',
-                          }}
-                        >
-                          <Box
-                            component="img"
-                            src={category.icon}
-                            alt={category.title}
-                            sx={{
-                              width: 80,
-                              height: 80,
-                              objectFit: 'contain',
-                            }}
-                          />
-                        </Box>
-
-                        <Typography
-                          variant="h6"
-                          component="h3"
-                          gutterBottom
-                          sx={{
-                            color: category.color,
-                            fontWeight: 600,
-                            mb: 2,
-                          }}
-                        >
-                          {category.title}
-                        </Typography>
-
-                        <Typography
-                          color="text.secondary"
-                          sx={{
-                            mb: 3,
-                            fontSize: '14px',
-                            lineHeight: 1.5,
-                          }}
-                        >
-                          {category.description}
-                        </Typography>
-
-                        <Stack direction="row" justifyContent="center" spacing={1} sx={{ mb: 2 }}>
-                          <Chip
-                            label={`${category.count} cụm từ`}
-                            size="small"
-                            sx={{
-                              backgroundColor: category.color + '20',
-                              color: category.color,
-                              fontWeight: 'medium',
-                            }}
-                          />
-                          <Chip label={`${category.progress}%`} size="small" color="success" variant="outlined" />
-                        </Stack>
-                      </CardContent>
-
-                      <CardActions sx={{ p: 2 }}>
-                        <Button
-                          variant="contained"
-                          fullWidth
-                          size="large"
-                          component={Link}
-                          href={`/practice/part1/phrases/${category.id}`}
-                          sx={{
-                            backgroundColor: category.color,
-                            fontWeight: 'medium',
-                            '&:hover': {
-                              backgroundColor: `${category.color}dd`,
-                            },
-                          }}
-                        >
-                          {category.progress > 0 ? 'Tiếp tục học' : 'Bắt đầu học'}
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                ))}
+            {categoriesLoading ? (
+              <PhraseCategorySkeleton />
+            ) : (
+              phraseCategories.map((category, index) => (
+                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+                  <Part1PhraseCategory category={category} />
+                </Grid>
+              ))
+            )}
           </Grid>
         </Box>
-
-        {/* Call to Action */}
-        <Box
-          sx={{
-            mt: 6,
-            p: 4,
-            background: 'linear-gradient(135deg, #0d47a1 0%, #1976d2 100%)',
-            borderRadius: 3,
-            color: 'white',
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
-            🎯 Sẵn sàng chinh phục Part 1?
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 3, opacity: 0.9 }}>
-            Bắt đầu với những bài luyện tập cơ bản và dần nâng cao trình độ của bạn!
-          </Typography>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
-            <Button
-              variant="contained"
-              size="large"
-              sx={{
-                backgroundColor: 'white',
-                color: 'primary.main',
-                fontWeight: 'bold',
-                '&:hover': {
-                  backgroundColor: '#f5f5f5',
-                },
-              }}
-            >
-              Bắt đầu luyện tập
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              sx={{
-                borderColor: 'white',
-                color: 'white',
-                '&:hover': {
-                  borderColor: 'white',
-                  backgroundColor: 'rgba(255,255,255,0.1)',
-                },
-              }}
-            >
-              Xem hướng dẫn
-            </Button>
-          </Stack>
-        </Box>
+        <PracticeAction {...practiceItemsData.action} />
       </Box>
     </DashboardLayout>
   );

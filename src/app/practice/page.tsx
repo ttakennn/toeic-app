@@ -1,7 +1,7 @@
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Box, Typography, Grid } from '@mui/material';
 import { School, Quiz, PlayArrow, TrendingUp, VolumeUp, QuestionAnswer, Assignment } from '@mui/icons-material';
-import { PracticeData } from '../types/practice.interface';
+import { PracticeData } from '../../types/practice.interface';
 import PracticeStats from '@/components/practice/practice-stats';
 import PracticeAreas from '@/components/practice/practice-areas';
 import PracticeBottomCta from '@/components/practice/practice-bottom-cta';

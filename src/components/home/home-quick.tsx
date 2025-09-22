@@ -1,4 +1,4 @@
-import { QuickAccess } from '@/app/types/home.interface';
+import { QuickAccess } from '@/types/home.interface';
 import { Box, Typography, Card, CardContent } from '@mui/material';
 import Link from 'next/link';
 

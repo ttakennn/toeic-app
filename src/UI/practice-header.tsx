@@ -1,10 +1,10 @@
 import { PlayArrow, Star, Timer } from '@mui/icons-material';
 import { Chip } from '@mui/material';
 import { Box, Typography, Stack } from '@mui/material';
-import { HeaderSectionPart as IHeaderSectionPart } from '../types/header-section-part.interface';
+import { PracticeHeader as IPracticeHeader } from '../types/practice.interface';
 
-function HeaderSectionPart(headerSection: IHeaderSectionPart) {
-  const { title, description, totalTests, partType, totalPoints } = headerSection;
+function PracticeHeader(practiceHeader: IPracticeHeader) {
+  const { title, description, totalTests, partType, totalPoints } = practiceHeader;
   return (
     <Box sx={{ mb: 6 }}>
       <Typography variant="h4" component="h1" gutterBottom sx={{ mb: 2, fontWeight: 600 }}>
@@ -34,4 +34,4 @@ function HeaderSectionPart(headerSection: IHeaderSectionPart) {
   );
 }
 
-export default HeaderSectionPart;
+export default PracticeHeader;

@@ -1,6 +1,6 @@
 'use client';
 
-import { Part1PhraseCategoriesResponse, Part1PracticeQuestionsResponse } from '@/app/types/part1.interface';
+import { Part1PhraseCategoriesResponse, Part1PracticeQuestionsResponse } from '@/types/part1.interface';
 
 const URL_PART1_PHRASE_CATEGORIES = '/api/part1/categories';
 const URL_PART1_PRACTICE_QUESTIONS = '/api/part1/questions';

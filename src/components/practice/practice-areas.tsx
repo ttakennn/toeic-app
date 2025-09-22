@@ -1,5 +1,5 @@
 import { Box, Typography, Card, CardContent, Button, Stack, Chip } from '@mui/material';
-import { PracticeArea as IPracticeArea } from '@/app/types/practice.interface';
+import { PracticeArea as IPracticeArea } from '@/types/practice.interface';
 import Link from 'next/link';
 
 interface PracticeAreasProps {

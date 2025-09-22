@@ -6,6 +6,10 @@
     "totalTests": 6,
     "totalPoints": 30
   },
+  "category": {
+    "title": "Cụm từ thường gặp",
+    "description": "Nắm vững các cụm từ quan trọng để mô tả hình ảnh chính xác trong Part 1. Mỗi danh mục được thiết kế để bạn học từ vựng theo chủ đề một cách có hệ thống."
+  },
   "guides": {
     "key": "guide",
     "title": "Hướng dẫn làm bài",
@@ -31,6 +35,10 @@
         "item": "📝 <strong>Không có text hiển thị</strong> - hoàn toàn dựa vào nghe hiểu"
       }
     ]
+  },
+  "action": {
+    "title": "Sẵn sàng chinh phục Part 1?",
+    "description": "Bắt đầu với những bài luyện tập cơ bản và dần nâng cao trình độ của bạn!"
   },
   "practiceItems": [
     {

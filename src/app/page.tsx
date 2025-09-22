@@ -1,7 +1,7 @@
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Box, Typography, Grid } from '@mui/material';
 import { School, Quiz, TrendingUp, CheckCircle, PlayArrow, Assessment } from '@mui/icons-material';
-import { HomeData } from './types/home.interface';
+import { HomeData } from '../types/home.interface';
 import HomeWelcome from '@/components/home/home-welcome';
 import HomeStats from '@/components/home/home-stats';
 import HomeQuick from '@/components/home/home-quick';

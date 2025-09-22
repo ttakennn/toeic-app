@@ -35,7 +35,7 @@ import {
 import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 import Link from 'next/link';
-import { GuideItem } from '@/app/types/core.interface';
+import { GuideItem } from '@/types/core.interface';
 
 interface TestQuestion {
   id: number;

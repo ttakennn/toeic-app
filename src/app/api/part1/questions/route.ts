@@ -38,7 +38,7 @@ export async function GET() {
       for (const test of categoryInfo.tests) {
         const filePath = path.join(categoryDir, `test${test.id}.json`);
         const available = fs.existsSync(filePath);
-        
+
         if (available) {
           availableCount++;
         }
@@ -67,7 +67,7 @@ export async function GET() {
     }
 
     // Optional small delay to help visual loading states
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     // Calculate totals
     const totalTests = categories.reduce((sum, cat) => sum + cat.totalTests, 0);
@@ -76,14 +76,12 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       categories,
-      header: practiceItemsData.header,
       totalCategories: categories.length,
       totalTests,
       totalAvailable,
       completionRate: totalTests > 0 ? Math.round((totalAvailable / totalTests) * 100) : 0,
       timestamp: new Date().toISOString(),
     });
-
   } catch (error) {
     console.error('Error fetching all questions data:', error);
     return NextResponse.json(
@@ -91,7 +89,7 @@ export async function GET() {
         error: 'Internal server error',
         message: 'Failed to fetch questions overview',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

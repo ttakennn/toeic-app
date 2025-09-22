@@ -1,4 +1,4 @@
-import { Welcome } from '@/app/types/home.interface';
+import { Welcome } from '@/types/home.interface';
 import { Assessment, PlayArrow } from '@mui/icons-material';
 import { Box, Typography, Stack, Button } from '@mui/material';
 import Link from 'next/link';

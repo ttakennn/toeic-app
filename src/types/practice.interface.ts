@@ -21,3 +21,17 @@ export interface PracticeData {
   areas: PracticeArea[];
   stats: PracticeStats[];
 }
+
+export interface PracticeHeader {
+  title: string;
+  description: string;
+  partType: string;
+  totalTests: number;
+  totalPoints: number;
+}
+
+export interface PracticeTitle {
+  title: string;
+  icon: React.ReactNode;
+  content?: string;
+}

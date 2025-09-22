@@ -1,4 +1,4 @@
-import { Stat } from '@/app/types/home.interface';
+import { Stat } from '@/types/home.interface';
 import { Box, Typography, Card, CardContent } from '@mui/material';
 
 interface HomeStatsProps {

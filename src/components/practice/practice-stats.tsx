@@ -1,4 +1,4 @@
-import { PracticeStats as IPracticeStats } from '@/app/types/practice.interface';
+import { PracticeStats as IPracticeStats } from '@/types/practice.interface';
 import { Typography, Card } from '@mui/material';
 
 interface PracticeStatsProps {
