@@ -15,10 +15,13 @@ export class Part1Util {
   static getDifficultyColor(difficulty: string) {
     switch (difficulty) {
       case 'Dễ':
+      case 'easy':
         return '#4caf50';
       case 'Trung bình':
+      case 'medium':
         return '#ff9800';
       case 'Khó':
+      case 'hard':
         return '#f44336';
       default:
         return '#757575';
