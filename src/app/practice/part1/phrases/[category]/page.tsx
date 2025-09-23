@@ -194,7 +194,7 @@ export default function PhraseCategoryPage() {
 
         {/* Main Content Card */}
         <Box sx={{ mb: 3, overflow: 'visible', position: 'relative' }}>
-          <TopProgress currentIndex={currentIndex} lengthData={categoryData.data.length} />
+          <TopProgress currentIndex={currentIndex + 1} lengthData={categoryData.data.length} />
           <Box sx={{ p: { xs: 0, sm: 0 } }}>
             {/* Image Section */}
             <PhraseMainContent

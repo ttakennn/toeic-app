@@ -3,9 +3,10 @@ import { Box, LinearProgress } from '@mui/material';
 interface TopProgressProps {
   currentIndex: number;
   lengthData: number;
+  color?: string;
 }
 
-function TopProgress({ currentIndex, lengthData }: TopProgressProps) {
+function TopProgress({ currentIndex, lengthData, color }: TopProgressProps) {
   return (
     <Box
       sx={{
@@ -18,7 +19,7 @@ function TopProgress({ currentIndex, lengthData }: TopProgressProps) {
     >
       <LinearProgress
         variant="determinate"
-        value={((currentIndex + 1) / lengthData) * 100}
+        value={(currentIndex / lengthData) * 100}
         sx={{
           zIndex: 999,
           height: 6,
@@ -26,7 +27,7 @@ function TopProgress({ currentIndex, lengthData }: TopProgressProps) {
           borderTopRightRadius: 8,
           backgroundColor: '#eef2f6',
           '& .MuiLinearProgress-bar': {
-            background: 'linear-gradient(90deg, #0d47a1, #1976d2)',
+            background: color ? color : 'linear-gradient(90deg, #0d47a1, #1976d2)',
           },
         }}
       />

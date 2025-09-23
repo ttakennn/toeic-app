@@ -27,4 +27,26 @@ export class Part1Util {
         return '#757575';
     }
   }
+
+  /**
+   * @param categoryId
+   * @returns {string}
+   * @description Dùng để lấy emoji cho category
+   * @example
+   * Part1Util.getCategoryEmoji('basic') // 🎯
+   */
+  static getCategoryEmoji(categoryId: string) {
+    switch (categoryId) {
+      case 'basic':
+        return '🎯';
+      case 'advanced':
+        return '🌄';
+      case 'simulation':
+        return '🔧';
+      case 'mixed':
+        return '🤝';
+      default:
+        return '📝';
+    }
+  }
 }
