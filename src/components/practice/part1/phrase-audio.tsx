@@ -1,4 +1,4 @@
-import { Box, Typography, Button, IconButton, Paper, Tooltip } from '@mui/material';
+import { Box, Typography, Button, IconButton, Tooltip } from '@mui/material';
 import { Pause, NavigateBefore, NavigateNext, VolumeUp, Repeat } from '@mui/icons-material';
 import { PhrasesCategory } from '@/types/phrases.interface';
 
@@ -25,9 +25,9 @@ function PhraseAudio({
 }: PhraseAudioProps) {
   return (
     <>
-      <Box sx={{ textAlign: 'center' }}>
+      <Box sx={{ textAlign: 'center', backgroundColor: '#f8f9fa', borderRadius: 1, border: '1px solid', borderColor: 'primary.light' }}>
         {/* Enhanced Audio Controls */}
-        <Paper elevation={1} sx={{ p: { xs: 2, sm: 3 }, borderRadius: 3, backgroundColor: '#f8f9fa' }}>
+        <Box sx={{ p: { xs: 2, sm: 2 } }}>
           <Typography variant="h6" sx={{ mb: 1, color: 'primary.main', fontWeight: 600, textAlign: 'center' }}>
             🎵 Audio Controls
           </Typography>
@@ -49,8 +49,8 @@ function PhraseAudio({
                 sx={{
                   backgroundColor: currentIndex === 0 ? 'grey.200' : 'primary.light',
                   color: currentIndex === 0 ? 'grey.500' : 'primary.main',
-                  width: { xs: 36, sm: 40 },
-                  height: { xs: 36, sm: 40 },
+                  width: { xs: 26, sm: 30 },
+                  height: { xs: 26, sm: 30 },
                   '&:hover': {
                     backgroundColor: currentIndex === 0 ? 'grey.200' : 'primary.main',
                     color: currentIndex === 0 ? 'grey.500' : 'white',
@@ -72,8 +72,8 @@ function PhraseAudio({
                 onClick={handlePlayAudio}
                 sx={{
                   backgroundColor: 'grey.100',
-                  width: { xs: 36, sm: 40 },
-                  height: { xs: 36, sm: 40 },
+                  width: { xs: 24, sm: 30 },
+                  height: { xs: 24, sm: 30 },
                   '&:hover': {
                     backgroundColor: 'primary.light',
                     color: 'white',
@@ -92,8 +92,8 @@ function PhraseAudio({
                 sx={{
                   backgroundColor: isPlaying ? 'secondary.main' : 'primary.main',
                   color: 'white',
-                  width: { xs: 56, sm: 72 },
-                  height: { xs: 56, sm: 72 },
+                  width: { xs: 36, sm: 52 },
+                  height: { xs: 36, sm: 52 },
                   border: '3px solid',
                   borderColor: isPlaying ? 'secondary.light' : 'primary.light',
                   '&:hover': {
@@ -131,9 +131,9 @@ function PhraseAudio({
                 onClick={handleSpeedChange}
                 size="small"
                 sx={{
-                  minWidth: { xs: 45, sm: 50 },
-                  height: { xs: 32, sm: 36 },
-                  borderRadius: 20,
+                  minWidth: { xs: 35, sm: 40 },
+                  height: { xs: 25, sm: 30 },
+                  borderRadius: 10,
                   fontWeight: 'bold',
                   fontSize: { xs: '0.7rem', sm: '0.75rem' },
                 }}
@@ -150,8 +150,8 @@ function PhraseAudio({
                 sx={{
                   backgroundColor: currentIndex === categoryData.data.length - 1 ? 'grey.200' : 'primary.light',
                   color: currentIndex === categoryData.data.length - 1 ? 'grey.500' : 'primary.main',
-                  width: { xs: 36, sm: 40 },
-                  height: { xs: 36, sm: 40 },
+                  width: { xs: 26, sm: 30 },
+                  height: { xs: 26, sm: 30 },
                   '&:hover': {
                     backgroundColor: currentIndex === categoryData.data.length - 1 ? 'grey.200' : 'primary.main',
                     color: currentIndex === categoryData.data.length - 1 ? 'grey.500' : 'white',
@@ -175,7 +175,7 @@ function PhraseAudio({
               {isPlaying ? '🎵 Đang phát...' : '⏸️ Nhấn play để nghe'}
             </Typography>
           </Box>
-        </Paper>
+        </Box>
       </Box>
     </>
   );

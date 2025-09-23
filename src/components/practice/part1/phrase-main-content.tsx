@@ -1,7 +1,7 @@
-import { Box, Typography, Paper, IconButton, Chip } from '@mui/material';
+import { Box, Typography, IconButton, Chip } from '@mui/material';
 import { BookmarkBorder, Bookmark, Translate } from '@mui/icons-material';
 import { PhrasesCategory } from '@/types/phrases.interface';
-import { Part1Util } from '@/utils/part1.util';
+// import { Part1Util } from '@/utils/part1.util';
 
 interface PhraseMainContentProps {
   categoryData: PhrasesCategory;
@@ -23,28 +23,12 @@ function PhraseMainContent({
   const currentPhrase = categoryData.data[currentIndex];
   return (
     <>
-      <Paper
-        elevation={1}
+      <Box
         sx={{
-          width: '100%',
-          minHeight: { xs: 250, sm: 300 },
           backgroundColor: '#f8f9fa',
-          borderRadius: 4,
-          mb: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          overflow: 'hidden',
           background: 'linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%)',
           border: `2px solid ${'primary.light'}20`,
-          transition: 'all 0.3s ease-in-out',
-          '&:hover': {
-            transform: 'scale(1.01)',
-            boxShadow: 6,
-          },
-          p: { xs: 1, sm: 1 },
+          pt: { xs: 2, sm: 2 },
         }}
       >
         {/* Enhanced placeholder for image */}
@@ -55,7 +39,6 @@ function PhraseMainContent({
             position: 'relative',
             zIndex: 2,
             width: '100%',
-            mb: 1,
           }}
         >
           {/* Better placeholder image */}
@@ -64,7 +47,6 @@ function PhraseMainContent({
               width: { xs: 150, sm: 200 },
               height: { xs: 100, sm: 150 },
               mx: 'auto',
-              mb: 3,
               borderRadius: 3,
               backgroundColor: 'primary.main',
               background: 'linear-gradient(135deg, #1976d2 0%, #0d47a1 100%)',
@@ -173,7 +155,8 @@ function PhraseMainContent({
             </Box>
           </Box>
         </Box>
-        <Box
+        {/* Hình tròn bên phải */}
+        {/* <Box
           sx={{
             position: 'absolute',
             top: -20,
@@ -184,7 +167,7 @@ function PhraseMainContent({
             backgroundColor: 'rgba(25, 118, 210, 0.1)',
             zIndex: 1,
           }}
-        />
+        /> */}
         <Box
           sx={{
             position: 'absolute',
@@ -207,7 +190,7 @@ function PhraseMainContent({
             variant="filled"
             sx={{ fontWeight: 'medium' }}
           />
-          <Chip
+          {/* <Chip
             label={currentPhrase.difficulty}
             size="small"
             sx={{
@@ -215,7 +198,7 @@ function PhraseMainContent({
               color: Part1Util.getDifficultyColor(currentPhrase.difficulty),
               fontWeight: 'medium',
             }}
-          />
+          /> */}
         </Box>
         <Box
           sx={{
@@ -229,7 +212,7 @@ function PhraseMainContent({
             zIndex: 1,
           }}
         />
-      </Paper>
+      </Box>
     </>
   );
 }

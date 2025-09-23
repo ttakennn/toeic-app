@@ -20,6 +20,7 @@ function TopProgress({ currentIndex, lengthData }: TopProgressProps) {
         variant="determinate"
         value={((currentIndex + 1) / lengthData) * 100}
         sx={{
+          zIndex: 999,
           height: 6,
           borderTopLeftRadius: 8,
           borderTopRightRadius: 8,

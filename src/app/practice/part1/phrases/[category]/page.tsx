@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { Box, Card, CardContent } from '@mui/material';
+import { Box } from '@mui/material';
 import { useParams, useRouter } from 'next/navigation';
 import { PhrasesCategory } from '@/types/phrases.interface';
 import PhraseTitle from '@/UI/phrase-title';
 import { getPart1PhraseCategory } from '@/actions/part1-phrase';
 import PhraseCategoryDetailSkeleton from '@/components/practice/part1/phrase-category-detail-skeleton';
 import PhraseCategoryDetailError from '@/components/practice/part1/phrase-category-detail-error';
-import PhraseProgress from '@/UI/phrase-progress';
+// import PhraseProgress from '@/UI/phrase-progress';
 import PhraseMainContent from '@/components/practice/part1/phrase-main-content';
 import PhraseAudio from '@/components/practice/part1/phrase-audio';
 import PhraseStudyTips from '@/components/practice/part1/phrase-study-tips';
@@ -180,7 +180,7 @@ export default function PhraseCategoryPage() {
         }}
       >
         {/* Header */}
-        <Box sx={{ mb: 4 }}>
+        <Box sx={{ mb: 2 }}>
           <PhraseTitle title={categoryData.title} description={categoryData.description} handleBack={handleBack} />
           {/* Progress Info */}
           {/* <PhraseProgress
@@ -193,9 +193,9 @@ export default function PhraseCategoryPage() {
         </Box>
 
         {/* Main Content Card */}
-        <Card sx={{ mb: 4, overflow: 'visible', position: 'relative' }}>
+        <Box sx={{ mb: 3, overflow: 'visible', position: 'relative' }}>
           <TopProgress currentIndex={currentIndex} lengthData={categoryData.data.length} />
-          <CardContent sx={{ p: { xs: 2, sm: 2 } }}>
+          <Box sx={{ p: { xs: 0, sm: 0 } }}>
             {/* Image Section */}
             <PhraseMainContent
               categoryData={categoryData}
@@ -217,8 +217,8 @@ export default function PhraseCategoryPage() {
               handlePlayAudio={handlePlayAudio}
               handleSpeedChange={handleSpeedChange}
             />
-          </CardContent>
-        </Card>
+          </Box>
+        </Box>
 
         <PhraseStudyTips />
       </Box>
