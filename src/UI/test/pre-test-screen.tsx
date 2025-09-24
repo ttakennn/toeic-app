@@ -93,24 +93,6 @@ function PreTestScreen({ category, categoryData, testData, handleStartTest }: Pr
                 </Grid>
               </Grid>
 
-              {/* Hướng dẫn làm bài */}
-              <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', p: 2, borderRadius: 2 }}>
-                <Typography variant="body1" gutterBottom sx={{ fontWeight: 'medium' }}>
-                  {categoryData.guides?.title || '--'}
-                </Typography>
-
-                <Stack component="ul" spacing={0.5} sx={{ pl: 2, mt: 1 }}>
-                  {categoryData.guides?.description.map((item) => (
-                    <Typography
-                      key={item.key}
-                      component="li"
-                      variant="body2"
-                      dangerouslySetInnerHTML={{ __html: item.item }}
-                    />
-                  ))}
-                </Stack>
-              </Box>
-
               <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', fontStyle: 'italic' }}>
                 {testData.testInfo.description}
               </Typography>
@@ -132,6 +114,24 @@ function PreTestScreen({ category, categoryData, testData, handleStartTest }: Pr
               >
                 Bắt đầu làm bài
               </Button>
+
+              {/* Hướng dẫn làm bài */}
+              <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', p: 2, borderRadius: 2 }}>
+                <Typography variant="body1" gutterBottom sx={{ fontWeight: 'medium' }}>
+                  {categoryData.guides?.title || '--'}
+                </Typography>
+
+                <Stack component="ul" spacing={0.5} sx={{ pl: 2, mt: 1 }}>
+                  {categoryData.guides?.description.map((item) => (
+                    <Typography
+                      key={item.key}
+                      component="li"
+                      variant="body2"
+                      dangerouslySetInnerHTML={{ __html: item.item }}
+                    />
+                  ))}
+                </Stack>
+              </Box>
             </Stack>
           </CardContent>
         </Card>
