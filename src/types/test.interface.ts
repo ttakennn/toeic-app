@@ -1,10 +1,17 @@
-import { GuideItem } from './core.interface';
+import { PracticeCategory, TestSummary } from './core.interface';
+
+export interface QuestionTranslation {
+  id: number;
+  question: string;
+  en: string;
+  vi: string;
+}
 
 export interface TestQuestion {
   id: number;
   imageUrl: string;
   audioUrl: string;
-  options: string[];
+  questions: QuestionTranslation[];
   correctAnswer: string;
   explanation: string;
   theme: string;
@@ -14,20 +21,20 @@ export interface TestQuestion {
 export interface TestInfo {
   id: number;
   title: string;
-  difficulty: string;
-  questions: number;
-  duration: string;
   category: string;
   description: string;
-  icon: string;
-  color: string;
-  bgColor: string;
-  guides: GuideItem;
+  difficulty: string;
+  duration: string;
+  questions: number;
 }
 
 export interface TestData {
   testInfo: TestInfo;
   questions: TestQuestion[];
+  correctCount: number;
+  totalQuestions: number;
+  score: number;
+  timeSpent: number;
 }
 
 export interface TestApiResponse {
@@ -35,5 +42,14 @@ export interface TestApiResponse {
   data: TestData;
   category: string;
   testId: number;
+  timestamp: string;
+}
+
+export interface TestCategoryResponse {
+  success: true;
+  category: PracticeCategory;
+  tests: TestSummary[];
+  availableCount: number;
+  totalCount: number;
   timestamp: string;
 }

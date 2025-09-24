@@ -1,12 +1,13 @@
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Box, Typography, Card, CardContent, Grid, Button, Stack, Chip } from '@mui/material';
 import { PlayArrow, Headphones } from '@mui/icons-material';
-import { TestData, TestInfo } from '@/types/test.interface';
+import { TestData } from '@/types/test.interface';
+import { PracticeCategory } from '@/types/core.interface';
 import { Part1Util } from '@/utils/part1.util';
 
 interface PreTestScreenProps {
   category: string;
-  categoryData: TestInfo;
+  categoryData: PracticeCategory;
   testData: TestData;
   handleStartTest: () => void;
 }
@@ -95,11 +96,11 @@ function PreTestScreen({ category, categoryData, testData, handleStartTest }: Pr
               {/* Hướng dẫn làm bài */}
               <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', p: 2, borderRadius: 2 }}>
                 <Typography variant="body1" gutterBottom sx={{ fontWeight: 'medium' }}>
-                  {categoryData.guides.title}
+                  {categoryData.guides?.title || '--'}
                 </Typography>
 
                 <Stack component="ul" spacing={0.5} sx={{ pl: 2, mt: 1 }}>
-                  {categoryData.guides.description.map((item) => (
+                  {categoryData.guides?.description.map((item) => (
                     <Typography
                       key={item.key}
                       component="li"

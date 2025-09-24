@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 import { useParams, useRouter } from 'next/navigation';
 import { PhrasesCategory } from '@/types/phrases.interface';
 import PhraseTitle from '@/UI/phrase-title';
-import { getPart1PhraseCategory } from '@/actions/part1-phrase';
+import { getPart1PhraseCategory } from '@/actions/part1/part1-phrase';
 import PhraseCategoryDetailSkeleton from '@/components/practice/part1/phrase-category-detail-skeleton';
 import PhraseCategoryDetailError from '@/components/practice/part1/phrase-category-detail-error';
 // import PhraseProgress from '@/UI/phrase-progress';

@@ -5,7 +5,7 @@ import { Box, Grid, Divider } from '@mui/material';
 import { Category, TrendingUp } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
 import { Part1PhraseCategory as IPart1PhraseCategory } from '@/types/part1.interface';
-import { getPart1PhraseCategories, getPart1PracticeQuestions } from '@/actions/part1';
+import { getPart1PhraseCategories, getPart1PracticeQuestions } from '@/actions/part1/part1';
 import PracticeHeader from '@/UI/practice-header';
 import practiceItemsData from '@/data/part1/questions/practiceItems.json';
 import PracticeError from '@/UI/practice-error';

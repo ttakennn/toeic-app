@@ -2,28 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import practiceItemsData from '@/data/part1/questions/practiceItems.json';
-import { GuideItem } from '@/types/core.interface';
-
-interface TestSummary {
-  id: number;
-  title: string;
-  difficulty: string;
-  questions: number;
-  duration: string;
-  available: boolean;
-  description?: string;
-}
-
-interface CategoryInfo {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  color: string;
-  bgColor: string;
-  totalTests: number;
-  guides?: GuideItem;
-}
+import { GuideItem, PracticeCategory, TestSummary } from '@/types/core.interface';
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ category: string }> }) {
   try {
@@ -88,7 +67,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     // Optional small delay to help visual loading states
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    const categoryResponse: CategoryInfo = {
+    const categoryResponse: PracticeCategory = {
       id: categoryInfo.id,
       title: categoryInfo.title,
       description: categoryInfo.description,
@@ -96,7 +75,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       color: categoryInfo.color,
       bgColor: categoryInfo.bgColor,
       totalTests: categoryInfo.totalTests,
-      guides: practiceItemsData.guides,
+      availableTests: availableTests.filter((test) => test.available).length,
+      tests: availableTests,
+      guides: practiceItemsData.guides as GuideItem,
     };
 
     return NextResponse.json({

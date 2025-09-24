@@ -29,4 +29,5 @@ export interface PracticeCategory {
   totalTests: number;
   availableTests: number;
   tests: TestSummary[];
+  guides?: GuideItem;
 }

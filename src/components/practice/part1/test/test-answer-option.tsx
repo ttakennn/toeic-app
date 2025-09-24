@@ -1,8 +1,8 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
-import { TestInfo } from '@/types/test.interface';
+import { PracticeCategory } from '@/types/core.interface';
 
 interface TestAnswerOptionProps {
-  categoryData: TestInfo;
+  categoryData: PracticeCategory;
   answers: { [key: number]: string };
   currentQuestion: number;
   handleAnswerSelect: (questionId: number, answer: string) => void;

@@ -1,12 +1,13 @@
 import { Box, Typography, Card, CardContent, Grid, Button, Stack, Chip, IconButton, Slider } from '@mui/material';
 import { PlayArrow, Pause, NavigateBefore, NavigateNext, Flag, Timer } from '@mui/icons-material';
 import TopProgress from '@/UI/top-progress';
-import { TestData, TestInfo, TestQuestion } from '@/types/test.interface';
+import { TestData, TestQuestion } from '@/types/test.interface';
+import { PracticeCategory } from '@/types/core.interface';
 
 interface TestLayoutProps {
   currentQuestion: number;
   testData: TestData;
-  categoryData: TestInfo;
+  categoryData: PracticeCategory;
   timeLeft: number;
   currentQuestionData: TestQuestion | undefined;
   isPlaying: boolean;
