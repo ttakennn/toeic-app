@@ -3,7 +3,7 @@ import { Box, Typography, Card, CardContent, Grid, Button, Stack, Chip } from '@
 import { PlayArrow, Headphones } from '@mui/icons-material';
 import { TestData } from '@/types/test.interface';
 import { PracticeCategory } from '@/types/core.interface';
-import { Part1Util } from '@/utils/part1.util';
+import { CommonUtil } from '@/utils/common.util';
 
 interface PreTestScreenProps {
   category: string;
@@ -21,7 +21,7 @@ function PreTestScreen({ category, categoryData, testData, handleStartTest }: Pr
             <Stack spacing={4} alignItems="center">
               <Box sx={{ textAlign: 'center' }}>
                 <Typography variant="h4" gutterBottom sx={{ color: categoryData?.color }}>
-                  {Part1Util.getCategoryEmoji(category)} {testData.testInfo.title}
+                  {CommonUtil.getCategoryEmoji(category)} {testData.testInfo.title}
                 </Typography>
                 <Typography variant="h6" color="text.secondary" gutterBottom>
                   {categoryData.title}
@@ -59,7 +59,7 @@ function PreTestScreen({ category, categoryData, testData, handleStartTest }: Pr
                       <Chip
                         label={testData.testInfo.difficulty}
                         sx={{
-                          backgroundColor: Part1Util.getDifficultyColor(testData.testInfo.difficulty),
+                          backgroundColor: CommonUtil.getDifficultyColor(testData.testInfo.difficulty),
                           color: 'white',
                           fontWeight: 'bold',
                           fontSize: '1.1rem',

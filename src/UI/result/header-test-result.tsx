@@ -1,5 +1,5 @@
 import { Stack, Box, Typography, Avatar } from '@mui/material';
-import { Part1Util } from '@/utils/part1.util';
+import { CommonUtil } from '@/utils/common.util';
 
 interface HeaderTestResultProps {
   category: string;
@@ -20,7 +20,7 @@ function HeaderTestResult({ category, title, color, score }: HeaderTestResultPro
       <Stack direction="row" spacing={2} alignItems="center">
         <Box>
           <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '2.125rem' } }}>
-            {Part1Util.getCategoryEmoji(category)} Kết quả bài test
+            {CommonUtil.getCategoryEmoji(category)} Kết quả bài test
           </Typography>
           <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
             {title}

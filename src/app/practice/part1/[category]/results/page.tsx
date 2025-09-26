@@ -13,6 +13,7 @@ import HeaderMessageResult from '@/UI/result/header-message-result';
 import QuestionDetailResult from '@/UI/result/question-detail-result';
 import SummaryResult from '@/UI/result/summary-result';
 import ActionResult from '@/UI/result/action-result';
+import FixedNavigationMobileResult from '@/UI/result/fixed-navigation-mobile-result';
 
 function ResultsContent() {
   const searchParams = useSearchParams();
@@ -125,6 +126,12 @@ function ResultsContent() {
             </Stack>
           </Grid>
         </Grid>
+        {/* Fixed Navigation for Mobile */}
+        <FixedNavigationMobileResult
+          color={results.categoryInfo?.color || '#1976d2'}
+          reworkHref={`/practice/part1/${category}/test?testId=${testId}`}
+          reviewHref={`/practice/part1`}
+        />
       </Box>
     </DashboardLayout>
   );

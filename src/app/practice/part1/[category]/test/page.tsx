@@ -1,7 +1,7 @@
 'use client';
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { Box, Typography, Card, CardContent, Grid, Stack, Chip, CircularProgress } from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, Stack, Chip } from '@mui/material';
 import { Timer } from '@mui/icons-material';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
@@ -19,6 +19,7 @@ import { getPart1TestCategory, getPart1TestCategoryByTestId } from '@/actions/pa
 import { PracticeCategory } from '@/types/core.interface';
 import { QuestionResult, ResultsData } from '@/types/result.interface';
 import { CommonUtil } from '@/utils/common.util';
+import LoadResult from '@/UI/result/load-result';
 
 function TestContent() {
   const searchParams = useSearchParams();
@@ -292,18 +293,7 @@ function TestContent() {
 
 export default function TestPage() {
   return (
-    <Suspense
-      fallback={
-        <DashboardLayout>
-          <Box sx={{ textAlign: 'center', py: 8 }}>
-            <CircularProgress size={60} />
-            <Typography variant="h6" sx={{ mt: 2 }}>
-              Đang tải bài test...
-            </Typography>
-          </Box>
-        </DashboardLayout>
-      }
-    >
+    <Suspense fallback={<LoadResult text="Đang tải bài test..." />}>
       <TestContent />
     </Suspense>
   );

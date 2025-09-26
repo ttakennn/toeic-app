@@ -1,5 +1,5 @@
 import { PracticeCategory as IPracticeCategory } from '@/types/core.interface';
-import { Part1Util } from '@/utils/part1.util';
+import { CommonUtil } from '@/utils/common.util';
 import { Quiz } from '@mui/icons-material';
 import {
   Box,
@@ -141,8 +141,8 @@ function PracticeCategory({
                           sx={{
                             height: 16,
                             fontSize: '10px',
-                            backgroundColor: Part1Util.getDifficultyColor(test.difficulty) + '20',
-                            color: Part1Util.getDifficultyColor(test.difficulty),
+                            backgroundColor: CommonUtil.getDifficultyColor(test.difficulty) + '20',
+                            color: CommonUtil.getDifficultyColor(test.difficulty),
                           }}
                         />
                         <Chip
@@ -184,10 +184,10 @@ function PracticeCategory({
                 size="small"
                 sx={{
                   backgroundColor:
-                    Part1Util.getDifficultyColor(
+                    CommonUtil.getDifficultyColor(
                       item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.difficulty || 'Dễ',
                     ) + '20',
-                  color: Part1Util.getDifficultyColor(
+                  color: CommonUtil.getDifficultyColor(
                     item.tests.find((test) => test.id === selectedPracticeTests[item.id])?.difficulty || 'Dễ',
                   ),
                   fontWeight: 'medium',

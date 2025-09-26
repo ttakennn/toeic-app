@@ -1,7 +1,7 @@
 import { Typography, Chip, Stack, Box, IconButton, LinearProgress } from '@mui/material';
 import { PhrasesCategory } from '@/types/phrases.interface';
-import { Part1Util } from '@/utils/part1.util';
 import { Bookmark, BookmarkBorder } from '@mui/icons-material';
+import { CommonUtil } from '@/utils/common.util';
 
 interface PhraseProgressProps {
   currentIndex: number;
@@ -11,7 +11,13 @@ interface PhraseProgressProps {
   showBar?: boolean;
 }
 
-function PhraseProgress({ currentIndex, categoryData, isBookmarked, toggleBookmark, showBar = true }: PhraseProgressProps) {
+function PhraseProgress({
+  currentIndex,
+  categoryData,
+  isBookmarked,
+  toggleBookmark,
+  showBar = true,
+}: PhraseProgressProps) {
   const currentPhrase = categoryData.data[currentIndex];
   const progress = ((currentIndex + 1) / categoryData.data.length) * 100;
 
@@ -42,8 +48,8 @@ function PhraseProgress({ currentIndex, categoryData, isBookmarked, toggleBookma
             label={currentPhrase.difficulty}
             size="small"
             sx={{
-              backgroundColor: `${Part1Util.getDifficultyColor(currentPhrase.difficulty)}20`,
-              color: Part1Util.getDifficultyColor(currentPhrase.difficulty),
+              backgroundColor: `${CommonUtil.getDifficultyColor(currentPhrase.difficulty)}20`,
+              color: CommonUtil.getDifficultyColor(currentPhrase.difficulty),
               fontWeight: 'medium',
             }}
           />

@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton, Chip } from '@mui/material';
 import { BookmarkBorder, Bookmark, Translate } from '@mui/icons-material';
 import { PhrasesCategory } from '@/types/phrases.interface';
-// import { Part1Util } from '@/utils/part1.util';
+// import { CommonUtil } from '@/utils/common.util';
 
 interface PhraseMainContentProps {
   categoryData: PhrasesCategory;
@@ -194,8 +194,8 @@ function PhraseMainContent({
             label={currentPhrase.difficulty}
             size="small"
             sx={{
-              backgroundColor: `${Part1Util.getDifficultyColor(currentPhrase.difficulty)}20`,
-              color: Part1Util.getDifficultyColor(currentPhrase.difficulty),
+              backgroundColor: `${CommonUtil.getDifficultyColor(currentPhrase.difficulty)}20`,
+              color: CommonUtil.getDifficultyColor(currentPhrase.difficulty),
               fontWeight: 'medium',
             }}
           /> */}

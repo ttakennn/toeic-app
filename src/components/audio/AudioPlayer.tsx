@@ -10,6 +10,8 @@ interface AudioPlayerProps {
   color?: string;
   autoPlay?: boolean;
   showControls?: boolean;
+  showVolume?: boolean;
+  showTimeControl?: boolean;
   disabled?: boolean;
   showStatus?: boolean;
   onEnded?: () => void;
@@ -25,7 +27,9 @@ function AudioPlayer({
   title = '',
   color = '#1976d2',
   autoPlay = false,
-  showControls = true,
+  showControls = false,
+  showVolume = false,
+  showTimeControl = false,
   disabled = false,
   showStatus = false,
   onEnded,
@@ -87,7 +91,7 @@ function AudioPlayer({
   }
 
   return (
-    <Box sx={{ p: 2, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
+    <Box sx={{ p: 1.5, border: '1px solid', borderColor: color || 'lightgray', borderRadius: 2 }}>
       {title && (
         <Typography variant="h6" sx={{ mb: 2, color }}>
           {title}
@@ -95,11 +99,7 @@ function AudioPlayer({
       )}
 
       {/* Main Controls */}
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={2}
-      >
+      <Stack direction="row" alignItems="center" spacing={2}>
         {/* Play Button */}
         <IconButton
           onClick={disabled ? undefined : audioControls.play}
@@ -107,8 +107,8 @@ function AudioPlayer({
           sx={{
             backgroundColor: color,
             color: 'white',
-            width: 40,
-            height: 40,
+            width: { xs: 24, md: 30 },
+            height: { xs: 24, md: 30 },
             '&:hover': {
               backgroundColor: color + 'dd',
             },
@@ -124,6 +124,11 @@ function AudioPlayer({
         {/* <IconButton onClick={audioControls.stop} disabled={!audioState.isPlaying}>
           <Stop />
         </IconButton> */}
+        {/* Time */}
+        <Typography variant="body2" color="text.secondary" sx={{ minWidth: { xs: 60, md: 60 } }}>
+          {CommonUtil.formatTime(Math.floor(audioState.currentTime))} /{' '}
+          {CommonUtil.formatTime(Math.floor(audioState.duration))}
+        </Typography>
         {/* Progress Bar */}
         <Slider
           value={Math.min(audioState.currentTime, audioState.duration || 0)}
@@ -139,48 +144,91 @@ function AudioPlayer({
           disabled={!audioState.duration || disabled}
           sx={{ color }}
         />
-        {/* Time */}
-        <Typography variant="body2" color="text.secondary" sx={{ minWidth: { xs: 60, md: 60 } }}>
-          {CommonUtil.formatTime(Math.floor(audioState.currentTime))} /{' '}
-          {CommonUtil.formatTime(Math.floor(audioState.duration))}
-        </Typography>
+        {/* Time Control: -3s and +3s */}
+        {showTimeControl && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <IconButton
+              size="small"
+              onClick={() => {
+                if (audioElement) {
+                  audioElement.currentTime = Math.max(0, audioElement.currentTime - 3);
+                }
+              }}
+              sx={{
+                backgroundColor: color + '20',
+                color: color,
+                '&:hover': {
+                  backgroundColor: color + '30',
+                },
+              }}
+              disabled={!audioElement}
+            >
+              <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>-3s</Typography>
+            </IconButton>
+            <IconButton
+              size="small"
+              onClick={() => {
+                if (audioElement) {
+                  audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 3);
+                }
+              }}
+              sx={{
+                backgroundColor: color + '20',
+                color: color,
+                '&:hover': {
+                  backgroundColor: color + '30',
+                },
+              }}
+              disabled={!audioElement}
+            >
+              <Typography sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 'bold' }}>+3s</Typography>
+            </IconButton>
+          </Box>
+        )}
         {/* Volume Control - compact popover */}
-        <Stack direction="row" alignItems="center" spacing={0} sx={{ mb: 2 }}>
-          <IconButton onClick={disabled ? undefined : handleOpenVolume} size="small" disabled={disabled} sx={{ color }}>
-            {(audioElement?.volume || 1) === 0 ? (
-              <VolumeOff sx={{ fontSize: 20 }} />
-            ) : (
-              <VolumeUp sx={{ fontSize: 20 }} />
-            )}
-          </IconButton>
-          {/* <Typography variant="caption" color="text.secondary">
+        {showVolume && (
+          <Stack direction="row" alignItems="center" spacing={0} sx={{ mb: 2 }}>
+            <IconButton
+              onClick={disabled ? undefined : handleOpenVolume}
+              size="small"
+              disabled={disabled}
+              sx={{ color }}
+            >
+              {(audioElement?.volume || 1) === 0 ? (
+                <VolumeOff sx={{ fontSize: 20 }} />
+              ) : (
+                <VolumeUp sx={{ fontSize: 20 }} />
+              )}
+            </IconButton>
+            {/* <Typography variant="caption" color="text.secondary">
             {Math.round((audioElement?.volume || 1) * 100)}%
           </Typography> */}
-          <Popover
-            open={isVolumeOpen && !disabled}
-            anchorEl={volumeAnchorEl}
-            onClose={handleCloseVolume}
-            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-            transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            disableRestoreFocus
-          >
-            <Box sx={{ p: 1.5 }}>
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <VolumeOff sx={{ fontSize: 18, color }} />
-                <Slider
-                  value={audioElement?.volume ? audioElement.volume * 100 : 100}
-                  min={0}
-                  max={100}
-                  step={1}
-                  onChange={disabled ? undefined : handleVolumeChange}
-                  disabled={disabled}
-                  sx={{ width: 100, color }}
-                />
-                <VolumeUp sx={{ fontSize: 18, color }} />
-              </Stack>
-            </Box>
-          </Popover>
-        </Stack>
+            <Popover
+              open={isVolumeOpen && !disabled}
+              anchorEl={volumeAnchorEl}
+              onClose={handleCloseVolume}
+              anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+              transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              disableRestoreFocus
+            >
+              <Box sx={{ p: 1.5 }}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <VolumeOff sx={{ fontSize: 18, color }} />
+                  <Slider
+                    value={audioElement?.volume ? audioElement.volume * 100 : 100}
+                    min={0}
+                    max={100}
+                    step={1}
+                    onChange={disabled ? undefined : handleVolumeChange}
+                    disabled={disabled}
+                    sx={{ width: 100, color }}
+                  />
+                  <VolumeUp sx={{ fontSize: 18, color }} />
+                </Stack>
+              </Box>
+            </Popover>
+          </Stack>
+        )}
       </Stack>
 
       {showControls && (

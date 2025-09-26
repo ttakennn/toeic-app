@@ -11,7 +11,7 @@ interface ActionResultProps {
 
 function ActionResult({ reworkHref, reviewHref, results }: ActionResultProps) {
   return (
-    <Card>
+    <Card sx={{ display: { xs: 'none', md: 'block' } }}>
       <CardContent>
         <Typography variant="h6" gutterBottom sx={{ color: results.categoryInfo?.color || '#1976d2', fontWeight: 600 }}>
           🎯 Tiếp theo
